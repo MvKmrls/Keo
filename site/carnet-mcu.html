@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carnet MCU</title>
+</head>
+<body>
+<title>Carnet MCU</title>
+<style>
+  :root{
+    --bg:#0a0912; --panel:#141227; --panel-2:#1c1a33; --panel-on:#3a1420; --border:#2a2844;
+    --text:#f3f0fa; --dim:#8a86a0; --accent:#e2293d; --accent-ink:#fff5f6;
+    --gold:#e8b458; --gold-ink:#241804; --recommend:#4fc7ba; --recommend-ink:#08211d;
+    --ok:#3a8f5f; --ok-soft:#438a73; --accent-soft:#cc5c67;
+    --tf-bg:#3a2a10; --tf-ink:#e8b458; --ts-bg:#16233a; --ts-ink:#6f9ce8; --tsp-bg:#2a1a3a; --tsp-ink:#c58ce8;
+    --st-1:#5f9bd1; --st-2:#d1b23f; --st-3:#e2546a; --st-4:#a377c2; --st-5:#5cbb8a; --st-6:#e08a4e;
+    --f-display:Arial Narrow,"Helvetica Neue Condensed","Roboto Condensed",sans-serif;
+    --f-body:-apple-system,"Segoe UI",Roboto,sans-serif;
+    --f-mono:"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--f-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--accent);color:#fff;}
+  button{font-family:inherit;}
+  input,select{font-family:inherit;}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 90px;}
+
+  header.top{padding:44px 20px 22px;border-bottom:1px solid var(--border);}
+  .top-inner{max-width:920px;margin:0 auto;}
+  .wordmark{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:clamp(28px,5vw,40px);letter-spacing:-.01em;margin:0 0 6px;}
+  .wordmark em{font-style:normal;color:var(--accent);}
+  .tagline{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:18px;}
+  .hero-blurb{max-width:66ch;color:var(--dim);font-size:14.5px;margin:0;}
+  .hero-blurb b{color:var(--text);font-weight:600;}
+
+  /* ---- path picker ---- */
+  .paths{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0;}
+  .path-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;cursor:pointer;
+    display:flex;flex-direction:column;gap:4px;text-align:left;
+  }
+  .path-card:hover{border-color:var(--dim);}
+  .path-card.active{background:var(--panel-on);border-color:var(--accent);}
+  .path-icon{font-size:20px;margin-bottom:4px;}
+  .path-label{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:14px;letter-spacing:.01em;}
+  .path-desc{font-size:12px;color:var(--dim);}
+  @media (max-width:640px){ .paths{grid-template-columns:1fr;} }
+
+  /* ---- stats + progress ---- */
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;}
+  .stat{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:10px 8px;text-align:center;}
+  .stat b{display:block;font-family:var(--f-mono);font-size:19px;color:var(--text);font-variant-numeric:tabular-nums;}
+  .stat span{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);}
+  @media (max-width:640px){ .stats{grid-template-columns:repeat(3,1fr);} }
+
+  .progress-track{height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;border:1px solid var(--border);}
+  .progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .3s ease;}
+  @media (prefers-reduced-motion: reduce){ .progress-fill{transition:none;} }
+  .progress-label{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);margin-top:6px;margin-bottom:22px;}
+
+  /* ---- filter card ---- */
+  .filter-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:16px;}
+  .f-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .f-row + .f-row{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+  .f-label{font-family:var(--f-mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-right:2px;white-space:nowrap;}
+  .pill{
+    font-family:var(--f-mono);font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:99px;
+    border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;text-transform:uppercase;
+  }
+  .pill.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
+  .pill:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+  select.mini, input.mini{
+    font-family:var(--f-body);font-size:12.5px;color:var(--text);background:var(--panel-2);
+    border:1px solid var(--border);border-radius:5px;padding:6px 10px;
+  }
+  input.mini{flex:1;min-width:140px;}
+  input.mini::placeholder{color:var(--dim);}
+  .switch-row{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.03em;cursor:pointer;user-select:none;}
+  .switch{width:30px;height:17px;border-radius:99px;background:var(--panel-2);border:1px solid var(--border);position:relative;flex:none;transition:background .12s;}
+  .switch.on{background:var(--accent);border-color:var(--accent);}
+  .switch::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:var(--dim);transition:left .12s;}
+  .switch.on::after{left:15px;background:#fff;}
+  .universe-note{font-size:11px;color:var(--dim);margin-top:8px;max-width:70ch;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-family:var(--f-mono);font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.03em;}
+  .legend-item{display:flex;align-items:center;gap:5px;}
+  .ldot{width:8px;height:8px;border-radius:2px;flex:none;}
+
+  /* ---- era header ---- */
+  .era-head{display:flex;align-items:baseline;gap:12px;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--stone,var(--border));}
+  .era-head:first-child{margin-top:0;}
+  .era-num{font-family:var(--f-mono);font-size:12px;color:#08070c;background:var(--stone,var(--dim));padding:2px 7px;border-radius:2px;}
+  .era-title{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:16px;letter-spacing:.01em;}
+  .era-stone{font-family:var(--f-body);font-style:italic;color:var(--dim);font-size:12.5px;}
+  .era-count{margin-left:auto;font-family:var(--f-mono);font-size:10.5px;color:var(--dim);}
+
+  /* ---- entry row : verre dépoli + halo qui glisse vers vert/rouge ---- */
+  @property --tone{ syntax:'<color>'; inherits:true; initial-value:transparent; }
+  #list{display:flex;flex-direction:column;gap:10px;}
+  .entry{
+    position:relative;overflow:hidden;display:flex;align-items:flex-start;gap:10px;padding:14px;border-radius:12px;
+    --tone:transparent;
+    background:rgba(84,72,168,.12); -webkit-backdrop-filter:blur(18px) saturate(1.3); backdrop-filter:blur(18px) saturate(1.3);
+    border:1px solid rgba(132,116,222,.18);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 8px 20px -12px rgba(0,0,0,.55);
+    transition:background-color .28s ease, filter .32s ease;
+  }
+  /* filter darkens the whole card as one composited image — background, text,
+     badges AND the halo together — so it never fights the halo's own
+     background-color/right/border-radius transition underneath it. */
+  .entry.watched,.entry.skipped{filter:brightness(.5);}
+  .entry::before{
+    content:"";position:absolute;left:-30px;top:-8px;bottom:-8px;right:calc(100% - 60px);
+    border-radius:50%;background:var(--tone);filter:blur(30px);opacity:.15;z-index:0;
+    transition:background-color .45s ease, right .45s ease, border-radius .45s ease, opacity .45s ease;
+  }
+  .entry.watched::before,.entry.skipped::before{right:-30px;border-radius:40px;opacity:.08;}
+  .entry.watched{background:rgba(131,191,172,.09);}
+  .entry.skipped{background:rgba(204,92,103,.07);}
+  .entry > *{position:relative;z-index:1;}
+  @media (prefers-reduced-motion: reduce){ .entry,.entry::before{transition:none;} }
+  .e-num{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);width:20px;flex:none;padding-top:2px;font-variant-numeric:tabular-nums;}
+  .e-type{
+    font-family:var(--f-mono);font-size:9px;letter-spacing:.04em;font-weight:700;padding:3px 7px;border-radius:3px;
+    flex:none;text-transform:uppercase;margin-top:1px;
+  }
+  .e-type.movie{background:var(--tf-bg);color:var(--tf-ink);}
+  .e-type.tv{background:var(--ts-bg);color:var(--ts-ink);}
+  .e-type.special{background:var(--tsp-bg);color:var(--tsp-ink);}
+  .e-body{flex:1;min-width:0;}
+  .e-title-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;}
+  .e-title{font-weight:700;font-size:13.5px;}
+  .badge{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.03em;padding:3px 9px;border-radius:5px;text-transform:uppercase;background:transparent;border:1px solid;}
+  .badge.essential{border-color:var(--gold);color:var(--gold);}
+  .badge.recommended{border-color:var(--recommend);color:var(--recommend);}
+  .studio-badge{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.05em;padding:2px 6px;border-radius:3px;border:1px solid var(--border);color:var(--dim);text-transform:uppercase;}
+  .e-note{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.02em;color:var(--dim);margin-top:4px;text-transform:uppercase;}
+  .e-actions{display:flex;gap:6px;flex:none;margin-top:1px;}
+  .act-btn{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.03em;padding:6px 9px;border-radius:5px;
+    border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;text-transform:uppercase;
+    transition:border-color .25s ease, color .25s ease, opacity .25s ease;
+  }
+  .act-btn:hover{border-color:var(--dim);color:var(--text);}
+  .act-btn.on-watched{border-color:var(--ok-soft);color:var(--ok-soft);}
+  .act-btn.on-skipped{border-color:var(--accent-soft);color:var(--accent-soft);}
+  .entry.watched .s-btn{opacity:.35;}
+  .entry.skipped .w-btn{opacity:.35;}
+  @media (prefers-reduced-motion: reduce){ .act-btn{transition:none;} }
+
+  .empty{padding:50px 0;text-align:center;color:var(--dim);font-family:var(--f-mono);font-size:12.5px;}
+
+  footer.note{max-width:70ch;margin:50px auto 0;padding:20px 20px 0;color:var(--dim);font-size:12px;border-top:1px solid var(--border);}
+  footer.note b{color:var(--text);}
+</style>
+
+<header class="top">
+  <div class="top-inner">
+    <h1 class="wordmark">Carnet <em>MCU</em></h1>
+    <div class="tagline">Traqueur de visionnage &mdash; non officiel</div>
+    <p class="hero-blurb">Coche ce que tu as déjà vu, choisis un parcours, et suis ta progression vers <b>Avengers: Doomsday</b>. Ordre chronologique ou de sortie, essentiels mis en avant, univers annexes filtrables.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="paths" id="paths"></div>
+
+  <div class="stats" id="stats"></div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-label" id="progressLabel"></div>
+
+  <div class="filter-card">
+    <div class="f-row">
+      <span class="f-label">Type</span>
+      <div id="typePills"></div>
+      <span class="f-label" style="margin-left:8px;">Ordre</span>
+      <select class="mini" id="sortSelect">
+        <option value="story">Chronologique</option>
+        <option value="release">Sortie</option>
+      </select>
+      <input class="mini" id="search" type="text" placeholder="🔍 Rechercher…" autocomplete="off"/>
+    </div>
+    <div class="f-row">
+      <label class="switch-row" id="universeToggleRow"><div class="switch on" id="universeSwitch"></div>Inclure hors Marvel Studios</label>
+    </div>
+    <p class="universe-note">X-Men (Fox), Sony et Netflix sont des continuités distinctes du MCU — elles partagent des personnages et alimentent le multivers. À toi de les regarder ou de les filtrer.</p>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <div id="list"></div>
+  <div class="empty" id="emptyState" style="display:none;">Aucun titre ne correspond à ces filtres.</div>
+
+  <footer class="note">
+    <b>Carnet MCU</b> est un guide de fan non officiel, sans lien avec Marvel ou Disney. Ta progression est enregistrée uniquement dans ton navigateur (aucun compte, aucun serveur). Priorités (Essentiel / Recommandé / Optionnel) et repères narratifs sont éditoriaux — à ajuster selon tes propres priorités. Le générateur de calendrier de visionnage arrive dans une prochaine version.
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STONE = {1:"var(--st-1)",2:"var(--st-2)",3:"var(--st-3)",4:"var(--st-4)",5:"var(--st-5)",6:"var(--st-6)"};
+  var STONE_NAME = {1:"Espace",2:"Esprit",3:"Réalité",4:"Pouvoir",5:"Temps",6:"Âme"};
+  var ERA_LABEL = {1:"Aux origines",2:"Élargissement",3:"L'infinity saga",4:"Le multivers s'ouvre",5:"La ligne se brise",6:"La multiverse saga"};
+  var HC_BANDS = [2013,2016,2021,2023,2026];
+  function hcBand(ry){ for(var i=0;i<HC_BANDS.length;i++){ if(ry < HC_BANDS[i]) return i+1; } return 6; }
+  var STUDIO_LABEL = {fox:"FOX", sony:"SONY", netflix:"NETFLIX", xmen97:"ANIMATION"};
+  var GLOW = {essential:"rgba(232,180,88,.85)", recommended:"rgba(79,199,186,.85)"};
+  var DOT_STATE = {watched:"rgba(131,191,172,.85)", skipped:"rgba(204,92,103,.85)"};
+  function toneFor(item){
+    var st = userDb[item.id];
+    return st === "watched" ? DOT_STATE.watched : st === "skipped" ? DOT_STATE.skipped : (GLOW[item.g] || "transparent");
+  }
+
+  var DATA = [
+    {id:"cap-first-avenger",t:"Captain America: The First Avenger",ty:"movie",p:1,g:"essential",ry:2011.07,c:1943,rt:124,sy:"Steve Rogers devient un super-soldat pour combattre Hydra.",cr:1},
+    {id:"iron-man",t:"Iron Man",ty:"movie",p:1,g:"essential",ry:2008.05,c:2010,rt:126,sy:"Tony Stark devient Iron Man après sa capture en Afghanistan.",cr:1},
+    {id:"incredible-hulk",t:"The Incredible Hulk",ty:"movie",p:1,g:"optional",ry:2008.06,c:2010.5,rt:112,sy:"Bruce Banner fuit le général Ross en maîtrisant sa colère.",cr:1},
+    {id:"iron-man-2",t:"Iron Man 2",ty:"movie",p:1,g:"recommended",ry:2010.05,c:2011,rt:124,sy:"Stark affronte Whiplash alors que son réacteur l'empoisonne.",cr:1},
+    {id:"thor",t:"Thor",ty:"movie",p:1,g:"essential",ry:2011.05,c:2011.3,rt:115,sy:"Le dieu du tonnerre est banni sur Terre par Odin.",cr:1},
+    {id:"avengers",t:"The Avengers",ty:"movie",p:1,g:"essential",ry:2012.05,c:2012,rt:143,sy:"Les héros s'unissent pour repousser l'invasion de Loki.",cr:2},
+    {id:"iron-man-3",t:"Iron Man 3",ty:"movie",p:2,g:"recommended",ry:2013.05,c:2013,rt:130,sy:"Stark affronte le Mandarin après l'attentat contre sa maison.",cr:1},
+    {id:"thor-dark-world",t:"Thor: The Dark World",ty:"movie",p:2,g:"recommended",ry:2013.11,c:2013.3,rt:112,sy:"Thor combat Malekith pour sauver les Neuf Royaumes.",cr:2},
+    {id:"cap-winter-soldier",t:"Captain America: The Winter Soldier",ty:"movie",p:2,g:"essential",ry:2014.04,c:2014,rt:136,sy:"Cap découvre qu'Hydra a infiltré le SHIELD.",cr:2},
+    {id:"gotg",t:"Guardians of the Galaxy",ty:"movie",p:2,g:"essential",ry:2014.08,c:2014.3,rt:122,sy:"Une bande de hors-la-loi cosmiques protège une pierre d'infinité.",cr:1},
+    {id:"avengers-aou",t:"Avengers: Age of Ultron",ty:"movie",p:2,g:"essential",ry:2015.05,c:2015,rt:141,sy:"Stark crée Ultron, une IA qui se retourne contre l'humanité.",cr:1},
+    {id:"ant-man",t:"Ant-Man",ty:"movie",p:2,g:"optional",ry:2015.07,c:2015.3,rt:117,sy:"Scott Lang enfile le costume qui rétrécit.",cr:2},
+    {id:"gotg-vol2",t:"Guardians of the Galaxy Vol. 2",ty:"movie",p:3,g:"recommended",ry:2017.05,c:2014.5,rt:136,sy:"Peter Quill affronte son véritable père, Ego.",cr:5},
+    {id:"civil-war",t:"Captain America: Civil War",ty:"movie",p:3,g:"essential",ry:2016.05,c:2016,rt:147,sy:"Les Avengers se déchirent sur le contrôle étatique.",cr:2},
+    {id:"doctor-strange",t:"Doctor Strange",ty:"movie",p:3,g:"essential",ry:2016.11,c:2016.8,rt:115,sy:"Un chirurgien devient le nouveau Sorcier Suprême.",cr:2},
+    {id:"spiderman-homecoming",t:"Spider-Man: Homecoming",ty:"movie",p:3,g:"recommended",ry:2017.07,c:2016.6,rt:133,sy:"Peter Parker jongle entre lycée et débuts de héros.",cr:2},
+    {id:"thor-ragnarok",t:"Thor: Ragnarok",ty:"movie",p:3,g:"recommended",ry:2017.11,c:2017,rt:130,sy:"Thor doit empêcher Hela de détruire Asgard.",cr:2},
+    {id:"black-panther",t:"Black Panther",ty:"movie",p:3,g:"essential",ry:2018.02,c:2016.5,rt:134,sy:"T'Challa défend le trône et les secrets du Wakanda.",cr:2},
+    {id:"infinity-war",t:"Avengers: Infinity War",ty:"movie",p:3,g:"essential",ry:2018.05,c:2018.3,rt:149,sy:"Thanos traque les pierres d'infinité.",cr:1},
+    {id:"antman-wasp",t:"Ant-Man and the Wasp",ty:"movie",p:3,g:"recommended",ry:2018.07,c:2018,rt:118,sy:"Scott Lang aide à sauver Janet Van Dyne.",cr:2},
+    {id:"captain-marvel",t:"Captain Marvel",ty:"movie",p:3,g:"essential",ry:2019.03,c:1995,rt:123,sy:"Carol Danvers redécouvre son passé humain.",cr:2},
+    {id:"endgame",t:"Avengers: Endgame",ty:"movie",p:3,g:"essential",ry:2019.04,c:2018.5,rt:181,sy:"Les survivants tentent un casse temporel pour annuler le Snap.",cr:0},
+    {id:"far-from-home",t:"Spider-Man: Far From Home",ty:"movie",p:3,g:"recommended",ry:2019.07,c:2023,rt:129,sy:"Peter affronte Mysterio pendant un voyage en Europe.",cr:2},
+    {id:"wandavision",t:"WandaVision",ty:"tv",p:4,g:"essential",ry:2021.01,c:2023.2,rt:315,sy:"Wanda façonne une réalité de sitcom pour fuir son deuil.",ep:9},
+    {id:"falcon-ws",t:"The Falcon and the Winter Soldier",ty:"tv",p:4,g:"recommended",ry:2021.03,c:2023.4,rt:270,sy:"Sam et Bucky affrontent les Flag Smashers.",ep:6},
+    {id:"loki-s1",t:"Loki (Saison 1)",ty:"tv",p:4,g:"essential",ry:2021.06,c:2023.4,rt:300,sy:"Une variante de Loki est recrutée par la TVA.",ep:6},
+    {id:"black-widow",t:"Black Widow",ty:"movie",p:4,g:"optional",ry:2021.07,c:2016.3,rt:134,sy:"Natasha règle ses comptes avec la Red Room.",cr:1},
+    {id:"what-if-s1",t:"What If…? (Saison 1)",ty:"tv",p:4,g:"optional",ry:2021.08,c:null,rt:315,sy:"Le Gardien explore des embranchements du multivers.",ep:9},
+    {id:"shang-chi",t:"Shang-Chi and the Legend of the Ten Rings",ty:"movie",p:4,g:"recommended",ry:2021.09,c:2023.6,rt:132,sy:"Shang-Chi affronte l'héritage de son père.",cr:2},
+    {id:"eternals",t:"Eternals",ty:"movie",p:4,g:"optional",ry:2021.11,c:2023.7,rt:156,sy:"Des immortels révèlent leur mission sur Terre.",cr:2},
+    {id:"hawkeye",t:"Hawkeye",ty:"tv",p:4,g:"recommended",ry:2021.115,c:2023.9,rt:270,sy:"Clint Barton forme Kate Bishop avant Noël.",ep:6},
+    {id:"no-way-home",t:"Spider-Man: No Way Home",ty:"movie",p:4,g:"essential",ry:2021.12,c:2023.9,rt:148,sy:"Un sort brisé ouvre le multivers aux ennemis de Peter.",cr:1},
+    {id:"moon-knight",t:"Moon Knight",ty:"tv",p:4,g:"optional",ry:2022.03,c:2024,rt:270,sy:"Steven Grant partage son corps avec Khonshu.",ep:6},
+    {id:"doctor-strange-2",t:"Doctor Strange in the Multiverse of Madness",ty:"movie",p:4,g:"recommended",ry:2022.05,c:2024.1,rt:126,sy:"Strange traverse le multivers pour protéger America Chavez.",cr:2},
+    {id:"ms-marvel",t:"Ms. Marvel",ty:"tv",p:4,g:"optional",ry:2022.06,c:2024.3,rt:210,sy:"Kamala Khan découvre des pouvoirs liés à son héritage.",ep:6},
+    {id:"thor-love-thunder",t:"Thor: Love and Thunder",ty:"movie",p:4,g:"optional",ry:2022.07,c:2024.4,rt:119,sy:"Thor affronte Gorr le Boucher de dieux.",cr:2},
+    {id:"she-hulk",t:"She-Hulk: Attorney at Law",ty:"tv",p:4,g:"optional",ry:2022.08,c:2024.5,rt:315,sy:"Jennifer Walters jongle carrière d'avocate et vie de héroïne.",ep:9},
+    {id:"gotg-holiday",t:"The Guardians of the Galaxy Holiday Special",ty:"special",p:4,g:"optional",ry:2022.11,c:2024.6,rt:46,sy:"Les Gardiens offrent un Noël terrien à Peter Quill.",kind:"Spécial de Noël"},
+    {id:"wakanda-forever",t:"Black Panther: Wakanda Forever",ty:"movie",p:4,g:"recommended",ry:2022.115,c:2024.7,rt:161,sy:"Le Wakanda affronte Namor et le royaume de Talokan.",cr:1},
+    {id:"antman-quantumania",t:"Ant-Man and the Wasp: Quantumania",ty:"movie",p:5,g:"recommended",ry:2023.02,c:2025,rt:125,sy:"Les Lang-Van Dyne sont aspirés dans le royaume de Kang.",cr:2},
+    {id:"gotg-vol3",t:"Guardians of the Galaxy Vol. 3",ty:"movie",p:5,g:"recommended",ry:2023.05,c:2025.1,rt:150,sy:"Rocket affronte son passé face au Haut Évolutionnaire.",cr:1},
+    {id:"secret-invasion",t:"Secret Invasion",ty:"tv",p:5,g:"optional",ry:2023.06,c:2025.2,rt:270,sy:"Des Skrulls infiltrés menacent les gouvernements terriens.",ep:6},
+    {id:"loki-s2",t:"Loki (Saison 2)",ty:"tv",p:5,g:"essential",ry:2023.10,c:2025.2,rt:300,sy:"Loki lutte pour stabiliser le temps après la chute de la TVA.",ep:6},
+    {id:"what-if-s2",t:"What If…? (Saison 2)",ty:"tv",p:5,g:"optional",ry:2023.12,c:null,rt:315,sy:"De nouvelles divergences bouleversent encore le multivers.",ep:9},
+    {id:"echo",t:"Echo",ty:"tv",p:5,g:"optional",ry:2024.01,c:2025.4,rt:200,sy:"Maya Lopez retourne à ses racines pour affronter Kingpin.",ep:5},
+    {id:"deadpool-wolverine",t:"Deadpool & Wolverine",ty:"movie",p:5,g:"essential",ry:2024.07,c:2025.5,rt:128,sy:"Deadpool recrute Wolverine pour sauver sa réalité de l'effacement.",cr:1},
+    {id:"agatha-all-along",t:"Agatha All Along",ty:"tv",p:5,g:"optional",ry:2024.09,c:2025.45,rt:405,sy:"Agatha Harkness rassemble un covent pour reconquérir sa magie.",ep:9},
+    {id:"what-if-s3",t:"What If…? (Saison 3)",ty:"tv",p:5,g:"optional",ry:2024.12,c:null,rt:315,sy:"La saison la plus sombre du multivers refait surface.",ep:9},
+    {id:"cap-brave-new-world",t:"Captain America: Brave New World",ty:"movie",p:5,g:"recommended",ry:2025.02,c:2026.1,rt:118,sy:"Sam Wilson affronte une crise internationale et le nouveau Hulk rouge.",cr:1},
+    {id:"daredevil-born-again",t:"Daredevil: Born Again",ty:"tv",p:5,g:"essential",ry:2025.03,c:2026,rt:450,sy:"Matt Murdock retrouve le costume face au retour de Wilson Fisk.",ep:9},
+    {id:"thunderbolts",t:"Thunderbolts*",ty:"movie",p:5,g:"recommended",ry:2025.05,c:2026.2,rt:126,sy:"Une équipe d'antihéros brisés devient la nouvelle ligne de défense.",cr:1},
+    {id:"ironheart",t:"Ironheart",ty:"tv",p:5,g:"optional",ry:2025.06,c:2026.3,rt:240,sy:"Riri Williams perfectionne son armure entre génie et magie interdite.",ep:6},
+    {id:"fantastic-four",t:"The Fantastic Four: First Steps",ty:"movie",p:6,g:"essential",ry:2025.07,c:2026.55,rt:115,sy:"La Première Famille affronte Galactus sur Terre-828.",cr:1},
+    {id:"marvel-zombies",t:"Marvel Zombies",ty:"tv",p:5,g:"optional",ry:2025.10,c:null,rt:160,sy:"Wanda ouvre malgré elle un multivers infesté de zombies.",ep:4},
+    {id:"wonder-man",t:"Wonder Man",ty:"tv",p:6,g:"optional",ry:2026.01,c:2026.58,rt:240,ep:6,sy:"Simon Williams tente de percer à Hollywood, hanté par son double héroïque."},
+    {id:"spiderman-brand-new-day",t:"Spider-Man: Brand New Day",ty:"movie",p:6,g:"recommended",ry:2026.07,c:2026.62,rt:130,sy:"Peter rebâtit sa vie de héros loin des projecteurs."},
+    {id:"vision-quest",t:"VisionQuest",ty:"tv",p:6,g:"recommended",ry:2026.10,c:2026.68,rt:240,ep:6,sy:"Vision reconstruit son identité après les épreuves de WandaVision et d'Agatha All Along."},
+    {id:"avengers-doomsday",t:"Avengers: Doomsday",ty:"movie",p:6,g:"essential",ry:2026.12,c:2026.75,rt:150,sy:"Les héros affrontent le Docteur Fatalis à l'échelle multiverselle."},
+    {id:"avengers-secret-wars",t:"Avengers: Secret Wars",ty:"movie",p:6,g:"essential",ry:2027.12,c:2027,rt:150,sy:"L'incursion des multivers pousse les héros vers une guerre secrète ultime."},
+
+    {id:"x-men",t:"X-Men",ty:"movie",u:"fox",g:"optional",ry:2000.07,c:2000,rt:104,sy:"Les mutants X-Men affrontent la Confrérie de Magneto.",cr:0},
+    {id:"x2",t:"X2: X-Men United",ty:"movie",u:"fox",g:"optional",ry:2003.05,c:2003,rt:134,sy:"William Stryker déclare la guerre aux mutants.",cr:0},
+    {id:"x-men-last-stand",t:"X-Men: The Last Stand",ty:"movie",u:"fox",g:"optional",ry:2006.05,c:2006,rt:104,sy:"Le remède anti-mutant divise l'école de Xavier.",cr:1},
+    {id:"x-men-origins-wolverine",t:"X-Men Origins: Wolverine",ty:"movie",u:"fox",g:"optional",ry:2009.05,c:1979,rt:107,sy:"Logan retrace ses origines et l'expérience Arme X.",cr:1},
+    {id:"x-men-first-class",t:"X-Men: First Class",ty:"movie",u:"fox",g:"optional",ry:2011.06,c:1962,rt:132,sy:"Xavier et Lehnsherr forment leur première équipe, dans les années 60.",cr:0},
+    {id:"wolverine-solo",t:"The Wolverine",ty:"movie",u:"fox",g:"optional",ry:2013.07,c:2013,rt:126,sy:"Logan affronte le crime organisé au Japon.",cr:1},
+    {id:"x-men-days-future-past",t:"X-Men: Days of Future Past",ty:"movie",u:"fox",g:"optional",ry:2014.05,c:1973,rt:132,sy:"Wolverine voyage dans le temps pour éviter un futur apocalyptique.",cr:1},
+    {id:"deadpool",t:"Deadpool",ty:"movie",u:"fox",g:"optional",ry:2016.02,c:2016,rt:108,sy:"Un mercenaire défiguré devient l'antihéros le plus bavard de Marvel.",cr:1},
+    {id:"x-men-apocalypse",t:"X-Men: Apocalypse",ty:"movie",u:"fox",g:"optional",ry:2016.05,c:1983,rt:144,sy:"Le premier mutant, En Sabah Nur, veut refaçonner le monde.",cr:0},
+    {id:"logan",t:"Logan",ty:"movie",u:"fox",g:"optional",ry:2017.03,c:2029,rt:137,sy:"Un Wolverine vieillissant protège une jeune mutante fugitive.",cr:0},
+    {id:"deadpool-2",t:"Deadpool 2",ty:"movie",u:"fox",g:"optional",ry:2018.05,c:2018,rt:119,sy:"Deadpool forme le X-Force pour protéger un jeune mutant.",cr:3},
+    {id:"dark-phoenix",t:"Dark Phoenix",ty:"movie",u:"fox",g:"optional",ry:2019.06,c:1992,rt:114,sy:"Jean Grey est submergée par une force cosmique incontrôlable.",cr:0},
+    {id:"new-mutants",t:"The New Mutants",ty:"movie",u:"fox",g:"optional",ry:2020.08,c:2018.5,rt:94,sy:"De jeunes mutants sont retenus dans un hôpital psychiatrique isolé.",cr:0},
+    {id:"x-men-97",t:"X-Men '97",ty:"tv",u:"xmen97",g:"optional",ry:2024.03,c:1997,rt:220,sy:"La série animée culte des années 90 reprend le fil de son histoire.",ep:10},
+
+    {id:"venom",t:"Venom",ty:"movie",u:"sony",g:"optional",ry:2018.10,c:2018,rt:112,sy:"Eddie Brock fusionne avec un symbiote extraterrestre.",cr:2},
+    {id:"venom-carnage",t:"Venom: Let There Be Carnage",ty:"movie",u:"sony",g:"optional",ry:2021.10,c:2021,rt:97,sy:"Venom affronte Cletus Kasady, devenu le symbiote Carnage.",cr:1},
+    {id:"morbius",t:"Morbius",ty:"movie",u:"sony",g:"optional",ry:2022.04,c:2022,rt:104,sy:"Un biochimiste se transforme en vampire vivant pour guérir sa maladie.",cr:2},
+    {id:"madame-web",t:"Madame Web",ty:"movie",u:"sony",g:"optional",ry:2024.02,c:2003,rt:116,sy:"Cassandra Webb développe des pouvoirs de précognition à New York.",cr:0},
+    {id:"venom-last-dance",t:"Venom: The Last Dance",ty:"movie",u:"sony",g:"optional",ry:2024.10,c:2024,rt:109,sy:"Eddie et Venom vivent leur dernière traque, plus recherchés que jamais.",cr:1},
+    {id:"kraven",t:"Kraven the Hunter",ty:"movie",u:"sony",g:"optional",ry:2024.12,c:2010,rt:127,sy:"Sergei Kravinoff devient le plus grand chasseur du monde.",cr:0},
+
+    {id:"daredevil",t:"Daredevil",ty:"tv",u:"netflix",g:"optional",ry:2015.04,c:2015,rt:1950,sy:"Matt Murdock protège Hell's Kitchen le jour comme la nuit.",ep:39},
+    {id:"jessica-jones",t:"Jessica Jones",ty:"tv",u:"netflix",g:"optional",ry:2015.11,c:2015.2,rt:1950,sy:"Une détective privée traumatisée traque l'homme qui a contrôlé son esprit.",ep:39},
+    {id:"luke-cage",t:"Luke Cage",ty:"tv",u:"netflix",g:"optional",ry:2016.09,c:2016,rt:1300,sy:"Un homme à la peau incassable protège Harlem.",ep:26},
+    {id:"iron-fist",t:"Iron Fist",ty:"tv",u:"netflix",g:"optional",ry:2017.03,c:2017,rt:1300,sy:"Danny Rand revient à New York avec le pouvoir du Poing de Fer.",ep:26},
+    {id:"defenders",t:"The Defenders",ty:"tv",u:"netflix",g:"optional",ry:2017.08,c:2017.2,rt:400,sy:"Daredevil, Jessica Jones, Luke Cage et Iron Fist unissent leurs forces.",ep:8},
+    {id:"punisher",t:"The Punisher",ty:"tv",u:"netflix",g:"optional",ry:2017.11,c:2017.4,rt:1430,sy:"Frank Castle mène une guerre solitaire contre le crime organisé.",ep:26}
+  ];
+
+  // ---------------- state ----------------
+  var userDb = {};
+  try { userDb = JSON.parse(localStorage.getItem("carnetMcuDb")) || {}; } catch(e){ userDb = {}; }
+  function saveDb(){ try{ localStorage.setItem("carnetMcuDb", JSON.stringify(userDb)); }catch(e){} }
+
+  var state = {
+    path: "all",              // all | doomsday | rewatch
+    grades: ["essential","recommended","optional"],
+    type: "all",               // all | unwatched | movie | tv
+    includeOutside: true,
+    sortMode: "story",
+    q: ""
+  };
+  try {
+    var savedCfg = JSON.parse(localStorage.getItem("carnetMcuFilters"));
+    if(savedCfg){
+      if(savedCfg.path) state.path = savedCfg.path;
+      if(savedCfg.type) state.type = savedCfg.type;
+      if(typeof savedCfg.includeOutside === "boolean") state.includeOutside = savedCfg.includeOutside;
+      if(savedCfg.sortMode) state.sortMode = savedCfg.sortMode;
+    }
+  } catch(e){}
+  function saveFilters(){
+    try{ localStorage.setItem("carnetMcuFilters", JSON.stringify({path:state.path,type:state.type,includeOutside:state.includeOutside,sortMode:state.sortMode})); }catch(e){}
+  }
+
+  var PATHS = [
+    {key:"all", icon:"🧭", label:"Nouveau sur Marvel", desc:"Tout, dans l'ordre, pour un premier visionnage"},
+    {key:"doomsday", icon:"☠️", label:"Cap sur Doomsday", desc:"Seulement ce qui mène à ce film-là"},
+    {key:"rewatch", icon:"★", label:"Revoir les essentiels", desc:"Déjà tout vu ? Ceux qui valent le détour"}
+  ];
+  function gradesForPath(p){
+    if(p === "doomsday") return ["essential","recommended"];
+    if(p === "rewatch") return ["essential"];
+    return ["essential","recommended","optional"];
+  }
+
+  // ---------------- build static UI ----------------
+  var pathsEl = document.getElementById("paths");
+  PATHS.forEach(function(p){
+    var d = document.createElement("div");
+    d.className = "path-card";
+    d.setAttribute("role","button"); d.tabIndex = 0;
+    d.innerHTML = '<div class="path-icon">'+p.icon+'</div><div class="path-label">'+p.label+'</div><div class="path-desc">'+p.desc+'</div>';
+    d.addEventListener("click", function(){ setPath(p.key); });
+    d.addEventListener("keydown", function(ev){ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); setPath(p.key); } });
+    d.dataset.key = p.key;
+    pathsEl.appendChild(d);
+  });
+  function setPath(key){
+    state.path = key;
+    state.grades = gradesForPath(key);
+    if(key === "rewatch") state.includeOutside = false;
+    saveFilters();
+    syncPathUI();
+    render();
+  }
+  function syncPathUI(){
+    pathsEl.querySelectorAll(".path-card").forEach(function(el){
+      el.classList.toggle("active", el.dataset.key === state.path);
+    });
+  }
+
+  var TYPE_PILLS = [{k:"all",l:"Tout"},{k:"unwatched",l:"Non vus"},{k:"movie",l:"Films"},{k:"tv",l:"Séries"}];
+  var typePillsEl = document.getElementById("typePills");
+  TYPE_PILLS.forEach(function(tp){
+    var b = document.createElement("button");
+    b.className = "pill" + (state.type===tp.k ? " on":"");
+    b.type = "button"; b.textContent = tp.l; b.dataset.k = tp.k;
+    b.addEventListener("click", function(){
+      state.type = tp.k;
+      typePillsEl.querySelectorAll(".pill").forEach(function(x){ x.classList.toggle("on", x.dataset.k===tp.k); });
+      saveFilters(); render();
+    });
+    typePillsEl.appendChild(b);
+  });
+
+  var sortSelect = document.getElementById("sortSelect");
+  sortSelect.value = state.sortMode;
+  sortSelect.addEventListener("change", function(){ state.sortMode = sortSelect.value; saveFilters(); render(); });
+
+  var searchInput = document.getElementById("search");
+  searchInput.addEventListener("input", function(){ state.q = searchInput.value.trim().toLowerCase(); render(); });
+
+  var universeSwitch = document.getElementById("universeSwitch");
+  universeSwitch.classList.toggle("on", state.includeOutside);
+  document.getElementById("universeToggleRow").addEventListener("click", function(){
+    state.includeOutside = !state.includeOutside;
+    universeSwitch.classList.toggle("on", state.includeOutside);
+    saveFilters(); render();
+  });
+
+  var legend = document.getElementById("legend");
+  legend.innerHTML =
+    '<div class="legend-item"><div class="ldot" style="background:var(--tf-ink)"></div>Film</div>' +
+    '<div class="legend-item"><div class="ldot" style="background:var(--ts-ink)"></div>Série</div>' +
+    '<div class="legend-item"><div class="ldot" style="background:var(--tsp-ink)"></div>Spécial</div>' +
+    '<div class="legend-item"><div class="ldot" style="background:var(--gold)"></div>★ Essentiel</div>' +
+    '<div class="legend-item"><div class="ldot" style="background:var(--recommend)"></div>◆ Recommandé</div>' +
+    '<div class="legend-item">Optionnel = sans badge</div>';
+
+  // ---------------- filtering / sorting ----------------
+  function matches(item){
+    if(item.u && !state.includeOutside) return false;
+    if(!state.grades.includes(item.g)) return false;
+    var isCompleted = userDb[item.id] === "watched" || userDb[item.id] === "skipped";
+    if(state.type === "unwatched" && isCompleted) return false;
+    if(state.type === "movie" && item.ty !== "movie") return false;
+    if(state.type === "tv" && item.ty !== "tv") return false;
+    if(state.q && item.t.toLowerCase().indexOf(state.q) === -1) return false;
+    return true;
+  }
+
+  function eraOf(item){ return item.u ? hcBand(item.ry) : item.p; }
+
+  function setStatus(id, status){
+    if(userDb[id] === status) delete userDb[id]; else userDb[id] = status;
+    saveDb();
+    // The "Non vus" filter can make an item appear/disappear entirely, which
+    // needs a full rebuild. Otherwise just update this one card in place —
+    // rebuilding the list's HTML would replace the DOM node and the halo's
+    // CSS transition would have nothing to animate from.
+    if(state.type === "unwatched"){ render(); return; }
+    syncRow(id);
+    updateStats();
+  }
+  window.__setStatus = setStatus;
+
+  function syncRow(id){
+    var item = DATA.filter(function(d){ return d.id === id; })[0];
+    if(!item) return;
+    var el = listEl.querySelector('[data-id="'+id+'"]');
+    if(!el) return;
+    var isWatched = userDb[id] === "watched";
+    var isSkipped = userDb[id] === "skipped";
+    el.classList.toggle("watched", isWatched);
+    el.classList.toggle("skipped", isSkipped);
+    el.style.setProperty("--tone", toneFor(item));
+    var wBtn = el.querySelector(".w-btn"), sBtn = el.querySelector(".s-btn");
+    if(wBtn) wBtn.classList.toggle("on-watched", isWatched);
+    if(sBtn) sBtn.classList.toggle("on-skipped", isSkipped);
+  }
+
+  function infoNote(item){
+    if(item.ty === "movie"){
+      if(item.cr && item.cr > 0) return item.cr>1 ? item.cr+" scènes post-génériques" : "1 scène post-générique";
+      return "";
+    }
+    if(item.ty === "tv"){
+      if(!item.ep) return "";
+      return item.ep>1 ? item.ep+" épisodes" : "1 épisode";
+    }
+    return item.kind || "";
+  }
+
+  function rowHtml(item, idx){
+    var isWatched = userDb[item.id] === "watched";
+    var isSkipped = userDb[item.id] === "skipped";
+    var typeLabel = item.ty === "movie" ? "Film" : item.ty === "tv" ? "Série" : "Spécial";
+    var badge = item.g === "essential" ? '<span class="badge essential">★ Essentiel</span>'
+              : item.g === "recommended" ? '<span class="badge recommended">◆ Recommandé</span>' : "";
+    var studio = item.u ? '<span class="studio-badge">'+STUDIO_LABEL[item.u]+'</span>' : "";
+    var note = infoNote(item);
+    return (
+      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+'">' +
+        '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
+        '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
+        '<div class="e-body">' +
+          '<div class="e-title-row"><span class="e-title">'+item.t+'</span>'+badge+studio+'</div>' +
+          (note ? '<div class="e-note">'+note+'</div>' : "") +
+        '</div>' +
+        '<div class="e-actions">' +
+          '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' +
+          '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  var listEl = document.getElementById("list");
+  var emptyEl = document.getElementById("emptyState");
+  var statsEl = document.getElementById("stats");
+
+  function updateStats(){
+    var filtered = DATA.filter(matches);
+
+    // stats over the filtered/visible scope
+    var total = filtered.length, watched = 0, skipped = 0, essentialLeft = 0, remainingMin = 0;
+    filtered.forEach(function(it){
+      var st = userDb[it.id];
+      if(st === "watched") watched++;
+      else if(st === "skipped") skipped++;
+      else { remainingMin += it.rt || 0; if(it.g === "essential") essentialLeft++; }
+    });
+    var remaining = total - watched - skipped;
+    statsEl.innerHTML = "";
+    [["Total",total],["Vus",watched],["Restants",Math.max(remaining,0)],["Essentiels restants",essentialLeft],["Heures restantes",Math.round(remainingMin/60)+"h"]].forEach(function(s){
+      var d = document.createElement("div"); d.className = "stat";
+      d.innerHTML = "<b>"+s[1]+"</b><span>"+s[0]+"</span>";
+      statsEl.appendChild(d);
+    });
+
+    // progress bar: over the WHOLE catalogue, independent of filters
+    var allWatched = DATA.filter(function(it){ return userDb[it.id]==="watched"; }).length;
+    var pct = Math.round((allWatched/DATA.length)*100);
+    document.getElementById("progressFill").style.width = pct+"%";
+    document.getElementById("progressLabel").textContent = pct>0
+      ? "Progression : "+pct+"% · "+allWatched+" / "+DATA.length+" titres vus (tout le catalogue)"
+      : "Coche des titres pour commencer à suivre ta progression.";
+  }
+
+  function render(){
+    var filtered = DATA.filter(matches);
+    updateStats();
+
+    // sort + group
+    listEl.innerHTML = "";
+    if(!filtered.length){ emptyEl.style.display = "block"; return; }
+    emptyEl.style.display = "none";
+
+    var idx = 0;
+    if(state.sortMode === "story"){
+      [1,2,3,4,5,6].forEach(function(p){
+        var items = filtered.filter(function(it){ return eraOf(it) === p; })
+          .sort(function(a,b){ var av=a.c!=null?a.c:a.ry, bv=b.c!=null?b.c:b.ry; return av-bv; });
+        if(!items.length) return;
+        var head = document.createElement("div");
+        head.className = "era-head";
+        head.style.setProperty("--stone", STONE[p]);
+        head.innerHTML = '<span class="era-num">Phase '+p+'</span><span class="era-title">'+STONE_NAME[p]+'</span><span class="era-stone">'+ERA_LABEL[p]+'</span><span class="era-count">'+items.length+' titre'+(items.length>1?'s':'')+'</span>';
+        listEl.appendChild(head);
+        items.forEach(function(it){ idx++; listEl.insertAdjacentHTML("beforeend", rowHtml(it, idx)); });
+      });
+    } else {
+      filtered.slice().sort(function(a,b){ return a.ry-b.ry; }).forEach(function(it){ idx++; listEl.insertAdjacentHTML("beforeend", rowHtml(it, idx)); });
+    }
+  }
+
+  syncPathUI();
+  state.grades = gradesForPath(state.path);
+  render();
+})();
+</script>
+
+
+</body>
+</html>
