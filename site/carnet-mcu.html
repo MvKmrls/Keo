@@ -43,7 +43,7 @@
   .path-card{
     background:linear-gradient(180deg, color-mix(in srgb, var(--panel) 100%, white 3%), var(--panel));
     border:1px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;
-    display:flex;flex-direction:column;gap:4px;text-align:left;
+    display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;
     box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 1px 2px rgba(0,0,0,.5), 0 8px 20px -10px rgba(0,0,0,.65);
     transition:transform .32s var(--ease-fluid), box-shadow .32s var(--ease-fluid), border-color .32s var(--ease-fluid);
   }
@@ -54,7 +54,12 @@
     box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 0 14px color-mix(in srgb, var(--path-color) 22%, transparent);
   }
   @media (prefers-reduced-motion: reduce){ .path-card{transition:none;} }
-  .path-icon{font-size:20px;margin-bottom:4px;}
+  .path-icon{display:flex;align-items:center;justify-content:center;height:34px;margin-bottom:4px;}
+  .path-icon svg{display:block;height:100%;width:auto;}
+  .path-icon-marvel{
+    width:34px;height:34px;background:#ed1d24;border-radius:5px;
+    color:#fff;font-family:Arial,"Helvetica Neue",sans-serif;font-weight:900;font-size:19px;
+  }
   .path-label{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:14px;letter-spacing:.01em;}
   .path-desc{font-size:12px;color:var(--dim);}
   @media (max-width:640px){ .paths{grid-template-columns:1fr;} }
@@ -357,9 +362,9 @@
   }
 
   var PATHS = [
-    {key:"all", icon:"🧭", label:"Nouveau sur Marvel", desc:"Tout, dans l'ordre, pour un premier visionnage"},
-    {key:"doomsday", icon:"☠️", label:"Cap sur Doomsday", desc:"Seulement ce qui mène à ce film-là"},
-    {key:"rewatch", icon:"★", label:"Revoir les essentiels", desc:"Déjà tout vu ? Ceux qui valent le détour"}
+    {key:"all", iconClass:"path-icon-marvel", icon:"M", label:"Nouveau sur Marvel", desc:"Tout, dans l'ordre, pour un premier visionnage"},
+    {key:"doomsday", iconClass:"", icon:'<svg viewBox="0 0 56 70" aria-hidden="true"><path d="M28,2 L6,28 L15,33 L4,64 L24,38 Z" fill="#7c9a68"/><path d="M28,2 L50,28 L41,33 L52,64 L32,38 Z" fill="#7c9a68"/></svg>', label:"Cap sur Doomsday", desc:"Seulement ce qui mène à ce film-là"},
+    {key:"rewatch", iconClass:"", icon:'<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38" fill="none" stroke="#ffffff" stroke-width="7"/><path d="M50,14 L20,86 L34,86 L42,66 L58,66 L66,86 L80,86 Z" fill="#ffffff"/><path d="M40,58 L60,58 L74,50 L60,42 L64,50 L40,50 Z" fill="var(--panel)"/></svg>', label:"Revoir les essentiels", desc:"Déjà tout vu ? Ceux qui valent le détour"}
   ];
   var PATH_ACCENT = {
     all:{c:"#ed1d24", ink:"#fff5f6"},
@@ -383,7 +388,7 @@
     var d = document.createElement("div");
     d.className = "path-card";
     d.setAttribute("role","button"); d.tabIndex = 0;
-    d.innerHTML = '<div class="path-icon">'+p.icon+'</div><div class="path-label">'+p.label+'</div><div class="path-desc">'+p.desc+'</div>';
+    d.innerHTML = '<div class="path-icon '+p.iconClass+'">'+p.icon+'</div><div class="path-label">'+p.label+'</div><div class="path-desc">'+p.desc+'</div>';
     d.addEventListener("click", function(){ setPath(p.key); });
     d.addEventListener("keydown", function(ev){ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); setPath(p.key); } });
     d.dataset.key = p.key;
