@@ -14,6 +14,7 @@
     --ok:#3a8f5f; --ok-soft:#438a73; --accent-soft:#cc5c67;
     --tf-bg:#3a2a10; --tf-ink:#e8b458; --ts-bg:#16233a; --ts-ink:#6f9ce8; --tsp-bg:#2a1a3a; --tsp-ink:#c58ce8;
     --st-1:#5f9bd1; --st-2:#d1b23f; --st-3:#e2546a; --st-4:#a377c2; --st-5:#5cbb8a; --st-6:#e08a4e;
+    --path-color:var(--accent); --path-ink:var(--accent-ink);
     --f-display:Arial Narrow,"Helvetica Neue Condensed","Roboto Condensed",sans-serif;
     --f-body:-apple-system,"Segoe UI",Roboto,sans-serif;
     --f-mono:"SF Mono",Menlo,Consolas,monospace;
@@ -46,9 +47,9 @@
   }
   .path-card:hover{border-color:var(--dim);transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.06) inset, 0 14px 28px -12px rgba(0,0,0,.7);}
   .path-card.active{
-    background:linear-gradient(180deg, color-mix(in srgb, var(--panel-on) 100%, white 4%), var(--panel-on));
-    border-color:var(--accent);
-    box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 8px 22px -10px rgba(226,41,61,.35);
+    background:linear-gradient(180deg, color-mix(in srgb, var(--path-color) 14%, var(--panel)), color-mix(in srgb, var(--path-color) 9%, var(--panel)));
+    border-color:var(--path-color);
+    box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 8px 22px -10px color-mix(in srgb, var(--path-color) 40%, transparent);
   }
   @media (prefers-reduced-motion: reduce){ .path-card{transition:none;} }
   .path-icon{font-size:20px;margin-bottom:4px;}
@@ -85,7 +86,7 @@
     font-family:var(--f-mono);font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:99px;
     border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;text-transform:uppercase;
   }
-  .pill.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
+  .pill.on{background:var(--path-color);border-color:var(--path-color);color:var(--path-ink);}
   .pill:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
   select.mini, input.mini{
     font-family:var(--f-body);font-size:12.5px;color:var(--text);background:var(--panel-2);
@@ -121,7 +122,12 @@
     background:rgba(84,72,168,.12); -webkit-backdrop-filter:blur(18px) saturate(1.3); backdrop-filter:blur(18px) saturate(1.3);
     border:1px solid rgba(132,116,222,.18);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 1px 2px rgba(0,0,0,.5), 0 8px 20px -10px rgba(0,0,0,.65);
-    transition:background-color .28s ease, filter .32s ease;
+    transition:background-color .28s ease, filter .32s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  .entry:hover{
+    transform:translateY(-3px) scale(1.012);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 1px 3px rgba(0,0,0,.55), 0 16px 32px -14px rgba(0,0,0,.75);
+    z-index:2;
   }
   /* filter darkens the whole card as one composited image — background, text,
      badges AND the halo together — so it never fights the halo's own
@@ -352,6 +358,16 @@
     {key:"doomsday", icon:"☠️", label:"Cap sur Doomsday", desc:"Seulement ce qui mène à ce film-là"},
     {key:"rewatch", icon:"★", label:"Revoir les essentiels", desc:"Déjà tout vu ? Ceux qui valent le détour"}
   ];
+  var PATH_ACCENT = {
+    all:{c:"#e2293d", ink:"#fff5f6"},
+    doomsday:{c:"#008658", ink:"#f2fff8"},
+    rewatch:{c:"#ffffff", ink:"#141227"}
+  };
+  function applyPathAccent(key){
+    var a = PATH_ACCENT[key] || PATH_ACCENT.all;
+    document.documentElement.style.setProperty("--path-color", a.c);
+    document.documentElement.style.setProperty("--path-ink", a.ink);
+  }
   function gradesForPath(p){
     if(p === "doomsday") return ["essential","recommended"];
     if(p === "rewatch") return ["essential"];
@@ -375,6 +391,7 @@
     state.grades = gradesForPath(key);
     if(key === "rewatch") state.includeOutside = false;
     saveFilters();
+    applyPathAccent(key);
     syncPathUI();
     render();
   }
@@ -559,6 +576,7 @@
     }
   }
 
+  applyPathAccent(state.path);
   syncPathUI();
   state.grades = gradesForPath(state.path);
   render();
