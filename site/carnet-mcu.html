@@ -51,7 +51,7 @@
   .path-card.active{
     background:linear-gradient(180deg, color-mix(in srgb, var(--path-color) 14%, var(--panel)), color-mix(in srgb, var(--path-color) 9%, var(--panel)));
     border-color:var(--path-color);
-    box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 8px 22px -10px color-mix(in srgb, var(--path-color) 40%, transparent);
+    box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 0 14px color-mix(in srgb, var(--path-color) 22%, transparent);
   }
   @media (prefers-reduced-motion: reduce){ .path-card{transition:none;} }
   .path-icon{font-size:20px;margin-bottom:4px;}
@@ -64,8 +64,8 @@
   .stat{
     background:linear-gradient(180deg, color-mix(in srgb, var(--path-color) 16%, var(--panel)), color-mix(in srgb, var(--path-color) 10%, var(--panel)));
     border:1px solid color-mix(in srgb, var(--path-color) 45%, var(--border));border-radius:6px;padding:10px 8px;text-align:center;
-    box-shadow:0 0 16px color-mix(in srgb, var(--path-color) 35%, transparent);
-    transition:background .32s var(--ease-fluid), border-color .32s var(--ease-fluid), box-shadow .32s var(--ease-fluid);
+    box-shadow:none;
+    transition:background .32s var(--ease-fluid), border-color .32s var(--ease-fluid);
   }
   .stat b{display:block;font-family:var(--f-mono);font-size:19px;color:var(--text);font-variant-numeric:tabular-nums;}
   .stat span{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);}
