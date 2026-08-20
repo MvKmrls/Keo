@@ -92,12 +92,30 @@
   }
   .pill.on{background:var(--path-color);border-color:var(--path-color);color:var(--path-ink);}
   .pill:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
-  select.mini, input.mini{
+  input.mini{
     font-family:var(--f-body);font-size:12.5px;color:var(--text);background:var(--panel-2);
     border:1px solid var(--border);border-radius:5px;padding:6px 10px;
+    flex:1;min-width:140px;
   }
-  input.mini{flex:1;min-width:140px;}
   input.mini::placeholder{color:var(--dim);}
+
+  .order-toggle{
+    position:relative;overflow:hidden;height:29px;min-width:120px;padding:0 14px;border-radius:99px;
+    border:1px solid var(--border);background:var(--panel-2);cursor:pointer;
+    font-family:var(--f-mono);font-size:11px;letter-spacing:.02em;text-transform:uppercase;
+    transition:border-color .28s var(--ease-fluid);
+  }
+  .order-toggle:hover{border-color:var(--path-color);}
+  .order-toggle:focus-visible{outline:2px solid var(--path-color);outline-offset:1px;}
+  .order-label{
+    position:absolute;left:0;right:0;top:0;height:100%;display:flex;align-items:center;justify-content:center;
+    white-space:nowrap;transition:transform .32s var(--ease-fluid), opacity .32s var(--ease-fluid);
+  }
+  .order-current{color:var(--text);transform:translateY(0);opacity:1;}
+  .order-next{color:var(--path-color);transform:translateY(115%);opacity:0;}
+  .order-toggle:hover .order-current{transform:translateY(-115%);opacity:0;}
+  .order-toggle:hover .order-next{transform:translateY(0);opacity:1;}
+  @media (prefers-reduced-motion: reduce){ .order-label{transition:none;} }
   .switch-row{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.03em;cursor:pointer;user-select:none;}
   .switch{width:30px;height:17px;border-radius:99px;background:var(--panel-2);border:1px solid var(--border);position:relative;flex:none;transition:background .12s;}
   .switch.on{background:var(--accent);border-color:var(--accent);}
@@ -202,10 +220,10 @@
       <span class="f-label">Type</span>
       <div id="typePills"></div>
       <span class="f-label" style="margin-left:8px;">Ordre</span>
-      <select class="mini" id="sortSelect">
-        <option value="story">Chronologique</option>
-        <option value="release">Sortie</option>
-      </select>
+      <button type="button" class="order-toggle" id="orderToggle" aria-label="Changer l'ordre de tri">
+        <span class="order-label order-current"></span>
+        <span class="order-label order-next"></span>
+      </button>
       <input class="mini" id="search" type="text" placeholder="🔍 Rechercher…" autocomplete="off"/>
     </div>
     <div class="f-row">
@@ -419,9 +437,22 @@
     typePillsEl.appendChild(b);
   });
 
-  var sortSelect = document.getElementById("sortSelect");
-  sortSelect.value = state.sortMode;
-  sortSelect.addEventListener("change", function(){ state.sortMode = sortSelect.value; saveFilters(); render(); });
+  var ORDER_LABELS = {story:"Chronologique", release:"Sortie"};
+  var orderToggle = document.getElementById("orderToggle");
+  var orderCurrentEl = orderToggle.querySelector(".order-current");
+  var orderNextEl = orderToggle.querySelector(".order-next");
+  function syncOrderToggle(){
+    var other = state.sortMode === "story" ? "release" : "story";
+    orderCurrentEl.textContent = ORDER_LABELS[state.sortMode];
+    orderNextEl.textContent = ORDER_LABELS[other];
+  }
+  syncOrderToggle();
+  orderToggle.addEventListener("click", function(){
+    state.sortMode = state.sortMode === "story" ? "release" : "story";
+    saveFilters();
+    syncOrderToggle();
+    render();
+  });
 
   var searchInput = document.getElementById("search");
   searchInput.addEventListener("input", function(){ state.q = searchInput.value.trim().toLowerCase(); render(); });
