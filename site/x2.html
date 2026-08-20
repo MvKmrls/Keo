@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X2: X-Men United — Fiche titre</title>
+</head>
+<body>
+<style>
+  :root{
+    --bg:#0a0912; --panel:#141227; --panel-2:#1c1a33; --border:#2a2844;
+    --text:#f3f0fa; --dim:#8a86a0; --accent:#ed1d24; --accent-ink:#fff5f6;
+    --gold:#e8b458; --gold-ink:#241804; --recommend:#4fc7ba; --recommend-ink:#08211d;
+    --tf-bg:#3a2a10; --tf-ink:#e8b458; --ts-bg:#16233a; --ts-ink:#6f9ce8;
+    --st-1:#5f9bd1; --marvel-red:#ed1d24;
+    --ease-fluid:cubic-bezier(.22,1,.36,1);
+    --f-display:Arial Narrow,"Helvetica Neue Condensed","Roboto Condensed",sans-serif;
+    --f-body:-apple-system,"Segoe UI",Roboto,sans-serif;
+    --f-mono:"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--f-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--accent);color:#fff;}
+
+  .site-bar{
+    background:var(--bg);border-bottom:1px solid var(--border);padding:24px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .site-bar-brand{display:flex;align-items:center;gap:16px;}
+  .site-bar-logo{
+    width:60px;height:60px;flex:none;border-radius:7px;background:var(--marvel-red);color:#fff;
+    font-family:Arial,"Helvetica Neue",sans-serif;font-weight:900;font-size:30px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .site-bar-text{display:flex;flex-direction:column;line-height:1.2;gap:2px;}
+  .site-bar-title{font-family:var(--f-display);font-weight:800;letter-spacing:-.005em;font-size:clamp(26px,4vw,36px);text-transform:uppercase;}
+  .site-bar-title em{font-style:normal;color:var(--marvel-red);}
+  .site-bar-sub{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
+  .site-bar-badge{
+    font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
+    padding:9px 18px;border-radius:99px;background:var(--accent);color:var(--accent-ink);flex:none;
+    text-decoration:none;transition:background-color .2s ease;
+  }
+  a.site-bar-badge:hover{background:color-mix(in srgb, var(--accent) 85%, white);}
+
+  .hero{
+    position:relative;padding:24px 20px 0;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 78% -10%, color-mix(in srgb, var(--st-1) 30%, transparent), transparent 60%),
+      radial-gradient(90% 70% at 15% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 65%),
+      var(--bg);
+  }
+  .hero::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:140px;
+    background:linear-gradient(180deg, transparent, var(--bg));pointer-events:none;
+  }
+  .detail-wrap{
+    position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:16px 20px 28px;
+    display:grid;grid-template-columns:220px 1fr;gap:32px;
+  }
+  @media (max-width:680px){ .detail-wrap{grid-template-columns:1fr;} }
+
+  .poster-frame{
+    aspect-ratio:2/3;border-radius:10px;position:relative;overflow:hidden;
+    background:linear-gradient(180deg, color-mix(in srgb, var(--panel) 100%, white 3%), var(--panel));
+    border:1px dashed var(--border);
+    box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 1px 2px rgba(0,0,0,.5), 0 8px 20px -10px rgba(0,0,0,.65);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px;
+  }
+  .poster-frame .ph-icon{font-size:32px;opacity:.5;}
+  .poster-frame .ph-text{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);}
+  .post-credit-tag{
+    margin-top:10px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;
+    color:var(--dim);text-align:center;
+  }
+
+  .eyebrow-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px;}
+  .type-badge{
+    font-family:var(--f-mono);font-size:9.5px;letter-spacing:.05em;font-weight:700;text-transform:uppercase;
+    padding:4px 8px;border-radius:3px;
+  }
+  .type-badge.movie{background:var(--tf-bg);color:var(--tf-ink);}
+  .type-badge.tv{background:var(--ts-bg);color:var(--ts-ink);}
+  .phase-tag{
+    font-family:var(--f-mono);font-size:11px;color:var(--dim);
+    padding-left:8px;border-left:1px solid var(--border);
+  }
+  .phase-tag b{color:var(--st-1);}
+  .detail-title{
+    font-family:var(--f-display);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;
+    font-size:clamp(30px,5vw,44px);margin:0 0 8px;text-wrap:balance;
+  }
+  .director{color:var(--dim);font-size:14px;margin-bottom:16px;}
+  .director b{color:var(--text);font-weight:600;}
+  .meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px;font-family:var(--f-mono);font-size:12.5px;color:var(--dim);}
+  .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--border);}
+  .badge{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.03em;padding:3px 9px;border-radius:5px;text-transform:uppercase;border:1px solid;}
+  .badge.essential{border-color:var(--gold);color:var(--gold);}
+  .badge.recommended{border-color:var(--recommend);color:var(--recommend);}
+
+  .ratings-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:24px;}
+  .rating-chip{
+    display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:7px;
+    background:var(--panel);border:1px solid var(--border);
+  }
+  .rating-chip svg{width:15px;height:15px;flex:none;fill:currentColor;}
+  .rating-chip .rv{font-family:var(--f-mono);font-size:13.5px;color:var(--text);font-variant-numeric:tabular-nums;}
+  .rating-chip.letterboxd{color:#00e054;}
+  .rating-chip.imdb{color:#f5c518;}
+  .rating-chip.rt{color:#fa320a;}
+  .not-released-note{font-family:var(--f-mono);font-size:11.5px;color:var(--dim);margin-bottom:24px;padding:8px 0;}
+
+  .section-label{
+    font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+    margin:0 0 8px;
+  }
+  .synopsis-text{max-width:66ch;font-size:14.5px;color:var(--text);margin:0 0 26px;}
+
+  .watch-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;}
+  .watch-chip{
+    display:flex;flex-direction:column;gap:2px;padding:8px 14px;border-radius:7px;
+    background:var(--panel);border:1px solid var(--border);
+  }
+  .watch-chip .wc-name{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--text);}
+  .watch-chip .wc-type{font-family:var(--f-mono);font-size:9px;letter-spacing:.03em;text-transform:uppercase;}
+  .watch-chip.included .wc-type{color:var(--recommend);}
+  .watch-chip.rental .wc-type{color:var(--gold);}
+
+  .cast-section{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 20px 36px;}
+  .cast-carousel{position:relative;padding:0 34px;}
+  .cast-row{
+    display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    padding:4px 4px 14px;scrollbar-width:none;-ms-overflow-style:none;
+    mask-image:linear-gradient(90deg, transparent 0, black 28px, black calc(100% - 28px), transparent 100%);
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, black 28px, black calc(100% - 28px), transparent 100%);
+  }
+  .cast-row::-webkit-scrollbar{display:none;}
+  .cast-card{
+    flex:none;width:92px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
+    transition:transform .32s var(--ease-fluid);
+  }
+  .cast-card:hover{transform:translateY(-3px) scale(1.045);}
+  .cast-avatar{
+    width:72px;height:96px;border-radius:8px;flex:none;
+    background:linear-gradient(180deg, color-mix(in srgb, var(--panel) 100%, white 3%), var(--panel));
+    border:1px dashed var(--border);
+    box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 6px 14px -8px rgba(0,0,0,.6);
+    display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--dim);
+    transition:box-shadow .32s var(--ease-fluid);
+  }
+  .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-nav{
+    position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
+    background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;font-size:13px;
+    box-shadow:0 6px 14px -6px rgba(0,0,0,.6);
+    transition:border-color .28s var(--ease-fluid), transform .2s var(--ease-fluid);
+  }
+  .cast-nav:hover{border-color:var(--accent);}
+  .cast-nav:active{transform:scale(.92);}
+  .cast-nav.prev{left:0;}
+  .cast-nav.next{right:0;}
+  @media (prefers-reduced-motion: reduce){ .cast-row{scroll-behavior:auto;} .cast-nav{transition:none;} .cast-card{transition:none;} }
+  .cast-name{font-size:11.5px;font-weight:700;line-height:1.25;}
+  .cast-role{font-family:var(--f-mono);font-size:10px;color:var(--dim);line-height:1.3;}
+  .cast-empty{font-family:var(--f-mono);font-size:12px;color:var(--dim);}
+</style>
+
+<header class="site-bar">
+  <div class="site-bar-brand">
+    <div class="site-bar-logo">M</div>
+    <div class="site-bar-text">
+      <div class="site-bar-title">Carnet <em>MCU</em></div>
+      <div class="site-bar-sub">Mise à jour pour Doomsday</div>
+    </div>
+  </div>
+  <a class="site-bar-badge" href="carnet-mcu.html">← Retour</a>
+</header>
+
+<div class="hero">
+  <div class="detail-wrap">
+    <div class="poster-col">
+      <div class="poster-frame">
+        <div class="ph-icon">🖼️</div>
+        <div class="ph-text">Affiche à ajouter</div>
+      </div>
+      <div class="post-credit-tag">Scènes post-génériques · Aucune</div>
+    </div>
+
+    <div class="info-col">
+      <div class="eyebrow-row">
+        <span class="type-badge movie">Film</span>
+        <span class="phase-tag">FOX</span>
+      </div>
+      <h1 class="detail-title">X2: X-Men United</h1>
+      <div class="director">Réalisé par <b>Bryan Singer</b></div>
+      <div class="meta-row">
+        <span>Sorti le 2 mai 2003</span>
+        <span class="meta-dot"></span>
+        <span>2h 14m</span>
+      </div>
+      <div class="ratings-row">
+        <div class="rating-chip letterboxd"><svg role="img" viewBox="0 0 24 24" aria-label="Letterboxd"><path d="M8.224 14.352a4.447 4.447 0 0 1-3.775 2.092C1.992 16.444 0 14.454 0 12s1.992-4.444 4.45-4.444c1.592 0 2.988.836 3.774 2.092-.427.682-.673 1.488-.673 2.352s.246 1.67.673 2.352zM15.101 12c0-.864.247-1.67.674-2.352-.786-1.256-2.183-2.092-3.775-2.092s-2.989.836-3.775 2.092c.427.682.674 1.488.674 2.352s-.247 1.67-.674 2.352c.786 1.256 2.183 2.092 3.775 2.092s2.989-.836 3.775-2.092A4.42 4.42 0 0 1 15.1 12zm4.45-4.444a4.447 4.447 0 0 0-3.775 2.092c.427.682.673 1.488.673 2.352s-.246 1.67-.673 2.352a4.447 4.447 0 0 0 3.775 2.092C22.008 16.444 24 14.454 24 12s-1.992-4.444-4.45-4.444z"/></svg><span class="rv">3.8</span></div>
+        <div class="rating-chip imdb"><svg role="img" viewBox="0 0 24 24" aria-label="IMDb"><path d="M22.3781 0H1.6218C.7411.0583.0587.7437.0018 1.5953l-.001 20.783c.0585.8761.7125 1.543 1.5559 1.6191A.337.337 0 0 0 1.6016 24h20.7971a.4579.4579 0 0 0 .0437-.002c.8727-.0768 1.5568-.8271 1.5568-1.7085V1.7098c0-.8914-.696-1.6416-1.584-1.7078A.3294.3294 0 0 0 22.3781 0zm0 .496a1.2144 1.2144 0 0 1 1.1252 1.2139v20.5797c0 .6377-.4875 1.1602-1.1045 1.2145H1.6016c-.5967-.0543-1.0645-.5297-1.1053-1.1258V1.6284C.5371 1.0185 1.0184.5364 1.6217.496h20.7564zM4.7954 8.2603v7.3636H2.8899V8.2603h1.9055zm6.5367 0v7.3636H9.6707v-4.9704l-.6711 4.9704H7.813l-.6986-4.8618-.0066 4.8618h-1.668V8.2603h2.468c.0748.4476.1492.9694.2307 1.5734l.2712 1.8713.4407-3.4447h2.4817zm2.9772 1.3289c.0742.0404.122.108.1417.2034.0279.0953.0345.3118.0345.6442v2.8548c0 .4881-.0345.7867-.0955.8954-.0609.1152-.2304.1695-.5018.1695V9.5211c.204 0 .3457.0205.4211.0681zm-.0211 6.0347c.4543 0 .8006-.0265 1.0245-.0742.2304-.0477.4204-.1357.5694-.2648.1556-.1218.2642-.298.3251-.5219.0611-.2238.1021-.6648.1021-1.3224v-2.5832c0-.6986-.0271-1.1668-.0742-1.4039-.041-.237-.1431-.4543-.3126-.6437-.1695-.1973-.4198-.3324-.7456-.421-.3191-.0808-.8542-.1285-1.7694-.1285h-1.4244v7.3636h2.3051zm5.14-1.7827c0 .3523-.0199.5762-.0544.6708-.033.0947-.1894.1424-.3046.1424-.1086 0-.19-.0477-.2238-.1351-.041-.0887-.0609-.2986-.0609-.6238v-1.9469c0-.3324.0199-.5423.0543-.6237.0338-.0808.1086-.122.2171-.122.1153 0 .2709.0412.3114.1425.041.0947.0609.2986.0609.6032v1.8926zm-2.4747-5.5809v7.3636h1.7157l.1152-.4675c.1556.1894.3251.3324.5152.4271.1828.0881.4608.1357.678.1357.3047 0 .5629-.0748.7802-.237.2165-.1562.3589-.3462.4198-.5628.0543-.2173.0887-.543.0887-.9841v-2.0675c0-.4409-.0139-.7324-.0344-.8681-.0199-.1357-.0742-.2781-.1695-.4204-.1021-.1425-.2437-.251-.4272-.3325-.1834-.0742-.3999-.1152-.6576-.1152-.2172 0-.4952.0477-.6846.1285-.1835.0887-.353.2238-.5086.4007V8.2603h-1.8309z"/></svg><span class="rv">7.5</span></div>
+        <div class="rating-chip rt"><svg role="img" viewBox="0 0 24 24" aria-label="Rotten Tomatoes"><path d="M5.866 0L4.335 1.262l2.082 1.8c-2.629-.989-4.842 1.4-5.012 2.338 1.384-.323 2.24-.422 3.344-.335-7.042 4.634-4.978 13.148-1.434 16.094 5.784 4.612 13.77 3.202 17.91-1.316C27.26 13.363 22.993.65 10.86 2.766c.107-1.17.633-1.503 1.243-1.602-.89-1.493-3.67-.734-4.556 1.374C7.52 2.602 5.866 0 5.866 0zM4.422 7.217H6.9c2.673 0 2.898.012 3.55.202 1.06.307 1.868.973 2.313 1.904.05.106.092.206.13.305l7.623.008.027 2.912-2.745-.024v7.549l-2.982-.016v-7.522l-2.127.016a2.92 2.92 0 0 1-1.056 1.134c-.287.176-.3.19-.254.264.127.2 2.125 3.642 2.125 3.659l-3.39.019-2.013-3.376c-.034-.047-.122-.068-.344-.084l-.297-.02.037 3.48-3.075-.038z"/></svg><span class="rv">85%</span></div>
+      </div>
+
+      <h2 class="section-label">Synopsis</h2>
+      <p class="synopsis-text">William Stryker déclare la guerre aux mutants.</p>
+
+      <h2 class="section-label">Où regarder</h2>
+      <div class="watch-row">
+        <div class="watch-chip included"><span class="wc-name">Disney+</span><span class="wc-type">Inclus avec l'abonnement</span></div>
+        <div class="watch-chip rental"><span class="wc-name">Apple TV</span><span class="wc-type">À louer / acheter</span></div>
+        <div class="watch-chip rental"><span class="wc-name">Prime Video</span><span class="wc-type">À louer / acheter</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cast-section">
+  <h2 class="section-label">Casting</h2>
+  <div class="cast-carousel">
+    <button type="button" class="cast-nav prev" id="castPrev" aria-label="Acteurs précédents">‹</button>
+    <div class="cast-row" id="castRow"></div>
+    <button type="button" class="cast-nav next" id="castNext" aria-label="Acteurs suivants">›</button>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  "use strict";
+  
+  var CAST = [{"n": "Patrick Stewart", "r": "Professor Charles Xavier"}, {"n": "Ian McKellen", "r": "Magneto"}, {"n": "Hugh Jackman", "r": "Wolverine"}, {"n": "Halle Berry", "r": "Storm"}, {"n": "Famke Janssen", "r": "Jean Grey"}, {"n": "James Marsden", "r": "Cyclops"}, {"n": "Anna Paquin", "r": "Rogue"}, {"n": "Rebecca Romijn", "r": "Mystique"}, {"n": "Alan Cumming", "r": "Nightcrawler"}, {"n": "Brian Cox", "r": "William Stryker"}, {"n": "Shawn Ashmore", "r": "Iceman"}, {"n": "Aaron Stanford", "r": "Pyro"}, {"n": "Kelly Hu", "r": "Lady Deathstrike"}];
+  var castRow = document.getElementById("castRow");
+  castRow.innerHTML = CAST.map(function(c){
+    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+  }).join("");
+
+  var scrollStep = 3 * (92 + 18);
+  document.getElementById("castPrev").addEventListener("click", function(){ castRow.scrollBy({left:-scrollStep, behavior:"smooth"}); });
+  document.getElementById("castNext").addEventListener("click", function(){ castRow.scrollBy({left:scrollStep, behavior:"smooth"}); });
+
+})();
+</script>
+</body>
+</html>

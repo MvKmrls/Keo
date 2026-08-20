@@ -189,6 +189,8 @@
   .e-body{flex:1;min-width:0;}
   .e-title-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;}
   .e-title{font-weight:700;font-size:13.5px;}
+  a.e-title{color:inherit;text-decoration:none;}
+  a.e-title:hover{color:var(--accent);text-decoration:underline;}
   .badge{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.03em;padding:3px 9px;border-radius:5px;text-transform:uppercase;background:transparent;border:1px solid;}
   .badge.essential{border-color:var(--gold);color:var(--gold);}
   .badge.recommended{border-color:var(--recommend);color:var(--recommend);}
@@ -557,7 +559,7 @@
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
-          '<div class="e-title-row"><span class="e-title">'+item.t+'</span>'+badge+studio+'</div>' +
+          '<div class="e-title-row"><a class="e-title" href="'+item.id+'.html">'+item.t+'</a>'+badge+studio+'</div>' +
           (note ? '<div class="e-note">'+note+'</div>' : "") +
         '</div>' +
         '<div class="e-actions">' +
