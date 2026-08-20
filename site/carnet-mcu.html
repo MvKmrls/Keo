@@ -50,13 +50,6 @@
 
   .wrap{max-width:920px;margin:0 auto;padding:0 20px 90px;}
 
-  header.top{padding:44px 20px 22px;border-bottom:1px solid var(--border);}
-  .top-inner{max-width:920px;margin:0 auto;}
-  .wordmark{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:clamp(28px,5vw,40px);letter-spacing:-.01em;margin:0 0 6px;}
-  .wordmark em{font-style:normal;color:var(--marvel-red);}
-  .tagline{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:18px;}
-  .hero-blurb{max-width:66ch;color:var(--dim);font-size:14.5px;margin:0;}
-  .hero-blurb b{color:var(--text);font-weight:600;}
 
   /* ---- path picker ---- */
   .paths{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0;}
@@ -231,15 +224,7 @@
   <span class="site-bar-badge">À venir</span>
 </header>
 
-<header class="top">
-  <div class="top-inner">
-    <h1 class="wordmark">Carnet <em>MCU</em></h1>
-    <div class="tagline">Traqueur de visionnage &mdash; non officiel</div>
-    <p class="hero-blurb">Coche ce que tu as déjà vu, choisis un parcours, et suis ta progression vers <b>Avengers: Doomsday</b>. Ordre chronologique ou de sortie, essentiels mis en avant, univers annexes filtrables.</p>
-  </div>
-</header>
-
-<div class="wrap">
+<div class="wrap" style="padding-top:24px;">
   <div class="paths" id="paths"></div>
 
   <div class="stats" id="stats"></div>
