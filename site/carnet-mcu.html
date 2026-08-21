@@ -247,7 +247,7 @@
     <div class="f-row">
       <label class="switch-row" id="universeToggleRow"><div class="switch" id="universeSwitch"></div>Exclure hors Marvel Studios</label>
     </div>
-    <p class="universe-note">X-Men (Fox), Sony et Netflix sont des continuités distinctes du MCU — elles partagent des personnages et alimentent le multivers. À toi de les regarder ou de les filtrer.</p>
+    <p class="universe-note">X-Men (Fox), Sony et Netflix sont des continuités distinctes du MCU — elles partagent des personnages et alimentent le multivers. Exclure ne retire que les titres hors MCU marqués optionnels ; les essentiels et recommandés hors MCU restent affichés.</p>
     <div class="legend" id="legend"></div>
   </div>
 
@@ -274,6 +274,8 @@
     var st = userDb[item.id];
     return st === "watched" ? DOT_STATE.watched : st === "skipped" ? DOT_STATE.skipped : (GLOW[item.g] || "transparent");
   }
+  var BORDER_GLOW = {essential:"rgba(232,180,88,.4)", recommended:"rgba(79,199,186,.4)"};
+  function borderToneFor(item){ return BORDER_GLOW[item.g] || null; }
 
   var DATA = [
     {id:"agatha-all-along",t:"Agatha All Along",ty:"tv",p:5,g:"recommended",ry:2024.06,c:2025.45,rt:405,sy:"Après les événements de WandaVision, Agatha Harkness se retrouve démunie de ses pouvoirs magiques et piégée dans une illusion à Westview. Libérée par un mystérieux adolescent, elle forme un coven improvisé de sorcières pour parcourir la Route des Sorcières, une série d'épreuves périlleuses censées lui rendre sa magie.",ep:9,seas:"Saison 1"},
@@ -549,7 +551,7 @@
 
   // ---------------- filtering / sorting ----------------
   function matches(item){
-    if(item.u && state.excludeOutside) return false;
+    if(item.u && item.g === "optional" && state.excludeOutside) return false;
     if(!state.grades.includes(item.g)) return false;
     var isCompleted = userDb[item.id] === "watched" || userDb[item.id] === "skipped";
     if(state.type === "unwatched" && isCompleted) return false;
@@ -610,7 +612,7 @@
     var season = item.seas ? '<span class="season-badge">'+item.seas+'</span>' : "";
     var note = infoNote(item);
     return (
-      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+'">' +
+      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+'">' +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
