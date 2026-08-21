@@ -205,6 +205,8 @@
   .act-btn:hover{border-color:var(--dim);color:var(--text);}
   .act-btn.on-watched{border-color:var(--ok-soft);color:var(--ok-soft);}
   .act-btn.on-skipped{border-color:var(--accent-soft);color:var(--accent-soft);}
+  .act-btn.upcoming-btn{cursor:not-allowed;opacity:.6;}
+  .act-btn.upcoming-btn:hover{border-color:var(--border);color:var(--dim);}
   .entry.watched .s-btn{opacity:.35;}
   .entry.skipped .w-btn{opacity:.35;}
   @media (prefers-reduced-motion: reduce){ .act-btn{transition:none;} }
@@ -611,19 +613,24 @@
               : item.g === "recommended" ? '<span class="badge recommended">◆ Recommandé</span>' : "";
     var season = item.seas ? '<span class="season-badge">'+item.seas+'</span>' : "";
     var note = infoNote(item);
+    var isUpcoming = item.ry > 2026.08;
     var redBg = (item.red && !isWatched && !isSkipped)
       ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, var(--accent) 14%, var(--panel)) 100%)' : "";
+    var upcomingBg = (isUpcoming && !isWatched && !isSkipped)
+      ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, #ffffff 14%, var(--panel)) 100%)' : "";
+    var actions = isUpcoming
+      ? '<button class="act-btn upcoming-btn" disabled>À venir</button>'
+      : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' +
+        '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
     return (
-      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+redBg+'">' +
+      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+redBg+upcomingBg+'">' +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
           '<div class="e-title-row"><a class="e-title" href="'+item.id+'.html">'+item.t+'</a>'+season+badge+'</div>' +
           (note ? '<div class="e-note">'+note+'</div>' : "") +
         '</div>' +
-        '<div class="e-actions">' +
-          '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' +
-          '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>' +
+        '<div class="e-actions">' + actions +
         '</div>' +
       '</div>'
     );
