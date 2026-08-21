@@ -217,6 +217,8 @@
   .act-btn.on-skipped{border-color:var(--accent-soft);color:var(--accent-soft);}
   .act-btn.upcoming-btn{cursor:not-allowed;opacity:.6;}
   .act-btn.upcoming-btn:hover{border-color:var(--border);color:var(--dim);}
+  .act-btn.essential-wait-btn{cursor:not-allowed;border-color:var(--gold);color:var(--gold);opacity:.7;}
+  .act-btn.essential-wait-btn:hover{border-color:var(--gold);color:var(--gold);}
   .entry.watched .s-btn{opacity:.35;}
   .entry.skipped .w-btn{opacity:.35;}
   @media (prefers-reduced-motion: reduce){ .act-btn{transition:none;} }
@@ -626,10 +628,12 @@
     var isUpcoming = item.ry > 2026.08;
     var upcomingBg = (isUpcoming && !isWatched && !isSkipped)
       ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, var(--bg) 5%, var(--panel)) 100%)' : "";
+    var skipBtn = item.g === "essential"
+      ? '<button class="act-btn essential-wait-btn" disabled>En attente</button>'
+      : '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
     var actions = isUpcoming
       ? '<button class="act-btn upcoming-btn" disabled>'+Math.floor(item.ry)+'</button>'
-      : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' +
-        '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
+      : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' + skipBtn;
     return (
       '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+upcomingBg+'">' +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
