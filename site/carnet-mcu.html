@@ -171,6 +171,13 @@
   .entry.upcoming{filter:brightness(.9);opacity:.9;}
   .entry.upcoming .e-title{color:color-mix(in srgb, var(--text) 58%, var(--dim));}
   .entry.red-useless .e-title{color:color-mix(in srgb, var(--text) 62%, var(--dim));}
+  .entry.red-useless::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:0;border-radius:inherit;
+    background:linear-gradient(180deg, transparent 0%, transparent 62%, color-mix(in srgb, var(--accent) 14%, transparent) 100%);
+    opacity:1;transition:opacity .4s ease;
+  }
+  .entry.red-useless.watched::after,.entry.red-useless.skipped::after{opacity:0;}
+  @media (prefers-reduced-motion: reduce){ .entry.red-useless::after{transition:none;} }
   .entry::before{
     content:"";position:absolute;left:-30px;top:-8px;bottom:-8px;right:calc(100% - 60px);
     border-radius:50%;background:var(--tone);filter:blur(30px);opacity:.15;z-index:0;
@@ -617,8 +624,6 @@
     var season = item.seas ? '<span class="season-badge">'+item.seas+'</span>' : "";
     var note = infoNote(item);
     var isUpcoming = item.ry > 2026.08;
-    var redBg = (item.red && !isWatched && !isSkipped)
-      ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, var(--accent) 14%, var(--panel)) 100%)' : "";
     var upcomingBg = (isUpcoming && !isWatched && !isSkipped)
       ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, var(--bg) 5%, var(--panel)) 100%)' : "";
     var actions = isUpcoming
@@ -626,7 +631,7 @@
       : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' +
         '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
     return (
-      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+redBg+upcomingBg+'">' +
+      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+upcomingBg+'">' +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
