@@ -170,6 +170,7 @@
   .entry.watched,.entry.skipped{filter:brightness(.5);}
   .entry.upcoming{filter:brightness(.9);opacity:.9;}
   .entry.upcoming .e-title{color:color-mix(in srgb, var(--text) 58%, var(--dim));}
+  .entry.red-useless .e-title{color:color-mix(in srgb, var(--text) 80%, var(--dim));}
   .entry::before{
     content:"";position:absolute;left:-30px;top:-8px;bottom:-8px;right:calc(100% - 60px);
     border-radius:50%;background:var(--tone);filter:blur(30px);opacity:.15;z-index:0;
@@ -625,7 +626,7 @@
       : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' +
         '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
     return (
-      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+redBg+upcomingBg+'">' +
+      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+redBg+upcomingBg+'">' +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
