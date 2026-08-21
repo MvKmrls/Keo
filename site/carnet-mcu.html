@@ -168,6 +168,7 @@
      badges AND the halo together — so it never fights the halo's own
      background-color/right/border-radius transition underneath it. */
   .entry.watched,.entry.skipped{filter:brightness(.5);}
+  .entry.upcoming{filter:grayscale(.55) brightness(.82);}
   .entry::before{
     content:"";position:absolute;left:-30px;top:-8px;bottom:-8px;right:calc(100% - 60px);
     border-radius:50%;background:var(--tone);filter:blur(30px);opacity:.15;z-index:0;
@@ -623,7 +624,7 @@
       : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' +
         '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
     return (
-      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+redBg+upcomingBg+'">' +
+      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+redBg+upcomingBg+'">' +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
