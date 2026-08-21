@@ -76,8 +76,8 @@
   /* ---- stats + progress ---- */
   .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;}
   .stat{
-    background:linear-gradient(180deg, color-mix(in srgb, var(--path-color) 16%, var(--panel)), color-mix(in srgb, var(--path-color) 10%, var(--panel)));
-    border:1px solid color-mix(in srgb, var(--path-color) 45%, var(--border));border-radius:6px;padding:10px 8px;text-align:center;
+    background:linear-gradient(180deg, var(--panel), color-mix(in srgb, var(--path-color) 20%, var(--panel)));
+    border:1px solid color-mix(in srgb, var(--path-color) 45%, var(--border));border-bottom:2px solid color-mix(in srgb, var(--path-color) 70%, var(--border));border-radius:6px;padding:10px 8px;text-align:center;
     box-shadow:none;
     transition:background .32s var(--ease-fluid), border-color .32s var(--ease-fluid);
   }
