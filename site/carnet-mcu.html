@@ -169,6 +169,7 @@
      background-color/right/border-radius transition underneath it. */
   .entry.watched,.entry.skipped{filter:brightness(.5);}
   .entry.upcoming{filter:brightness(.9);}
+  .entry.upcoming .e-title{color:color-mix(in srgb, var(--text) 70%, var(--dim));}
   .entry::before{
     content:"";position:absolute;left:-30px;top:-8px;bottom:-8px;right:calc(100% - 60px);
     border-radius:50%;background:var(--tone);filter:blur(30px);opacity:.15;z-index:0;
