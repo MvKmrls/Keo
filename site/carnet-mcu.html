@@ -617,7 +617,7 @@
     var redBg = (item.red && !isWatched && !isSkipped)
       ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, var(--accent) 14%, var(--panel)) 100%)' : "";
     var upcomingBg = (isUpcoming && !isWatched && !isSkipped)
-      ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, #ffffff 14%, var(--panel)) 100%)' : "";
+      ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, #ffffff 6%, var(--panel)) 100%)' : "";
     var actions = isUpcoming
       ? '<button class="act-btn upcoming-btn" disabled>À venir</button>'
       : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' +
