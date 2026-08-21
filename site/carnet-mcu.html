@@ -274,7 +274,7 @@
     var st = userDb[item.id];
     return st === "watched" ? DOT_STATE.watched : st === "skipped" ? DOT_STATE.skipped : (GLOW[item.g] || "transparent");
   }
-  var BORDER_GLOW = {essential:"rgba(232,180,88,.2)", recommended:"rgba(79,199,186,.2)"};
+  var BORDER_GLOW = {essential:"rgba(232,180,88,.28)", recommended:"rgba(79,199,186,.28)"};
   function borderToneFor(item){ return BORDER_GLOW[item.g] || null; }
 
   var DATA = [
