@@ -457,12 +457,11 @@
     if(savedCfg){
       if(savedCfg.path) state.path = savedCfg.path;
       if(savedCfg.type) state.type = savedCfg.type;
-      if(typeof savedCfg.excludeOutside === "boolean") state.excludeOutside = savedCfg.excludeOutside;
       if(savedCfg.sortMode) state.sortMode = savedCfg.sortMode;
     }
   } catch(e){}
   function saveFilters(){
-    try{ localStorage.setItem("carnetMcuFilters", JSON.stringify({path:state.path,type:state.type,excludeOutside:state.excludeOutside,sortMode:state.sortMode})); }catch(e){}
+    try{ localStorage.setItem("carnetMcuFilters", JSON.stringify({path:state.path,type:state.type,sortMode:state.sortMode})); }catch(e){}
   }
 
   var PATHS = [
