@@ -178,6 +178,11 @@
      background-color/right/border-radius transition underneath it. */
   .entry.watched,.entry.skipped{filter:brightness(.5);}
   .entry.upcoming{filter:brightness(.9);opacity:.9;}
+  .entry.upcoming:hover{
+    transform:none;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 1px 2px rgba(0,0,0,.5), 0 8px 20px -10px rgba(0,0,0,.65);
+    z-index:auto;
+  }
   .entry.upcoming .e-title{color:color-mix(in srgb, var(--text) 58%, var(--dim));}
   .entry.red-useless .e-title{color:color-mix(in srgb, var(--text) 62%, var(--dim));}
   .entry.red-useless::after{
