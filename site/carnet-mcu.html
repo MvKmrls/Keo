@@ -51,10 +51,11 @@
   .site-bar-badge{
     font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
     padding:8px 17px;border-radius:99px;background:transparent;border:1px solid var(--path-color);color:var(--path-color);flex:none;
-    transition:border-color .32s var(--ease-fluid), color .32s var(--ease-fluid);
+    transition:border-color .32s var(--ease-fluid), color .32s var(--ease-fluid), transform .18s ease;
     cursor:pointer;
   }
-  .site-bar-badge:hover{background:color-mix(in srgb, var(--path-color) 12%, transparent);}
+  .site-bar-badge:hover{transform:scale(1.035);}
+  @media (prefers-reduced-motion: reduce){ .site-bar-badge{transition:border-color .32s var(--ease-fluid), color .32s var(--ease-fluid);} }
 
   .wrap{max-width:920px;margin:0 auto;padding:0 20px 90px;}
 
