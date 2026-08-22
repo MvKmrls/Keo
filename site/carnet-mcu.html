@@ -52,7 +52,9 @@
     font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
     padding:8px 17px;border-radius:99px;background:transparent;border:1px solid var(--path-color);color:var(--path-color);flex:none;
     transition:border-color .32s var(--ease-fluid), color .32s var(--ease-fluid);
+    cursor:pointer;
   }
+  .site-bar-badge:hover{background:color-mix(in srgb, var(--path-color) 12%, transparent);}
 
   .wrap{max-width:920px;margin:0 auto;padding:0 20px 90px;}
 
@@ -244,7 +246,7 @@
       <div class="site-bar-sub">Mise à jour pour Doomsday</div>
     </div>
   </div>
-  <span class="site-bar-badge">À venir</span>
+  <button type="button" class="site-bar-badge" id="upcomingBadge">À venir</button>
 </header>
 
 <div class="wrap" style="padding-top:24px;">
@@ -718,6 +720,12 @@
   syncPathUI();
   state.grades = gradesForPath(state.path);
   render();
+
+  document.getElementById("upcomingBadge").addEventListener("click", function(){
+    var target = document.querySelector(".entry.upcoming");
+    if(target){ target.scrollIntoView({behavior:"smooth", block:"center"}); }
+    else { window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"}); }
+  });
 })();
 </script>
 
