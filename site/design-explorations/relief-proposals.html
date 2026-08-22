@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Relief — Carnet MCU</title>
+<style>
+  :root{
+    --bg:#0a0912; --panel:#141227; --panel-2:#1c1a33; --panel-on:#3a1420; --border:#2a2844;
+    --text:#f3f0fa; --dim:#8a86a0; --accent:#e2293d; --accent-ink:#fff5f6;
+    --gold:#e8b458; --gold-ink:#241804; --recommend:#4fc7ba; --recommend-ink:#08211d;
+    --ok:#3a8f5f; --ok-soft:#438a73; --accent-soft:#cc5c67;
+    --f-display:Arial Narrow,"Helvetica Neue Condensed","Roboto Condensed",sans-serif;
+    --f-body:-apple-system,"Segoe UI",Roboto,sans-serif;
+    --f-mono:"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--f-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--accent);color:#fff;}
+  button{font-family:inherit;}
+
+  .intro{max-width:900px;margin:0 auto;padding:52px 20px 16px;}
+  .eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  h1{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:clamp(28px,5vw,40px);letter-spacing:-.01em;margin:0 0 14px;color:#fff;text-wrap:balance;}
+  .intro p{max-width:70ch;color:var(--dim);font-size:14.5px;margin:0 0 8px;}
+
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 100px;}
+  .opt{margin-top:64px;padding-top:32px;border-top:1px solid var(--border);}
+  .opt-eyebrow{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .opt-name{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:-.01em;margin:0 0 8px;color:#fff;}
+  .opt-pitch{max-width:66ch;color:var(--dim);font-size:13.5px;margin:0 0 24px;}
+
+  .demo-label{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:20px 0 10px;}
+  .demo-label:first-child{margin-top:0;}
+
+  /* ---- shared path-card layout ---- */
+  .paths{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media (max-width:640px){ .paths{grid-template-columns:1fr;} }
+  .path-icon{font-size:20px;margin-bottom:4px;}
+  .path-label{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:14px;letter-spacing:.01em;}
+  .path-desc{font-size:12px;color:var(--dim);}
+
+  /* ---- shared stats layout ---- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  @media (max-width:640px){ .stats{grid-template-columns:repeat(2,1fr);} }
+  .stat b{display:block;font-family:var(--f-mono);font-size:19px;color:var(--text);font-variant-numeric:tabular-nums;}
+  .stat span{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);}
+
+  /* ---- shared entry row layout ---- */
+  .e-num{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);width:20px;flex:none;padding-top:2px;font-variant-numeric:tabular-nums;}
+  .e-type{font-family:var(--f-mono);font-size:9px;letter-spacing:.04em;font-weight:700;padding:3px 7px;border-radius:3px;flex:none;text-transform:uppercase;margin-top:1px;background:#3a2a10;color:var(--gold);}
+  .e-body{flex:1;min-width:0;}
+  .e-title-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .e-title{font-weight:700;font-size:13.5px;}
+  .badge{font-family:var(--f-mono);font-size:10px;letter-spacing:.03em;padding:3px 9px;border-radius:5px;text-transform:uppercase;border:1px solid;flex:none;}
+  .badge.essential{border-color:var(--gold);color:var(--gold);}
+  .e-note{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.02em;color:var(--dim);margin-top:4px;text-transform:uppercase;}
+  .e-actions{display:flex;gap:6px;flex:none;margin-top:1px;}
+  .act-btn{font-family:var(--f-mono);font-size:10px;letter-spacing:.03em;padding:6px 9px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;text-transform:uppercase;}
+  .act-btn.on-watched{border-color:var(--ok-soft);color:var(--ok-soft);}
+  .entry-row{display:flex;flex-direction:column;gap:10px;}
+  .entry{display:flex;align-items:flex-start;gap:10px;padding:14px;}
+
+  /* =====================================================================
+     PROPOSAL 1 — ÉLÉVATION DOUCE (soft Material-style lift)
+  ===================================================================== */
+  .r1 .path-card, .r1 .stat, .r1 .entry, .r1 .filter-card{
+    background:linear-gradient(180deg, color-mix(in srgb, var(--panel) 100%, white 3%), var(--panel));
+    border:1px solid var(--border);
+    border-radius:10px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.05) inset,
+      0 1px 2px rgba(0,0,0,.5),
+      0 8px 20px -10px rgba(0,0,0,.65);
+  }
+  .r1 .path-card{padding:16px;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease;}
+  .r1 .path-card:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.06) inset, 0 14px 28px -12px rgba(0,0,0,.7);}
+  .r1 .path-card.active{
+    background:linear-gradient(180deg, color-mix(in srgb, var(--panel-on) 100%, white 4%), var(--panel-on));
+    border-color:var(--accent);
+    box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 8px 22px -10px rgba(226,41,61,.35);
+  }
+  .r1 .stat{padding:10px 8px;text-align:center;}
+  .r1 .entry{border-radius:12px;}
+  .r1 .filter-card{padding:14px;}
+
+  /* =====================================================================
+     PROPOSAL 2 — NEUMORPHISME SOMBRE (soft-UI, pressed / embossed)
+  ===================================================================== */
+  .r2 .path-card, .r2 .stat, .r2 .entry, .r2 .filter-card{
+    background:var(--bg);
+    border:none;
+    border-radius:14px;
+    box-shadow:
+      7px 7px 14px rgba(0,0,0,.55),
+      -5px -5px 12px rgba(255,255,255,.025);
+  }
+  .r2 .path-card{padding:16px;cursor:pointer;transition:box-shadow .18s ease;}
+  .r2 .path-card:hover{box-shadow:9px 9px 18px rgba(0,0,0,.6), -6px -6px 14px rgba(255,255,255,.03);}
+  .r2 .path-card.active{
+    box-shadow:
+      inset 5px 5px 10px rgba(0,0,0,.6),
+      inset -4px -4px 9px rgba(255,255,255,.02),
+      0 0 0 1px var(--accent);
+  }
+  .r2 .stat{padding:10px 8px;text-align:center;}
+  .r2 .entry{border-radius:16px;}
+  .r2 .filter-card{padding:14px;}
+  .r2 .act-btn{
+    background:var(--bg);border:none;border-radius:7px;
+    box-shadow:3px 3px 6px rgba(0,0,0,.55), -2px -2px 5px rgba(255,255,255,.025);
+  }
+  .r2 .act-btn.on-watched{box-shadow:inset 2px 2px 5px rgba(0,0,0,.6), inset -2px -2px 4px rgba(255,255,255,.02);}
+
+  /* =====================================================================
+     PROPOSAL 3 — BISEAU GRAVÉ (carved bevel, like enamelled medallions)
+  ===================================================================== */
+  .r3 .path-card, .r3 .stat, .r3 .entry, .r3 .filter-card{
+    background:var(--panel);
+    border-radius:6px;
+    border-top:1px solid rgba(255,255,255,.14);
+    border-left:1px solid rgba(255,255,255,.08);
+    border-right:1px solid rgba(0,0,0,.5);
+    border-bottom:1px solid rgba(0,0,0,.5);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.06),
+      0 3px 0 rgba(0,0,0,.35),
+      0 4px 10px rgba(0,0,0,.4);
+  }
+  .r3 .path-card{padding:16px;cursor:pointer;}
+  .r3 .path-card.active{
+    background:var(--panel-on);
+    border-top-color:rgba(255,140,150,.4);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 3px 0 rgba(90,10,20,.6), 0 4px 12px rgba(226,41,61,.25);
+  }
+  .r3 .stat{padding:10px 8px;text-align:center;}
+  .r3 .entry{border-radius:8px;}
+  .r3 .filter-card{padding:14px;}
+  .r3 .e-type, .r3 .badge{
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.15), inset 0 -1px 0 rgba(0,0,0,.3);
+  }
+
+  /* =====================================================================
+     PROPOSAL 4 — VERRE ÉPAIS (thick glass slab, refractive edge)
+  ===================================================================== */
+  .r4-stage{position:relative;border-radius:16px;padding:18px;overflow:hidden;background:radial-gradient(120% 100% at 20% 0%, #2a1440, var(--bg) 60%);}
+  .r4 .path-card, .r4 .stat, .r4 .entry, .r4 .filter-card{
+    position:relative;
+    background:linear-gradient(155deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
+    -webkit-backdrop-filter:blur(14px) saturate(1.4); backdrop-filter:blur(14px) saturate(1.4);
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:14px;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255,255,255,.35),
+      inset 0 -1px 0 rgba(0,0,0,.25),
+      0 16px 32px -16px rgba(0,0,0,.7);
+  }
+  .r4 .path-card{padding:16px;cursor:pointer;}
+  .r4 .path-card.active{
+    background:linear-gradient(155deg, rgba(226,41,61,.28), rgba(226,41,61,.06));
+    border-color:rgba(255,140,150,.4);
+  }
+  .r4 .stat{padding:10px 8px;text-align:center;}
+  .r4 .entry{border-radius:16px;}
+  .r4 .filter-card{padding:14px;}
+
+  /* =====================================================================
+     PROPOSAL 5 — ENCASTRÉ / GRAVÉ (recessed into the panel, popped controls)
+  ===================================================================== */
+  .r5 .path-card, .r5 .stat, .r5 .entry, .r5 .filter-card{
+    background:var(--panel-2);
+    border-radius:8px;
+    box-shadow:
+      inset 0 2px 5px rgba(0,0,0,.55),
+      inset 0 -1px 0 rgba(255,255,255,.03);
+  }
+  .r5 .path-card{padding:16px;cursor:pointer;}
+  .r5 .path-card.active{
+    background:var(--panel-on);
+    box-shadow:inset 0 2px 6px rgba(0,0,0,.6), inset 0 0 0 1px rgba(226,41,61,.5);
+  }
+  .r5 .stat{padding:10px 8px;text-align:center;}
+  .r5 .entry{border-radius:10px;}
+  .r5 .filter-card{padding:14px;}
+  .r5 .act-btn{
+    background:var(--panel);border-radius:6px;border:1px solid var(--border);
+    box-shadow:0 2px 4px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.05) inset;
+  }
+  .r5 .badge{
+    background:var(--panel);box-shadow:0 2px 4px rgba(0,0,0,.4);
+  }
+</style>
+
+<div class="intro">
+  <div class="eyebrow">Carnet MCU &mdash; exploration de relief</div>
+  <h1>Donner du volume aux cadres</h1>
+  <p>Cinq façons de sortir les cartes (parcours, stats, entrées, filtres) du plat actuel &mdash; chacune appliquée aux mêmes trois éléments du site pour comparer directement. Une carte "vue"/"active" est incluse dans chaque exemple pour voir comment l'état se lit en relief.</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ PROPOSAL 1 ============ -->
+  <section class="opt r1">
+    <div class="opt-eyebrow">Proposition 1</div>
+    <h2 class="opt-name">Élévation douce</h2>
+    <p class="opt-pitch">Un léger dégradé plus clair en haut de chaque carte + une ombre portée à deux niveaux (proche et diffuse), comme si chaque bloc flottait légèrement au-dessus du fond. La carte active se soulève encore un peu plus. Sobre, proche de l'existant, lisible dans les deux sens de lecture.</p>
+
+    <div class="demo-label">Parcours</div>
+    <div class="paths">
+      <div class="path-card"><div class="path-icon">🧭</div><div class="path-label">Nouveau sur Marvel</div><div class="path-desc">Tout, dans l'ordre</div></div>
+      <div class="path-card active"><div class="path-icon">☠️</div><div class="path-label">Cap sur Doomsday</div><div class="path-desc">Sélectionné</div></div>
+      <div class="path-card"><div class="path-icon">★</div><div class="path-label">Revoir les essentiels</div><div class="path-desc">Les incontournables</div></div>
+    </div>
+
+    <div class="demo-label">Statistiques</div>
+    <div class="stats">
+      <div class="stat"><b>62</b><span>Total</span></div>
+      <div class="stat"><b>18</b><span>Vus</span></div>
+      <div class="stat"><b>44</b><span>Restants</span></div>
+      <div class="stat"><b>112h</b><span>Restantes</span></div>
+    </div>
+
+    <div class="demo-label">Entrées</div>
+    <div class="entry-row">
+      <div class="entry"><div class="e-num">01</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">Captain America: The First Avenger</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">1 scène post-générique</div></div><div class="e-actions"><button class="act-btn on-watched">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+      <div class="entry"><div class="e-num">06</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">The Avengers</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">2 scènes post-génériques</div></div><div class="e-actions"><button class="act-btn">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+    </div>
+
+    <div class="demo-label">Carte de filtres</div>
+    <div class="filter-card"><span style="font-family:var(--f-mono);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;">Type · Ordre · Recherche</span></div>
+  </section>
+
+  <!-- ============ PROPOSAL 2 ============ -->
+  <section class="opt r2">
+    <div class="opt-eyebrow">Proposition 2</div>
+    <h2 class="opt-name">Neumorphisme sombre</h2>
+    <p class="opt-pitch">Les cartes se fondent dans le fond général (même couleur) et n'existent que par un jeu d'ombres doubles &mdash; une ombre sombre en bas-droite, un léger reflet clair en haut-gauche &mdash; comme moulées dans la même matière que la page. L'état actif/coché s'inverse en creux plutôt qu'en couleur. Très doux, mais demande un fond uni pour bien fonctionner.</p>
+
+    <div class="demo-label">Parcours</div>
+    <div class="paths">
+      <div class="path-card"><div class="path-icon">🧭</div><div class="path-label">Nouveau sur Marvel</div><div class="path-desc">Tout, dans l'ordre</div></div>
+      <div class="path-card active"><div class="path-icon">☠️</div><div class="path-label">Cap sur Doomsday</div><div class="path-desc">Sélectionné</div></div>
+      <div class="path-card"><div class="path-icon">★</div><div class="path-label">Revoir les essentiels</div><div class="path-desc">Les incontournables</div></div>
+    </div>
+
+    <div class="demo-label">Statistiques</div>
+    <div class="stats">
+      <div class="stat"><b>62</b><span>Total</span></div>
+      <div class="stat"><b>18</b><span>Vus</span></div>
+      <div class="stat"><b>44</b><span>Restants</span></div>
+      <div class="stat"><b>112h</b><span>Restantes</span></div>
+    </div>
+
+    <div class="demo-label">Entrées</div>
+    <div class="entry-row">
+      <div class="entry"><div class="e-num">01</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">Captain America: The First Avenger</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">1 scène post-générique</div></div><div class="e-actions"><button class="act-btn on-watched">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+      <div class="entry"><div class="e-num">06</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">The Avengers</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">2 scènes post-génériques</div></div><div class="e-actions"><button class="act-btn">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+    </div>
+
+    <div class="demo-label">Carte de filtres</div>
+    <div class="filter-card"><span style="font-family:var(--f-mono);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;">Type · Ordre · Recherche</span></div>
+  </section>
+
+  <!-- ============ PROPOSAL 3 ============ -->
+  <section class="opt r3">
+    <div class="opt-eyebrow">Proposition 3</div>
+    <h2 class="opt-name">Biseau gravé</h2>
+    <p class="opt-pitch">Chaque carte a un bord biseauté &mdash; clair en haut, sombre en bas &mdash; façon plaque émaillée ou médaillon de collection, avec une ombre franche décalée de 3px qui donne une vraie épaisseur physique. Fait écho au ton "carnet de collection" du site plutôt qu'à une UI logicielle plate.</p>
+
+    <div class="demo-label">Parcours</div>
+    <div class="paths">
+      <div class="path-card"><div class="path-icon">🧭</div><div class="path-label">Nouveau sur Marvel</div><div class="path-desc">Tout, dans l'ordre</div></div>
+      <div class="path-card active"><div class="path-icon">☠️</div><div class="path-label">Cap sur Doomsday</div><div class="path-desc">Sélectionné</div></div>
+      <div class="path-card"><div class="path-icon">★</div><div class="path-label">Revoir les essentiels</div><div class="path-desc">Les incontournables</div></div>
+    </div>
+
+    <div class="demo-label">Statistiques</div>
+    <div class="stats">
+      <div class="stat"><b>62</b><span>Total</span></div>
+      <div class="stat"><b>18</b><span>Vus</span></div>
+      <div class="stat"><b>44</b><span>Restants</span></div>
+      <div class="stat"><b>112h</b><span>Restantes</span></div>
+    </div>
+
+    <div class="demo-label">Entrées</div>
+    <div class="entry-row">
+      <div class="entry"><div class="e-num">01</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">Captain America: The First Avenger</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">1 scène post-générique</div></div><div class="e-actions"><button class="act-btn on-watched">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+      <div class="entry"><div class="e-num">06</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">The Avengers</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">2 scènes post-génériques</div></div><div class="e-actions"><button class="act-btn">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+    </div>
+
+    <div class="demo-label">Carte de filtres</div>
+    <div class="filter-card"><span style="font-family:var(--f-mono);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;">Type · Ordre · Recherche</span></div>
+  </section>
+
+  <!-- ============ PROPOSAL 4 ============ -->
+  <section class="opt r4">
+    <div class="opt-eyebrow">Proposition 4</div>
+    <h2 class="opt-name">Verre épais</h2>
+    <p class="opt-pitch">Un flou plus fort et un dégradé diagonal donnent l'impression d'une plaque de verre épaisse posée sur le fond &mdash; reflet net en haut du bord, ombre profonde en dessous. Va plus loin dans le "Liquid Glass" que vos essais précédents en ajoutant une vraie ombre portée sous chaque bloc pour simuler l'épaisseur, pas seulement la transparence.</p>
+
+    <div class="r4-stage">
+      <div class="r4">
+        <div class="demo-label" style="color:#c9c4de;">Parcours</div>
+        <div class="paths">
+          <div class="path-card"><div class="path-icon">🧭</div><div class="path-label">Nouveau sur Marvel</div><div class="path-desc">Tout, dans l'ordre</div></div>
+          <div class="path-card active"><div class="path-icon">☠️</div><div class="path-label">Cap sur Doomsday</div><div class="path-desc">Sélectionné</div></div>
+          <div class="path-card"><div class="path-icon">★</div><div class="path-label">Revoir les essentiels</div><div class="path-desc">Les incontournables</div></div>
+        </div>
+
+        <div class="demo-label" style="color:#c9c4de;">Statistiques</div>
+        <div class="stats">
+          <div class="stat"><b>62</b><span>Total</span></div>
+          <div class="stat"><b>18</b><span>Vus</span></div>
+          <div class="stat"><b>44</b><span>Restants</span></div>
+          <div class="stat"><b>112h</b><span>Restantes</span></div>
+        </div>
+
+        <div class="demo-label" style="color:#c9c4de;">Entrées</div>
+        <div class="entry-row">
+          <div class="entry"><div class="e-num">01</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">Captain America: The First Avenger</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">1 scène post-générique</div></div><div class="e-actions"><button class="act-btn on-watched">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+          <div class="entry"><div class="e-num">06</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">The Avengers</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">2 scènes post-génériques</div></div><div class="e-actions"><button class="act-btn">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+        </div>
+
+        <div class="demo-label" style="color:#c9c4de;">Carte de filtres</div>
+        <div class="filter-card"><span style="font-family:var(--f-mono);font-size:11px;color:#d8d4e6;text-transform:uppercase;letter-spacing:.1em;">Type · Ordre · Recherche</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROPOSAL 5 ============ -->
+  <section class="opt r5">
+    <div class="opt-eyebrow">Proposition 5</div>
+    <h2 class="opt-name">Encastré / gravé</h2>
+    <p class="opt-pitch">Direction inversée : les cartes sont légèrement enfoncées dans la page (ombre interne, comme creusées dans la surface), tandis que les éléments cliquables (boutons, badges) ressortent en relief au-dessus. Ça crée une vraie hiérarchie de profondeur &mdash; contenu en retrait, actions en avant &mdash; plutôt qu'un seul niveau de relief partout.</p>
+
+    <div class="demo-label">Parcours</div>
+    <div class="paths">
+      <div class="path-card"><div class="path-icon">🧭</div><div class="path-label">Nouveau sur Marvel</div><div class="path-desc">Tout, dans l'ordre</div></div>
+      <div class="path-card active"><div class="path-icon">☠️</div><div class="path-label">Cap sur Doomsday</div><div class="path-desc">Sélectionné</div></div>
+      <div class="path-card"><div class="path-icon">★</div><div class="path-label">Revoir les essentiels</div><div class="path-desc">Les incontournables</div></div>
+    </div>
+
+    <div class="demo-label">Statistiques</div>
+    <div class="stats">
+      <div class="stat"><b>62</b><span>Total</span></div>
+      <div class="stat"><b>18</b><span>Vus</span></div>
+      <div class="stat"><b>44</b><span>Restants</span></div>
+      <div class="stat"><b>112h</b><span>Restantes</span></div>
+    </div>
+
+    <div class="demo-label">Entrées</div>
+    <div class="entry-row">
+      <div class="entry"><div class="e-num">01</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">Captain America: The First Avenger</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">1 scène post-générique</div></div><div class="e-actions"><button class="act-btn on-watched">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+      <div class="entry"><div class="e-num">06</div><div class="e-type">Film</div><div class="e-body"><div class="e-title-row"><span class="e-title">The Avengers</span><span class="badge essential">★ Essentiel</span></div><div class="e-note">2 scènes post-génériques</div></div><div class="e-actions"><button class="act-btn">✓ Vu</button><button class="act-btn">✕ Passer</button></div></div>
+    </div>
+
+    <div class="demo-label">Carte de filtres</div>
+    <div class="filter-card"><span style="font-family:var(--f-mono);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;">Type · Ordre · Recherche</span></div>
+  </section>
+
+</div>
+</html>
