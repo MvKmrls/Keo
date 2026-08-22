@@ -515,8 +515,6 @@
   function setPath(key){
     state.path = key;
     state.grades = gradesForPath(key);
-    state.excludeOutside = (key === "rewatch");
-    universeSwitch.classList.toggle("on", state.excludeOutside);
     saveFilters();
     applyPathAccent(key);
     syncPathUI();
