@@ -609,7 +609,8 @@
   // ---------------- filtering / sorting ----------------
   function matches(item){
     if(item.u && item.g === "optional" && state.excludeOutside) return false;
-    if(!state.grades.includes(item.g)) return false;
+    var isDoomFinale = state.path === "doomsday" && item.id === "avengers-doomsday";
+    if(!state.grades.includes(item.g) && !isDoomFinale) return false;
     var isCompleted = userDb[item.id] === "watched" || userDb[item.id] === "skipped";
     if(state.type === "unwatched" && isCompleted) return false;
     if(state.type === "movie" && item.ty !== "movie") return false;
