@@ -661,7 +661,7 @@
           '<div class="e-title-row"><a class="e-title" href="'+item.id+'.html">'+item.t+'</a>'+season+badge+'</div>' +
           (note ? '<div class="e-note">'+note+'</div>' : "") +
         '</div>' +
-        '<div class="e-year">'+Math.floor(item.ry)+'</div>' +
+        (state.sortMode === "release" ? '<div class="e-year">'+Math.floor(item.ry)+'</div>' : "") +
         '<div class="e-actions">' + actions +
         '</div>' +
       '</div>'
