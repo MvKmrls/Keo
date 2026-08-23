@@ -202,6 +202,7 @@
     transition:background-color .45s ease, right .45s ease, border-radius .45s ease, opacity .45s ease;
   }
   .entry.watched::before,.entry.skipped::before{right:-30px;border-radius:40px;opacity:.08;}
+  .entry.doom-glow::before{opacity:.3;}
   .entry.watched{background:rgba(131,191,172,.09);}
   .entry.skipped{background:rgba(204,92,103,.07);}
   .entry > *{position:relative;z-index:1;}
@@ -307,7 +308,7 @@
   var HC_BANDS = [2013,2016,2021,2023,2026];
   function hcBand(ry){ for(var i=0;i<HC_BANDS.length;i++){ if(ry < HC_BANDS[i]) return i+1; } return 6; }
   var GLOW = {essential:"rgba(232,180,88,.85)", recommended:"rgba(79,199,186,.85)"};
-  var GLOW_DOOM = "rgba(120,165,69,.85)";
+  var GLOW_DOOM = "rgba(131,241,141,.95)";
   var DOT_STATE = {watched:"rgba(131,191,172,.85)", skipped:"rgba(204,92,103,.85)"};
   function toneFor(item){
     var st = userDb[item.id];
@@ -652,7 +653,7 @@
     var isSkipped = userDb[item.id] === "skipped";
     var typeLabel = item.ty === "movie" ? "Film" : item.ty === "tv" ? "Série" : "Spécial";
     var isDoomEssential = state.path === "doomsday" && !!item.doom;
-    var badge = isDoomEssential ? '<span class="badge doom-essential">★ Essentiel pour Doomsday</span>'
+    var badge = isDoomEssential ? '<span class="badge doom-essential">▲ Essentiel pour Doomsday</span>'
               : item.g === "essential" ? '<span class="badge essential">★ Essentiel</span>'
               : item.g === "recommended" ? '<span class="badge recommended">◆ Recommandé</span>' : "";
     var season = item.seas ? '<span class="season-badge">'+item.seas+'</span>' : "";
@@ -667,7 +668,7 @@
       ? '<button class="act-btn upcoming-btn" disabled>'+Math.floor(item.ry)+'</button>'
       : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' + skipBtn;
     return (
-      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+upcomingBg+'">' +
+      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+(isDoomEssential&&!isWatched&&!isSkipped?' doom-glow':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+upcomingBg+'">' +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
