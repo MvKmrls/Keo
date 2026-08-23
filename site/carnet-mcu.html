@@ -148,6 +148,9 @@
   .switch::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:var(--dim);transition:left .12s, background .12s;}
   .switch.on::after{left:15px;background:var(--path-color);}
   .universe-note{font-size:11px;color:var(--dim);margin-top:8px;max-width:70ch;}
+  #universeSection{transition:opacity .28s ease;}
+  #universeSection.inactive{opacity:.4;pointer-events:none;}
+  @media (prefers-reduced-motion: reduce){ #universeSection{transition:none;} }
 
   .legend{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-family:var(--f-mono);font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.03em;}
   .legend-item{display:flex;align-items:center;gap:5px;}
@@ -284,10 +287,12 @@
       </button>
       <input class="mini" id="search" type="text" placeholder="Rechercher…" autocomplete="off"/>
     </div>
-    <div class="f-row">
-      <label class="switch-row" id="universeToggleRow"><div class="switch" id="universeSwitch"></div>Exclure hors Marvel Studios</label>
+    <div id="universeSection">
+      <div class="f-row">
+        <label class="switch-row" id="universeToggleRow"><div class="switch" id="universeSwitch"></div>Exclure hors Marvel Studios</label>
+      </div>
+      <p class="universe-note">X-Men (Fox), Sony et Netflix sont des continuités distinctes du MCU — elles partagent des personnages et alimentent le multivers. Exclure ne retire que les titres hors MCU marqués optionnels ; les essentiels et recommandés hors MCU restent affichés.</p>
     </div>
-    <p class="universe-note">X-Men (Fox), Sony et Netflix sont des continuités distinctes du MCU — elles partagent des personnages et alimentent le multivers. Exclure ne retire que les titres hors MCU marqués optionnels ; les essentiels et recommandés hors MCU restent affichés.</p>
     <div class="legend" id="legend"></div>
   </div>
 
@@ -542,6 +547,8 @@
     pathsEl.querySelectorAll(".path-card").forEach(function(el){
       el.classList.toggle("active", el.dataset.key === state.path);
     });
+    document.getElementById("universeSection").classList.toggle("inactive", state.path === "doomsday" || state.path === "rewatch");
+    renderLegend();
   }
 
   var TYPE_PILLS = [{k:"all",l:"Tout"},{k:"unwatched",l:"Non vus"},{k:"movie",l:"Films"},{k:"tv",l:"Séries"}];
@@ -587,14 +594,17 @@
   });
 
   var legend = document.getElementById("legend");
-  legend.innerHTML =
-    '<div class="legend-item"><div class="ldot" style="background:var(--tf-ink)"></div>Film</div>' +
-    '<div class="legend-item"><div class="ldot" style="background:var(--ts-ink)"></div>Série</div>' +
-    '<div class="legend-item"><div class="ldot" style="background:var(--tsp-ink)"></div>Spécial</div>' +
-    '<div class="legend-item"><div class="ldot" style="background:#78a545"></div>▶ Essentiel pour Doomsday</div>' +
-    '<div class="legend-item"><div class="ldot" style="background:var(--gold)"></div>★ Essentiel</div>' +
-    '<div class="legend-item"><div class="ldot" style="background:var(--recommend)"></div>◆ Recommandé</div>' +
-    '<div class="legend-item">Optionnel = sans badge</div>';
+  function renderLegend(){
+    legend.innerHTML =
+      '<div class="legend-item"><div class="ldot" style="background:var(--tf-ink)"></div>Film</div>' +
+      '<div class="legend-item"><div class="ldot" style="background:var(--ts-ink)"></div>Série</div>' +
+      '<div class="legend-item"><div class="ldot" style="background:var(--tsp-ink)"></div>Spécial</div>' +
+      (state.path === "doomsday" ? '<div class="legend-item"><div class="ldot" style="background:#78a545"></div>▶ Essentiel pour Doomsday</div>' : "") +
+      '<div class="legend-item"><div class="ldot" style="background:var(--gold)"></div>★ Essentiel</div>' +
+      '<div class="legend-item"><div class="ldot" style="background:var(--recommend)"></div>◆ Recommandé</div>' +
+      '<div class="legend-item">Optionnel = sans badge</div>';
+  }
+  renderLegend();
 
   // ---------------- filtering / sorting ----------------
   function matches(item){
