@@ -204,7 +204,14 @@
     opacity:1;transition:opacity .4s ease;
   }
   .entry.doom-finale.watched::after,.entry.doom-finale.skipped::after{opacity:0;}
-  @media (prefers-reduced-motion: reduce){ .entry.red-useless::after,.entry.doom-finale::after{transition:none;} }
+  .doom-border{
+    position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;padding:1px;
+    background:linear-gradient(180deg, transparent 0%, transparent 30%, rgb(131,241,141) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    opacity:1;transition:opacity .4s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ .entry.red-useless::after,.entry.doom-finale::after,.doom-border{transition:none;} }
   .entry::before{
     content:"";position:absolute;left:-30px;top:-8px;bottom:-8px;right:calc(100% - 60px);
     border-radius:50%;background:var(--tone);filter:blur(30px);opacity:.15;z-index:0;
@@ -689,6 +696,7 @@
       : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' + skipBtn;
     return (
       '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+(isDoomEssential&&!isWatched&&!isSkipped?' doom-glow':'')+(isDoomFinale?' doom-finale':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+upcomingBg+'">' +
+        (isDoomFinale && !isWatched && !isSkipped ? '<div class="doom-border"></div>' : "") +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
