@@ -198,7 +198,13 @@
     opacity:1;transition:opacity .4s ease;
   }
   .entry.red-useless.watched::after,.entry.red-useless.skipped::after{opacity:0;}
-  @media (prefers-reduced-motion: reduce){ .entry.red-useless::after{transition:none;} }
+  .entry.doom-finale::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:0;border-radius:inherit;
+    background:linear-gradient(180deg, transparent 0%, transparent 62%, color-mix(in srgb, var(--path-color) 14%, transparent) 100%);
+    opacity:1;transition:opacity .4s ease;
+  }
+  .entry.doom-finale.watched::after,.entry.doom-finale.skipped::after{opacity:0;}
+  @media (prefers-reduced-motion: reduce){ .entry.red-useless::after,.entry.doom-finale::after{transition:none;} }
   .entry::before{
     content:"";position:absolute;left:-30px;top:-8px;bottom:-8px;right:calc(100% - 60px);
     border-radius:50%;background:var(--tone);filter:blur(30px);opacity:.15;z-index:0;
@@ -666,6 +672,7 @@
     var isSkipped = userDb[item.id] === "skipped";
     var typeLabel = item.ty === "movie" ? "Film" : item.ty === "tv" ? "Série" : "Spécial";
     var isDoomEssential = state.path === "doomsday" && !!item.doom;
+    var isDoomFinale = state.path === "doomsday" && item.id === "avengers-doomsday";
     var badge = isDoomEssential ? '<span class="badge doom-essential"><span class="doom-tri">▶</span> Essentiel pour Doomsday</span>'
               : item.g === "essential" ? '<span class="badge essential">★ Essentiel</span>'
               : item.g === "recommended" ? '<span class="badge recommended">◆ Recommandé</span>' : "";
@@ -681,7 +688,7 @@
       ? '<button class="act-btn upcoming-btn" disabled>'+Math.floor(item.ry)+'</button>'
       : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' + skipBtn;
     return (
-      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+(isDoomEssential&&!isWatched&&!isSkipped?' doom-glow':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+upcomingBg+'">' +
+      '<div class="entry'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+(isUpcoming?' upcoming':'')+(item.red?' red-useless':'')+(isDoomEssential&&!isWatched&&!isSkipped?' doom-glow':'')+(isDoomFinale?' doom-finale':'')+'" data-id="'+item.id+'" style="--tone:'+toneFor(item)+(borderToneFor(item)?';border-color:'+borderToneFor(item):'')+upcomingBg+'">' +
         '<div class="e-num">'+String(idx).padStart(2,"0")+'</div>' +
         '<div class="e-type '+item.ty+'">'+typeLabel+'</div>' +
         '<div class="e-body">' +
