@@ -226,7 +226,6 @@
   .badge.essential{border-color:var(--gold);color:var(--gold);}
   .badge.recommended{border-color:var(--recommend);color:var(--recommend);}
   .badge.doom-essential{border-color:var(--path-color);color:var(--path-color);}
-  .doom-tri{display:inline-block;font-size:.72em;vertical-align:1px;}
   .season-badge{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.05em;padding:2px 6px;border-radius:3px;border:1px solid var(--border);color:var(--dim);}
   .e-note{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.02em;color:var(--dim);margin-top:4px;text-transform:uppercase;}
   .e-year{font-family:var(--f-mono);font-size:10px;color:var(--dim);opacity:.4;letter-spacing:.02em;flex:none;margin-top:1px;padding-top:7px;font-variant-numeric:tabular-nums;}
@@ -591,7 +590,7 @@
     '<div class="legend-item"><div class="ldot" style="background:var(--tf-ink)"></div>Film</div>' +
     '<div class="legend-item"><div class="ldot" style="background:var(--ts-ink)"></div>Série</div>' +
     '<div class="legend-item"><div class="ldot" style="background:var(--tsp-ink)"></div>Spécial</div>' +
-    '<div class="legend-item"><div class="ldot" style="background:#78a545"></div>▶ Essentiel pour Doomsday</div>' +
+    '<div class="legend-item"><div class="ldot" style="background:#78a545"></div>▸ Essentiel pour Doomsday</div>' +
     '<div class="legend-item"><div class="ldot" style="background:var(--gold)"></div>★ Essentiel</div>' +
     '<div class="legend-item"><div class="ldot" style="background:var(--recommend)"></div>◆ Recommandé</div>' +
     '<div class="legend-item">Optionnel = sans badge</div>';
@@ -655,7 +654,7 @@
     var isSkipped = userDb[item.id] === "skipped";
     var typeLabel = item.ty === "movie" ? "Film" : item.ty === "tv" ? "Série" : "Spécial";
     var isDoomEssential = state.path === "doomsday" && !!item.doom;
-    var badge = isDoomEssential ? '<span class="badge doom-essential"><span class="doom-tri">▶</span> Essentiel pour Doomsday</span>'
+    var badge = isDoomEssential ? '<span class="badge doom-essential">▸ Essentiel pour Doomsday</span>'
               : item.g === "essential" ? '<span class="badge essential">★ Essentiel</span>'
               : item.g === "recommended" ? '<span class="badge recommended">◆ Recommandé</span>' : "";
     var season = item.seas ? '<span class="season-badge">'+item.seas+'</span>' : "";
