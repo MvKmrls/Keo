@@ -154,6 +154,8 @@
     transition:box-shadow .32s var(--ease-fluid);
   }
   .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-avatar.has-photo{border:none;padding:0;}
+  .cast-avatar.has-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;}
   .cast-nav{
     position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
     background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
@@ -234,10 +236,11 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Tom Holland", "r": "Peter Parker / Spider-Man"}, {"n": "Zendaya", "r": "MJ"}, {"n": "Jacob Batalon", "r": "Ned Leeds"}, {"n": "Benedict Cumberbatch", "r": "Doctor Strange"}, {"n": "Jon Favreau", "r": "Happy Hogan"}, {"n": "Jamie Foxx", "r": "Electro"}, {"n": "Willem Dafoe", "r": "Green Goblin"}, {"n": "Alfred Molina", "r": "Doc Ock"}, {"n": "Marisa Tomei", "r": "Aunt May"}, {"n": "Andrew Garfield", "r": "Peter Parker (Earth-833)"}, {"n": "Tobey Maguire", "r": "Peter Parker (Earth-96283)"}, {"n": "Benedict Wong", "r": "Wong"}, {"n": "Rhys Ifans", "r": "The Lizard"}, {"n": "Tony Revolori", "r": "Flash Thompson"}];
+  var CAST = [{"n": "Tom Holland", "r": "Peter Parker / Spider-Man"}, {"n": "Zendaya", "r": "MJ"}, {"n": "Jacob Batalon", "r": "Ned Leeds", "p": "jacob-batalon"}, {"n": "Benedict Cumberbatch", "r": "Doctor Strange", "p": "benedict-cumberbatch"}, {"n": "Jon Favreau", "r": "Happy Hogan", "p": "jon-favreau"}, {"n": "Jamie Foxx", "r": "Electro", "p": "jamie-foxx"}, {"n": "Willem Dafoe", "r": "Green Goblin"}, {"n": "Alfred Molina", "r": "Doc Ock", "p": "alfred-molina"}, {"n": "Marisa Tomei", "r": "Aunt May"}, {"n": "Andrew Garfield", "r": "Peter Parker (Earth-833)", "p": "andrew-garfield"}, {"n": "Tobey Maguire", "r": "Peter Parker (Earth-96283)"}, {"n": "Benedict Wong", "r": "Wong", "p": "benedict-wong"}, {"n": "Rhys Ifans", "r": "The Lizard"}, {"n": "Tony Revolori", "r": "Flash Thompson"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
-    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+    var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
+    return '<div class="cast-card">'+av+'<div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
   }).join("");
 
   var scrollStep = 3 * (92 + 18);

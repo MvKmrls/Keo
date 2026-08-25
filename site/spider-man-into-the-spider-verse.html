@@ -154,6 +154,8 @@
     transition:box-shadow .32s var(--ease-fluid);
   }
   .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-avatar.has-photo{border:none;padding:0;}
+  .cast-avatar.has-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;}
   .cast-nav{
     position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
     background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
@@ -234,10 +236,11 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Shameik Moore", "r": "Miles Morales / Spider-Man"}, {"n": "Jake Johnson", "r": "Peter B. Parker / Spider-Man"}, {"n": "Hailee Steinfeld", "r": "Gwen Stacy / Spider-Woman"}, {"n": "Mahershala Ali", "r": "Aaron Davis / The Prowler"}, {"n": "Brian Tyree Henry", "r": "Jefferson Davis"}, {"n": "Lily Tomlin", "r": "Aunt May"}, {"n": "Luna Lauren Velez", "r": "Rio Morales"}, {"n": "Kimiko Glenn", "r": "Peni Parker"}, {"n": "Nicolas Cage", "r": "Spider-Man Noir"}, {"n": "John Mulaney", "r": "Peter Porker / Spider-Ham"}, {"n": "Kathryn Hahn", "r": "Olivia Octavius / Doctor Octopus"}, {"n": "Liev Schreiber", "r": "Wilson Fisk / Kingpin"}, {"n": "Chris Pine", "r": "Peter Parker"}];
+  var CAST = [{"n": "Shameik Moore", "r": "Miles Morales / Spider-Man"}, {"n": "Jake Johnson", "r": "Peter B. Parker / Spider-Man", "p": "jake-johnson"}, {"n": "Hailee Steinfeld", "r": "Gwen Stacy / Spider-Woman", "p": "hailee-steinfeld"}, {"n": "Mahershala Ali", "r": "Aaron Davis / The Prowler"}, {"n": "Brian Tyree Henry", "r": "Jefferson Davis", "p": "brian-tyree-henry"}, {"n": "Lily Tomlin", "r": "Aunt May"}, {"n": "Luna Lauren Velez", "r": "Rio Morales"}, {"n": "Kimiko Glenn", "r": "Peni Parker", "p": "kimiko-glenn"}, {"n": "Nicolas Cage", "r": "Spider-Man Noir"}, {"n": "John Mulaney", "r": "Peter Porker / Spider-Ham", "p": "john-mulaney"}, {"n": "Kathryn Hahn", "r": "Olivia Octavius / Doctor Octopus", "p": "kathryn-hahn"}, {"n": "Liev Schreiber", "r": "Wilson Fisk / Kingpin"}, {"n": "Chris Pine", "r": "Peter Parker", "p": "chris-pine"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
-    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+    var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
+    return '<div class="cast-card">'+av+'<div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
   }).join("");
 
   var scrollStep = 3 * (92 + 18);

@@ -154,6 +154,8 @@
     transition:box-shadow .32s var(--ease-fluid);
   }
   .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-avatar.has-photo{border:none;padding:0;}
+  .cast-avatar.has-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;}
   .cast-nav{
     position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
     background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
@@ -234,10 +236,11 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Hugh Jackman", "r": "Wolverine"}, {"n": "James McAvoy", "r": "young Charles Xavier"}, {"n": "Michael Fassbender", "r": "young Erik Lehnsherr / Magneto"}, {"n": "Jennifer Lawrence", "r": "Mystique"}, {"n": "Patrick Stewart", "r": "old Charles Xavier"}, {"n": "Ian McKellen", "r": "old Magneto"}, {"n": "Halle Berry", "r": "Storm"}, {"n": "Nicholas Hoult", "r": "Beast"}, {"n": "Peter Dinklage", "r": "Bolivar Trask"}, {"n": "Ellen Page", "r": "Kitty Pryde"}, {"n": "Evan Peters", "r": "Peter Maximoff / Quicksilver"}, {"n": "Omar Sy", "r": "Bishop"}, {"n": "Shawn Ashmore", "r": "Iceman"}];
+  var CAST = [{"n": "Hugh Jackman", "r": "Wolverine", "p": "hugh-jackman"}, {"n": "James McAvoy", "r": "young Charles Xavier", "p": "james-mcavoy"}, {"n": "Michael Fassbender", "r": "young Erik Lehnsherr / Magneto"}, {"n": "Jennifer Lawrence", "r": "Mystique", "p": "jennifer-lawrence"}, {"n": "Patrick Stewart", "r": "old Charles Xavier"}, {"n": "Ian McKellen", "r": "old Magneto", "p": "ian-mckellen"}, {"n": "Halle Berry", "r": "Storm", "p": "halle-berry"}, {"n": "Nicholas Hoult", "r": "Beast"}, {"n": "Peter Dinklage", "r": "Bolivar Trask"}, {"n": "Ellen Page", "r": "Kitty Pryde", "p": "ellen-page"}, {"n": "Evan Peters", "r": "Peter Maximoff / Quicksilver", "p": "evan-peters"}, {"n": "Omar Sy", "r": "Bishop"}, {"n": "Shawn Ashmore", "r": "Iceman"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
-    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+    var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
+    return '<div class="cast-card">'+av+'<div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
   }).join("");
 
   var scrollStep = 3 * (92 + 18);

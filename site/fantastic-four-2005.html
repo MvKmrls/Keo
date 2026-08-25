@@ -154,6 +154,8 @@
     transition:box-shadow .32s var(--ease-fluid);
   }
   .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-avatar.has-photo{border:none;padding:0;}
+  .cast-avatar.has-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;}
   .cast-nav{
     position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
     background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
@@ -234,10 +236,11 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Ioan Gruffudd", "r": "Reed Richards / Mr. Fantastic"}, {"n": "Jessica Alba", "r": "Sue Storm / Invisible Woman"}, {"n": "Chris Evans", "r": "Johnny Storm / Human Torch"}, {"n": "Michael Chiklis", "r": "Ben Grimm / The Thing"}, {"n": "Julian McMahon", "r": "Victor Von Doom / Doctor Doom"}, {"n": "Kerry Washington", "r": "Alicia Masters"}, {"n": "Hamish Linklater", "r": "Leonard 'Len' Rota"}, {"n": "Laurie Holden", "r": "Debbie McIlvane"}, {"n": "Michael Kopsa", "r": "Jimmy O'Hoolihan"}, {"n": "Maria Menounos", "r": "TV Reporter"}, {"n": "Stan Lee", "r": "Willie Lumpkin (cameo)"}];
+  var CAST = [{"n": "Ioan Gruffudd", "r": "Reed Richards / Mr. Fantastic", "p": "ioan-gruffudd"}, {"n": "Jessica Alba", "r": "Sue Storm / Invisible Woman", "p": "jessica-alba"}, {"n": "Chris Evans", "r": "Johnny Storm / Human Torch", "p": "chris-evans"}, {"n": "Michael Chiklis", "r": "Ben Grimm / The Thing"}, {"n": "Julian McMahon", "r": "Victor Von Doom / Doctor Doom", "p": "julian-mcmahon"}, {"n": "Kerry Washington", "r": "Alicia Masters", "p": "kerry-washington"}, {"n": "Hamish Linklater", "r": "Leonard 'Len' Rota", "p": "hamish-linklater"}, {"n": "Laurie Holden", "r": "Debbie McIlvane", "p": "laurie-holden"}, {"n": "Michael Kopsa", "r": "Jimmy O'Hoolihan"}, {"n": "Maria Menounos", "r": "TV Reporter"}, {"n": "Stan Lee", "r": "Willie Lumpkin (cameo)"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
-    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+    var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
+    return '<div class="cast-card">'+av+'<div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
   }).join("");
 
   var scrollStep = 3 * (92 + 18);

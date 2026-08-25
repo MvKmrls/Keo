@@ -154,6 +154,8 @@
     transition:box-shadow .32s var(--ease-fluid);
   }
   .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-avatar.has-photo{border:none;padding:0;}
+  .cast-avatar.has-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;}
   .cast-nav{
     position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
     background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
@@ -233,10 +235,11 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Jon Bernthal", "r": "Frank Castle / Punisher"}, {"n": "Ben Barnes", "r": "Billy Russo / Jigsaw"}, {"n": "Ebon Moss-Bachrach", "r": "David \"Micro\" Lieberman"}, {"n": "Deborah Ann Woll", "r": "Karen Page"}, {"n": "Amber Rose Revah", "r": "Dinah Madani"}, {"n": "Daniel Webber", "r": "Lewis Wilson"}, {"n": "Paul Schulze", "r": "Rawlins"}, {"n": "Jason R. Moore", "r": "Curtis Hoyle"}, {"n": "Jaime Ray Newman", "r": "Sarah Lieberman"}, {"n": "Giorgia Whigham", "r": "Amy Bendix"}, {"n": "Floriana Lima", "r": "Krista Dumont"}, {"n": "Josh Stewart", "r": "Gunner Henderson"}];
+  var CAST = [{"n": "Jon Bernthal", "r": "Frank Castle / Punisher", "p": "jon-bernthal"}, {"n": "Ben Barnes", "r": "Billy Russo / Jigsaw", "p": "ben-barnes"}, {"n": "Ebon Moss-Bachrach", "r": "David \"Micro\" Lieberman", "p": "ebon-moss-bachrach"}, {"n": "Deborah Ann Woll", "r": "Karen Page", "p": "deborah-ann-woll"}, {"n": "Amber Rose Revah", "r": "Dinah Madani", "p": "amber-rose-revah"}, {"n": "Daniel Webber", "r": "Lewis Wilson", "p": "daniel-webber"}, {"n": "Paul Schulze", "r": "Rawlins"}, {"n": "Jason R. Moore", "r": "Curtis Hoyle", "p": "jason-r-moore"}, {"n": "Jaime Ray Newman", "r": "Sarah Lieberman", "p": "jaime-ray-newman"}, {"n": "Giorgia Whigham", "r": "Amy Bendix", "p": "giorgia-whigham"}, {"n": "Floriana Lima", "r": "Krista Dumont", "p": "floriana-lima"}, {"n": "Josh Stewart", "r": "Gunner Henderson", "p": "josh-stewart"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
-    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+    var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
+    return '<div class="cast-card">'+av+'<div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
   }).join("");
 
   var scrollStep = 3 * (92 + 18);

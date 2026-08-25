@@ -152,6 +152,8 @@
     transition:box-shadow .32s var(--ease-fluid);
   }
   .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-avatar.has-photo{border:none;padding:0;}
+  .cast-avatar.has-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;}
   .cast-nav{
     position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
     background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
@@ -233,10 +235,11 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Ben Affleck", "r": "Matt Murdock / Daredevil"}, {"n": "Jennifer Garner", "r": "Elektra Natchios"}, {"n": "Colin Farrell", "r": "Bullseye"}, {"n": "Michael Clarke Duncan", "r": "Wilson Fisk / le Caïd"}, {"n": "Jon Favreau", "r": "Franklin 'Foggy' Nelson"}, {"n": "Joe Pantoliano", "r": "Ben Urich"}, {"n": "Erick Avari", "r": "Nikolas Natchios"}, {"n": "Leland Orser", "r": "Wesley"}, {"n": "Ellen Pompeo", "r": "Karen Page"}, {"n": "David Keith", "r": "Jack Murdock"}];
+  var CAST = [{"n": "Ben Affleck", "r": "Matt Murdock / Daredevil", "p": "ben-affleck"}, {"n": "Jennifer Garner", "r": "Elektra Natchios", "p": "jennifer-garner"}, {"n": "Colin Farrell", "r": "Bullseye"}, {"n": "Michael Clarke Duncan", "r": "Wilson Fisk / le Caïd"}, {"n": "Jon Favreau", "r": "Franklin 'Foggy' Nelson", "p": "jon-favreau"}, {"n": "Joe Pantoliano", "r": "Ben Urich"}, {"n": "Erick Avari", "r": "Nikolas Natchios"}, {"n": "Leland Orser", "r": "Wesley"}, {"n": "Ellen Pompeo", "r": "Karen Page"}, {"n": "David Keith", "r": "Jack Murdock"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
-    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+    var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
+    return '<div class="cast-card">'+av+'<div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
   }).join("");
 
   var scrollStep = 3 * (92 + 18);

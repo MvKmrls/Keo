@@ -154,6 +154,8 @@
     transition:box-shadow .32s var(--ease-fluid);
   }
   .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-avatar.has-photo{border:none;padding:0;}
+  .cast-avatar.has-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;}
   .cast-nav{
     position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
     background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
@@ -233,10 +235,11 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Jeremy Renner", "r": "Clint Barton / Hawkeye"}, {"n": "Hailee Steinfeld", "r": "Kate Bishop"}, {"n": "Vera Farmiga", "r": "Eleanor Bishop"}, {"n": "Fra Fee", "r": "Kazi"}, {"n": "Alaqua Cox", "r": "Maya Lopez / Echo"}, {"n": "Tony Dalton", "r": "Jack Duquesne / Swordsman"}, {"n": "Zahn McClarnon", "r": "William Lopez"}, {"n": "Linda Cardellini", "r": "Laura Barton"}, {"n": "Florence Pugh", "r": "Yelena Belova"}, {"n": "Brian d'Arcy James", "r": "Armand III"}];
+  var CAST = [{"n": "Jeremy Renner", "r": "Clint Barton / Hawkeye", "p": "jeremy-renner"}, {"n": "Hailee Steinfeld", "r": "Kate Bishop", "p": "hailee-steinfeld"}, {"n": "Vera Farmiga", "r": "Eleanor Bishop"}, {"n": "Fra Fee", "r": "Kazi", "p": "fra-fee"}, {"n": "Alaqua Cox", "r": "Maya Lopez / Echo", "p": "alaqua-cox"}, {"n": "Tony Dalton", "r": "Jack Duquesne / Swordsman"}, {"n": "Zahn McClarnon", "r": "William Lopez"}, {"n": "Linda Cardellini", "r": "Laura Barton"}, {"n": "Florence Pugh", "r": "Yelena Belova", "p": "florence-pugh"}, {"n": "Brian d'Arcy James", "r": "Armand III", "p": "brian-d-arcy-james"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
-    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+    var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
+    return '<div class="cast-card">'+av+'<div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
   }).join("");
 
   var scrollStep = 3 * (92 + 18);

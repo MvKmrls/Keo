@@ -154,6 +154,8 @@
     transition:box-shadow .32s var(--ease-fluid);
   }
   .cast-card:hover .cast-avatar{box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 12px 22px -10px rgba(0,0,0,.7);}
+  .cast-avatar.has-photo{border:none;padding:0;}
+  .cast-avatar.has-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;}
   .cast-nav{
     position:absolute;top:40px;width:30px;height:30px;border-radius:50%;z-index:2;
     background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;
@@ -234,10 +236,11 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Ryan Reynolds", "r": "Wade Wilson / Deadpool"}, {"n": "Morena Baccarin", "r": "Vanessa Carlysle"}, {"n": "Ed Skrein", "r": "Ajax / Francis"}, {"n": "T.J. Miller", "r": "Weasel"}, {"n": "Gina Carano", "r": "Angel Dust"}, {"n": "Leslie Uggams", "r": "Blind Al"}, {"n": "Brianna Hildebrand", "r": "Negasonic Teenage Warhead"}, {"n": "Stefan Kapicic", "r": "Colossus (voice)"}, {"n": "Karan Soni", "r": "Dopinder"}];
+  var CAST = [{"n": "Ryan Reynolds", "r": "Wade Wilson / Deadpool"}, {"n": "Morena Baccarin", "r": "Vanessa Carlysle"}, {"n": "Ed Skrein", "r": "Ajax / Francis", "p": "ed-skrein"}, {"n": "T.J. Miller", "r": "Weasel"}, {"n": "Gina Carano", "r": "Angel Dust", "p": "gina-carano"}, {"n": "Leslie Uggams", "r": "Blind Al"}, {"n": "Brianna Hildebrand", "r": "Negasonic Teenage Warhead", "p": "brianna-hildebrand"}, {"n": "Stefan Kapicic", "r": "Colossus (voice)"}, {"n": "Karan Soni", "r": "Dopinder", "p": "karan-soni"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
-    return '<div class="cast-card"><div class="cast-avatar">👤</div><div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
+    var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
+    return '<div class="cast-card">'+av+'<div class="cast-name">'+c.n+'</div><div class="cast-role">'+c.r+'</div></div>';
   }).join("");
 
   var scrollStep = 3 * (92 + 18);
