@@ -72,9 +72,13 @@
   .poster-frame.has-poster{border:none;padding:0;}
   .poster-frame.has-poster img{width:100%;height:100%;object-fit:cover;display:block;}
   .poster-frame .ph-text{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);}
-  .post-credit-tag{
-    margin-top:10px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;
-    color:var(--dim);text-align:center;
+  .post-credit-tag,.episode-tag{
+    width:fit-content;margin:10px auto 0;
+    background:#fff;color:#161320;font-family:var(--f-mono);font-size:9.5px;font-weight:700;
+    letter-spacing:.03em;text-transform:uppercase;padding:7px 16px;white-space:nowrap;
+    border-radius:0 0 10px 10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.35);
+    text-align:center;
   }
 
   .eyebrow-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px;}
@@ -188,7 +192,7 @@
   <div class="detail-wrap">
     <div class="poster-col">
       <div class="poster-frame has-poster"><img src="posters/fantastic-four.jpg" alt="Affiche de The Fantastic Four: First Steps" loading="lazy"></div>
-      <div class="post-credit-tag">Scènes post-génériques · 1</div>
+      <div class="post-credit-tag">1 scène post-générique</div>
     </div>
 
     <div class="info-col">
