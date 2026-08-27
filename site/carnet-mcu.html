@@ -94,9 +94,10 @@
   .stat span{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);}
   @media (max-width:640px){ .stats{grid-template-columns:repeat(3,1fr);} }
 
-  .progress-track{height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;border:1px solid var(--border);}
-  .progress-fill{height:100%;background:var(--path-color);border-radius:99px;transition:width .3s ease, background-color .32s var(--ease-fluid);}
-  @media (prefers-reduced-motion: reduce){ .progress-fill{transition:none;} }
+  .progress-track{height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;border:1px solid var(--border);position:relative;}
+  .progress-fill{position:absolute;left:0;top:0;height:100%;background:var(--path-color);border-radius:99px;transition:width .3s ease, background-color .32s var(--ease-fluid);}
+  .progress-fill-skipped{position:absolute;top:0;height:100%;background:linear-gradient(90deg, rgba(0,0,0,.9), rgba(0,0,0,.6));transition:width .3s ease, left .3s ease;}
+  @media (prefers-reduced-motion: reduce){ .progress-fill,.progress-fill-skipped{transition:none;} }
   .progress-label{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);margin-top:6px;margin-bottom:22px;}
 
   /* ---- filter card ---- */
@@ -290,7 +291,7 @@
   <div class="paths" id="paths"></div>
 
   <div class="stats" id="stats"></div>
-  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div><div class="progress-fill-skipped" id="progressFillSkipped" style="left:0%;width:0%"></div></div>
   <div class="progress-label" id="progressLabel"></div>
 
   <div class="filter-card">
@@ -739,11 +740,17 @@
 
     // progress bar: over the WHOLE catalogue, independent of filters
     var allWatched = DATA.filter(function(it){ return userDb[it.id]==="watched"; }).length;
+    var allSkipped = DATA.filter(function(it){ return userDb[it.id]==="skipped"; }).length;
     var pct = Math.round((allWatched/DATA.length)*100);
+    var skipPct = Math.round((allSkipped/DATA.length)*100);
     document.getElementById("progressFill").style.width = pct+"%";
-    document.getElementById("progressLabel").textContent = pct>0
+    document.getElementById("progressFillSkipped").style.left = pct+"%";
+    document.getElementById("progressFillSkipped").style.width = skipPct+"%";
+    var label = pct>0
       ? "Progression : "+pct+"% · "+allWatched+" / "+DATA.length+" titres vus (tout le catalogue)"
       : "Coche des titres pour commencer à suivre ta progression.";
+    if(allSkipped>0) label += " · "+skipPct+"% · "+allSkipped+" passés";
+    document.getElementById("progressLabel").textContent = label;
   }
 
   function render(){
