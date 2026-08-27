@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Lea Thompson", "r": "Beverly Switzler"}, {"n": "Jeffrey Jones", "r": "Dr. Walter Jenning"}, {"n": "Tim Robbins", "r": "Phil Blumburtt"}, {"n": "Chip Zien", "r": "Howard T. Duck (voice)"}, {"n": "Ed Gale", "r": "Howard T. Duck (physical performance)"}, {"n": "Paul Guilfoyle", "r": "Ginger Seldon"}, {"n": "Liz Sagal", "r": "Cal (Cherry Bomb)"}, {"n": "Dominique Davalos", "r": "K.J. (Cherry Bomb)"}, {"n": "Virginia Capers", "r": "Lieutenant Anderson"}, {"n": "Holland Taylor", "r": "Dr. Walter Jenning's colleague"}];
+  var CAST = [{"n": "Lea Thompson", "r": "Beverly Switzler", "p": "lea-thompson"}, {"n": "Jeffrey Jones", "r": "Dr. Walter Jenning", "p": "jeffrey-jones"}, {"n": "Tim Robbins", "r": "Phil Blumburtt", "p": "tim-robbins"}, {"n": "Chip Zien", "r": "Howard T. Duck (voice)", "p": "chip-zien"}, {"n": "Ed Gale", "r": "Howard T. Duck (physical performance)", "p": "ed-gale"}, {"n": "Paul Guilfoyle", "r": "Ginger Seldon", "p": "paul-guilfoyle"}, {"n": "Liz Sagal", "r": "Cal (Cherry Bomb)", "p": "liz-sagal"}, {"n": "Dominique Davalos", "r": "K.J. (Cherry Bomb)", "p": "dominique-davalos"}, {"n": "Virginia Capers", "r": "Lieutenant Anderson", "p": "virginia-capers"}, {"n": "Holland Taylor", "r": "Dr. Walter Jenning's colleague", "p": "holland-taylor"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

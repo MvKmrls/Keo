@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Tom Austen", "r": "Daimon Helstrom"}, {"n": "Sydney Lemmon", "r": "Ana Helstrom"}, {"n": "Elizabeth Marvel", "r": "Victoria Helstrom"}, {"n": "Robert Wisdom", "r": "The Caretaker"}, {"n": "June Carryl", "r": "Louise Hastings"}, {"n": "Ariana Guerra", "r": "Gabriella Rosetti", "p": "ariana-guerra"}, {"n": "Alain Uy", "r": "Chris Yen", "p": "alain-uy"}, {"n": "August Aiden Miller", "r": "Young Daimon Helstrom", "p": "august-aiden-miller"}, {"n": "K.J. Harrison", "r": "Young Ana Helstrom"}, {"n": "Rob Archer", "r": "Creature performer"}];
+  var CAST = [{"n": "Tom Austen", "r": "Daimon Helstrom", "p": "tom-austen"}, {"n": "Sydney Lemmon", "r": "Ana Helstrom", "p": "sydney-lemmon"}, {"n": "Elizabeth Marvel", "r": "Victoria Helstrom", "p": "elizabeth-marvel"}, {"n": "Robert Wisdom", "r": "The Caretaker", "p": "robert-wisdom"}, {"n": "June Carryl", "r": "Louise Hastings", "p": "june-carryl"}, {"n": "Ariana Guerra", "r": "Gabriella Rosetti", "p": "ariana-guerra"}, {"n": "Alain Uy", "r": "Chris Yen", "p": "alain-uy"}, {"n": "August Aiden Miller", "r": "Young Daimon Helstrom", "p": "august-aiden-miller"}, {"n": "K.J. Harrison", "r": "Young Ana Helstrom", "p": "k-j-harrison"}, {"n": "Rob Archer", "r": "Creature performer", "p": "rob-archer"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

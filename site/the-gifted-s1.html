@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Stephen Moyer", "r": "Reed Strucker"}, {"n": "Amy Acker", "r": "Caitlin Strucker", "p": "amy-acker"}, {"n": "Sean Teale", "r": "Marcos Diaz / Eclipse"}, {"n": "Jamie Chung", "r": "Clarice Fong / Blink"}, {"n": "Blair Redford", "r": "John Proudstar / Thunderbird", "p": "blair-redford"}, {"n": "Emma Dumont", "r": "Lorna Dane / Polaris"}, {"n": "Percy Hynes White", "r": "Andy Strucker"}, {"n": "Natalie Alyn Lind", "r": "Lauren Strucker"}, {"n": "Coby Bell", "r": "Jace Turner"}, {"n": "Michael Luwoye", "r": "Erg"}];
+  var CAST = [{"n": "Stephen Moyer", "r": "Reed Strucker", "p": "stephen-moyer"}, {"n": "Amy Acker", "r": "Caitlin Strucker", "p": "amy-acker"}, {"n": "Sean Teale", "r": "Marcos Diaz / Eclipse", "p": "sean-teale"}, {"n": "Jamie Chung", "r": "Clarice Fong / Blink", "p": "jamie-chung"}, {"n": "Blair Redford", "r": "John Proudstar / Thunderbird", "p": "blair-redford"}, {"n": "Emma Dumont", "r": "Lorna Dane / Polaris", "p": "emma-dumont"}, {"n": "Percy Hynes White", "r": "Andy Strucker", "p": "percy-hynes-white"}, {"n": "Natalie Alyn Lind", "r": "Lauren Strucker", "p": "natalie-alyn-lind"}, {"n": "Coby Bell", "r": "Jace Turner", "p": "coby-bell"}, {"n": "Michael Luwoye", "r": "Erg", "p": "michael-luwoye"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

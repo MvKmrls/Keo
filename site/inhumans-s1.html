@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Anson Mount", "r": "Black Bolt", "p": "anson-mount"}, {"n": "Iwan Rheon", "r": "Maximus"}, {"n": "Serinda Swan", "r": "Medusa"}, {"n": "Eme Ikwuakor", "r": "Gorgon"}, {"n": "Isabelle Cornish", "r": "Crystal"}, {"n": "Ken Leung", "r": "Karnak"}, {"n": "Sonya Balmores", "r": "Auran"}, {"n": "Ellen Woglom", "r": "Louise Fisher"}, {"n": "Mike Moh", "r": "Triton"}, {"n": "Henry Ian Cusick", "r": "Dr. Evan Declan"}, {"n": "Ptolemy Slocum", "r": "Dave"}];
+  var CAST = [{"n": "Anson Mount", "r": "Black Bolt", "p": "anson-mount"}, {"n": "Iwan Rheon", "r": "Maximus", "p": "iwan-rheon"}, {"n": "Serinda Swan", "r": "Medusa", "p": "serinda-swan"}, {"n": "Eme Ikwuakor", "r": "Gorgon", "p": "eme-ikwuakor"}, {"n": "Isabelle Cornish", "r": "Crystal", "p": "isabelle-cornish"}, {"n": "Ken Leung", "r": "Karnak", "p": "ken-leung"}, {"n": "Sonya Balmores", "r": "Auran", "p": "sonya-balmores"}, {"n": "Ellen Woglom", "r": "Louise Fisher", "p": "ellen-woglom"}, {"n": "Mike Moh", "r": "Triton", "p": "mike-moh"}, {"n": "Henry Ian Cusick", "r": "Dr. Evan Declan", "p": "henry-ian-cusick"}, {"n": "Ptolemy Slocum", "r": "Dave", "p": "ptolemy-slocum"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

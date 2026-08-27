@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Olivia Holt", "r": "Tandy Bowen / Dagger"}, {"n": "Aubrey Joseph", "r": "Tyrone Johnson / Cloak", "p": "aubrey-joseph"}, {"n": "Andrea Roth", "r": "Melissa Bowen", "p": "andrea-roth"}, {"n": "Gloria Reuben", "r": "Adina Johnson"}, {"n": "J.D. Evermore", "r": "Otis Johnson"}, {"n": "Emma Lahana", "r": "Brigid O'Reilly"}, {"n": "Miles Mussenden", "r": "Greg Johnson"}, {"n": "Carl Lundstedt", "r": "Liam Hunter"}, {"n": "Ally Maki", "r": "Yuri Watanabe", "p": "ally-maki"}, {"n": "Noah Bean", "r": "Peter Scarborough"}];
+  var CAST = [{"n": "Olivia Holt", "r": "Tandy Bowen / Dagger", "p": "olivia-holt"}, {"n": "Aubrey Joseph", "r": "Tyrone Johnson / Cloak", "p": "aubrey-joseph"}, {"n": "Andrea Roth", "r": "Melissa Bowen", "p": "andrea-roth"}, {"n": "Gloria Reuben", "r": "Adina Johnson", "p": "gloria-reuben"}, {"n": "J.D. Evermore", "r": "Otis Johnson", "p": "j-d-evermore"}, {"n": "Emma Lahana", "r": "Brigid O'Reilly", "p": "emma-lahana"}, {"n": "Miles Mussenden", "r": "Greg Johnson", "p": "miles-mussenden"}, {"n": "Carl Lundstedt", "r": "Liam Hunter", "p": "carl-lundstedt"}, {"n": "Ally Maki", "r": "Yuri Watanabe", "p": "ally-maki"}, {"n": "Noah Bean", "r": "Peter Scarborough", "p": "noah-bean"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

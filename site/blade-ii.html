@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Wesley Snipes", "r": "Blade", "p": "wesley-snipes"}, {"n": "Kris Kristofferson", "r": "Abraham Whistler", "p": "kris-kristofferson"}, {"n": "Ron Perlman", "r": "Reinhardt"}, {"n": "Leonor Varela", "r": "Nyssa Damaskinos"}, {"n": "Norman Reedus", "r": "Scud"}, {"n": "Thomas Kretschmann", "r": "Eli Damaskinos"}, {"n": "Luke Goss", "r": "Jared Nomak"}, {"n": "Danny John-Jules", "r": "Asad"}, {"n": "Matt Schulze", "r": "Chupa"}, {"n": "Donnie Yen", "r": "Snowman"}, {"n": "Karel Roden", "r": "Dr. Curtis"}, {"n": "Daniel Mays", "r": "Dorm rat"}];
+  var CAST = [{"n": "Wesley Snipes", "r": "Blade", "p": "wesley-snipes"}, {"n": "Kris Kristofferson", "r": "Abraham Whistler", "p": "kris-kristofferson"}, {"n": "Ron Perlman", "r": "Reinhardt", "p": "ron-perlman"}, {"n": "Leonor Varela", "r": "Nyssa Damaskinos", "p": "leonor-varela"}, {"n": "Norman Reedus", "r": "Scud", "p": "norman-reedus"}, {"n": "Thomas Kretschmann", "r": "Eli Damaskinos", "p": "thomas-kretschmann"}, {"n": "Luke Goss", "r": "Jared Nomak", "p": "luke-goss"}, {"n": "Danny John-Jules", "r": "Asad", "p": "danny-john-jules"}, {"n": "Matt Schulze", "r": "Chupa", "p": "matt-schulze"}, {"n": "Donnie Yen", "r": "Snowman", "p": "donnie-yen"}, {"n": "Karel Roden", "r": "Dr. Curtis", "p": "karel-roden"}, {"n": "Daniel Mays", "r": "Dorm rat", "p": "daniel-mays"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

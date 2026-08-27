@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Thomas Jane", "r": "Frank Castle / The Punisher"}, {"n": "John Travolta", "r": "Howard Saint"}, {"n": "Rebecca Romijn", "r": "Joan", "p": "rebecca-romijn"}, {"n": "Will Patton", "r": "Quentin Glass"}, {"n": "Ben Foster", "r": "Spacker Dave", "p": "ben-foster"}, {"n": "Roy Scheider", "r": "Agent Ray Castle"}, {"n": "Laura Harring", "r": "Livia Saint"}, {"n": "Samantha Mathis", "r": "Maria Castle"}, {"n": "Mark Collie", "r": "Mickey Duka"}];
+  var CAST = [{"n": "Thomas Jane", "r": "Frank Castle / The Punisher", "p": "thomas-jane"}, {"n": "John Travolta", "r": "Howard Saint", "p": "john-travolta"}, {"n": "Rebecca Romijn", "r": "Joan", "p": "rebecca-romijn"}, {"n": "Will Patton", "r": "Quentin Glass", "p": "will-patton"}, {"n": "Ben Foster", "r": "Spacker Dave", "p": "ben-foster"}, {"n": "Roy Scheider", "r": "Agent Ray Castle", "p": "roy-scheider"}, {"n": "Laura Harring", "r": "Livia Saint", "p": "laura-harring"}, {"n": "Samantha Mathis", "r": "Maria Castle", "p": "samantha-mathis"}, {"n": "Mark Collie", "r": "Mickey Duka", "p": "mark-collie"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

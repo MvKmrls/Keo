@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Matthew Le Nevez", "r": "Kyle Williams"}, {"n": "Rachael Taylor", "r": "Teri Richards", "p": "rachael-taylor"}, {"n": "Jack Thompson", "r": "Sheriff Fraser Brewster"}, {"n": "Rawiri Paratene", "r": "Pete Horn"}, {"n": "Robert Mammone", "r": "Frederic Schist"}, {"n": "Alex O'Loughlin", "r": "Eric Fraser", "p": "alex-o-loughlin"}];
+  var CAST = [{"n": "Matthew Le Nevez", "r": "Kyle Williams", "p": "matthew-le-nevez"}, {"n": "Rachael Taylor", "r": "Teri Richards", "p": "rachael-taylor"}, {"n": "Jack Thompson", "r": "Sheriff Fraser Brewster", "p": "jack-thompson"}, {"n": "Rawiri Paratene", "r": "Pete Horn", "p": "rawiri-paratene"}, {"n": "Robert Mammone", "r": "Frederic Schist", "p": "robert-mammone"}, {"n": "Alex O'Loughlin", "r": "Eric Fraser", "p": "alex-o-loughlin"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

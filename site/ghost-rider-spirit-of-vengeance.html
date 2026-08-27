@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Nicolas Cage", "r": "Johnny Blaze / Ghost Rider", "p": "nicolas-cage"}, {"n": "Ciarán Hinds", "r": "Roarke / The Devil"}, {"n": "Idris Elba", "r": "Moreau", "p": "idris-elba"}, {"n": "Violante Placido", "r": "Nadya"}, {"n": "Johnny Whitworth", "r": "Ray Carrigan / Blackout"}, {"n": "Fergus Riordan", "r": "Danny"}, {"n": "Christopher Lambert", "r": "Methodius"}, {"n": "Anthony Head", "r": "The Doctor", "p": "anthony-head"}];
+  var CAST = [{"n": "Nicolas Cage", "r": "Johnny Blaze / Ghost Rider", "p": "nicolas-cage"}, {"n": "Ciarán Hinds", "r": "Roarke / The Devil", "p": "ciaran-hinds"}, {"n": "Idris Elba", "r": "Moreau", "p": "idris-elba"}, {"n": "Violante Placido", "r": "Nadya", "p": "violante-placido"}, {"n": "Johnny Whitworth", "r": "Ray Carrigan / Blackout", "p": "johnny-whitworth"}, {"n": "Fergus Riordan", "r": "Danny", "p": "fergus-riordan"}, {"n": "Christopher Lambert", "r": "Methodius", "p": "christopher-lambert"}, {"n": "Anthony Head", "r": "The Doctor", "p": "anthony-head"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

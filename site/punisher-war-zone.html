@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Ray Stevenson", "r": "Frank Castle / The Punisher", "p": "ray-stevenson"}, {"n": "Dominic West", "r": "Billy Russoti / Jigsaw"}, {"n": "Doug Hutchison", "r": "James Russoti / Loony Bin Jim"}, {"n": "Julie Benz", "r": "Angela Donatelli"}, {"n": "Colin Salmon", "r": "Paul Budiansky"}, {"n": "Wayne Knight", "r": "Microchip 'Micro'"}, {"n": "Dash Mihok", "r": "Detective Martin Soap"}, {"n": "Stephanie Janusauskas", "r": "Grace Donatelli"}];
+  var CAST = [{"n": "Ray Stevenson", "r": "Frank Castle / The Punisher", "p": "ray-stevenson"}, {"n": "Dominic West", "r": "Billy Russoti / Jigsaw", "p": "dominic-west"}, {"n": "Doug Hutchison", "r": "James Russoti / Loony Bin Jim", "p": "doug-hutchison"}, {"n": "Julie Benz", "r": "Angela Donatelli", "p": "julie-benz"}, {"n": "Colin Salmon", "r": "Paul Budiansky", "p": "colin-salmon"}, {"n": "Wayne Knight", "r": "Microchip 'Micro'", "p": "wayne-knight"}, {"n": "Dash Mihok", "r": "Detective Martin Soap", "p": "dash-mihok"}, {"n": "Stephanie Janusauskas", "r": "Grace Donatelli", "p": "stephanie-janusauskas"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

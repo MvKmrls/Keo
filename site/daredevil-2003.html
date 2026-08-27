@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Ben Affleck", "r": "Matt Murdock / Daredevil", "p": "ben-affleck"}, {"n": "Jennifer Garner", "r": "Elektra Natchios", "p": "jennifer-garner"}, {"n": "Colin Farrell", "r": "Bullseye"}, {"n": "Michael Clarke Duncan", "r": "Wilson Fisk / le Caïd"}, {"n": "Jon Favreau", "r": "Franklin 'Foggy' Nelson", "p": "jon-favreau"}, {"n": "Joe Pantoliano", "r": "Ben Urich"}, {"n": "Erick Avari", "r": "Nikolas Natchios"}, {"n": "Leland Orser", "r": "Wesley"}, {"n": "Ellen Pompeo", "r": "Karen Page"}, {"n": "David Keith", "r": "Jack Murdock"}];
+  var CAST = [{"n": "Ben Affleck", "r": "Matt Murdock / Daredevil", "p": "ben-affleck"}, {"n": "Jennifer Garner", "r": "Elektra Natchios", "p": "jennifer-garner"}, {"n": "Colin Farrell", "r": "Bullseye", "p": "colin-farrell"}, {"n": "Michael Clarke Duncan", "r": "Wilson Fisk / le Caïd", "p": "michael-clarke-duncan"}, {"n": "Jon Favreau", "r": "Franklin 'Foggy' Nelson", "p": "jon-favreau"}, {"n": "Joe Pantoliano", "r": "Ben Urich", "p": "joe-pantoliano"}, {"n": "Erick Avari", "r": "Nikolas Natchios", "p": "erick-avari"}, {"n": "Leland Orser", "r": "Wesley", "p": "leland-orser"}, {"n": "Ellen Pompeo", "r": "Karen Page", "p": "ellen-pompeo"}, {"n": "David Keith", "r": "Jack Murdock", "p": "david-keith"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

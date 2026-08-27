@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Jennifer Garner", "r": "Elektra Natchios", "p": "jennifer-garner"}, {"n": "Goran Visnjic", "r": "Mark Miller"}, {"n": "Kirsten Prout", "r": "Abby Miller"}, {"n": "Will Yun Lee", "r": "Kirigi", "p": "will-yun-lee"}, {"n": "Terence Stamp", "r": "Stick"}, {"n": "Cary-Hiroyuki Tagawa", "r": "Roshi"}, {"n": "Natassia Malthe", "r": "Typhoid Mary"}, {"n": "Chris Ackerman", "r": "Tattoo"}, {"n": "Colin Cunningham", "r": "Stone"}, {"n": "Bob Sapp", "r": "Kinkou", "p": "bob-sapp"}, {"n": "Jason Isaacs", "r": "Roark"}];
+  var CAST = [{"n": "Jennifer Garner", "r": "Elektra Natchios", "p": "jennifer-garner"}, {"n": "Goran Visnjic", "r": "Mark Miller", "p": "goran-visnjic"}, {"n": "Kirsten Prout", "r": "Abby Miller", "p": "kirsten-prout"}, {"n": "Will Yun Lee", "r": "Kirigi", "p": "will-yun-lee"}, {"n": "Terence Stamp", "r": "Stick", "p": "terence-stamp"}, {"n": "Cary-Hiroyuki Tagawa", "r": "Roshi", "p": "cary-hiroyuki-tagawa"}, {"n": "Natassia Malthe", "r": "Typhoid Mary", "p": "natassia-malthe"}, {"n": "Chris Ackerman", "r": "Tattoo", "p": "chris-ackerman"}, {"n": "Colin Cunningham", "r": "Stone", "p": "colin-cunningham"}, {"n": "Bob Sapp", "r": "Kinkou", "p": "bob-sapp"}, {"n": "Jason Isaacs", "r": "Roark", "p": "jason-isaacs"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
