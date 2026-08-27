@@ -737,11 +737,17 @@
       statsEl.appendChild(d);
     });
 
-    // progress bar: over the WHOLE catalogue, independent of filters
-    var allWatched = DATA.filter(function(it){ return userDb[it.id]==="watched"; }).length;
-    var allSkipped = DATA.filter(function(it){ return userDb[it.id]==="skipped"; }).length;
-    var pct = Math.round((allWatched/DATA.length)*100);
-    var skipPct = Math.round((allSkipped/DATA.length)*100);
+    // progress bar: over the current path's scope (ignores the type/search pills, like the "unwatched" toggle would trivially zero it out)
+    var pathScope = DATA.filter(function(item){
+      var isDoomFinale = state.path === "doomsday" && item.id === "avengers-doomsday";
+      if(item.u && item.g === "optional" && state.excludeOutside) return false;
+      if(!state.grades.includes(item.g) && !isDoomFinale) return false;
+      return true;
+    });
+    var allWatched = pathScope.filter(function(it){ return userDb[it.id]==="watched"; }).length;
+    var allSkipped = pathScope.filter(function(it){ return userDb[it.id]==="skipped"; }).length;
+    var pct = Math.round((allWatched/pathScope.length)*100);
+    var skipPct = Math.round((allSkipped/pathScope.length)*100);
     var totalPct = pct + skipPct;
     var fillEl = document.getElementById("progressFill");
     fillEl.style.width = totalPct+"%";
