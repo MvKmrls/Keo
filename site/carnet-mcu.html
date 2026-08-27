@@ -747,7 +747,7 @@
     fillEl.style.width = totalPct+"%";
     if(skipPct>0 && pct>0){
       var redFrac = (pct/totalPct)*100;
-      var blend = Math.min(10, redFrac, 100-redFrac);
+      var blend = Math.min(60, redFrac*2, (100-redFrac)*2);
       var stop1 = redFrac - blend/2, stop2 = redFrac + blend/2;
       fillEl.style.background = "linear-gradient(90deg, var(--path-color) "+stop1+"%, #050505 "+stop2+"%)";
     } else if(skipPct>0 && pct===0){
