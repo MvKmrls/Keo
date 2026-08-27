@@ -247,11 +247,12 @@
   .season-badge{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.05em;padding:2px 6px;border-radius:3px;border:1px solid var(--border);color:var(--dim);}
   .e-note{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.02em;color:var(--dim);margin-top:4px;text-transform:uppercase;}
   .e-year{font-family:var(--f-mono);font-size:10px;color:var(--dim);opacity:.4;letter-spacing:.02em;flex:none;margin-top:1px;padding-top:7px;font-variant-numeric:tabular-nums;}
-  .e-actions{display:flex;gap:6px;flex:none;margin-top:1px;}
+  .e-actions{display:flex;gap:6px;flex:none;margin-top:1px;overflow:hidden;}
   .act-btn{
     font-family:var(--f-mono);font-size:10px;letter-spacing:.03em;padding:6px 9px;border-radius:5px;
     border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;text-transform:uppercase;
-    transition:border-color .25s ease, color .25s ease, opacity .25s ease;
+    white-space:nowrap;max-width:110px;
+    transition:border-color .25s ease, color .25s ease, opacity .3s ease, max-width .4s var(--ease-fluid), transform .32s var(--ease-fluid), margin-left .4s var(--ease-fluid), padding .4s var(--ease-fluid), border-width .3s ease;
   }
   .act-btn:hover{border-color:var(--dim);color:var(--text);}
   .act-btn.on-watched{border-color:var(--ok-soft);color:var(--ok-soft);}
@@ -263,8 +264,9 @@
   .act-btn.essential-wait-btn:hover{border-color:var(--gold);color:var(--gold);}
   .act-btn.doom-wait-btn{border-color:var(--path-color);color:var(--path-color);opacity:.55;}
   .act-btn.doom-wait-btn:hover{border-color:var(--path-color);color:var(--path-color);}
-  .entry.watched .s-btn{opacity:.35;}
-  .entry.skipped .w-btn{opacity:.35;}
+  .entry.watched .s-btn, .entry.skipped .w-btn{
+    max-width:0;opacity:0;transform:scale(.82);margin-left:-6px;padding-left:0;padding-right:0;border-width:0;pointer-events:none;
+  }
   @media (prefers-reduced-motion: reduce){ .act-btn{transition:none;} }
 
   .empty{padding:50px 0;text-align:center;color:var(--dim);font-family:var(--f-mono);font-size:12.5px;}
@@ -691,7 +693,7 @@
     var upcomingBg = (isUpcoming && !isWatched && !isSkipped)
       ? ';background:linear-gradient(180deg, var(--panel) 0%, var(--panel) 62%, color-mix(in srgb, var(--bg) 5%, var(--panel)) 100%)' : "";
     var skipBtn = (item.g === "essential" || isDoomEssential)
-      ? '<button class="act-btn '+(isDoomEssential ? 'doom-wait-btn' : 'essential-wait-btn')+'" disabled>En attente</button>'
+      ? '<button class="act-btn s-btn '+(isDoomEssential ? 'doom-wait-btn' : 'essential-wait-btn')+'" disabled>En attente</button>'
       : '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
     var actions = isUpcoming
       ? '<button class="act-btn upcoming-btn" disabled>'+Math.floor(item.ry)+'</button>'
