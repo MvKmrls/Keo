@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Hayley Atwell", "r": "Peggy Carter", "p": "hayley-atwell"}, {"n": "James D'Arcy", "r": "Edwin Jarvis"}, {"n": "Chad Michael Murray", "r": "Jack Thompson"}, {"n": "Enver Gjokaj", "r": "Daniel Sousa"}, {"n": "Shea Whigham", "r": "Roger Dooley"}, {"n": "Dominic Cooper", "r": "Howard Stark", "p": "dominic-cooper"}, {"n": "Lyndsy Fonseca", "r": "Angie Martinelli"}, {"n": "Bridget Regan", "r": "Dottie Underwood", "p": "bridget-regan"}, {"n": "Ralph Brown", "r": "Dr. Ivchenko / Dr. Faustus"}, {"n": "Kyle Bornheimer", "r": "Agent Spry"}, {"n": "Lotte Verbeek", "r": "Anna Jarvis"}];
+  var CAST = [{"n": "Hayley Atwell", "r": "Peggy Carter", "p": "hayley-atwell"}, {"n": "James D'Arcy", "r": "Edwin Jarvis"}, {"n": "Chad Michael Murray", "r": "Jack Thompson"}, {"n": "Enver Gjokaj", "r": "Daniel Sousa"}, {"n": "Shea Whigham", "r": "Roger Dooley", "p": "shea-whigham"}, {"n": "Dominic Cooper", "r": "Howard Stark", "p": "dominic-cooper"}, {"n": "Lyndsy Fonseca", "r": "Angie Martinelli"}, {"n": "Bridget Regan", "r": "Dottie Underwood", "p": "bridget-regan"}, {"n": "Ralph Brown", "r": "Dr. Ivchenko / Dr. Faustus"}, {"n": "Kyle Bornheimer", "r": "Agent Spry"}, {"n": "Lotte Verbeek", "r": "Anna Jarvis"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

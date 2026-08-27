@@ -233,7 +233,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Jeffrey Wright", "r": "The Watcher (voix)", "p": "jeffrey-wright"}, {"n": "Devery Jacobs", "r": "Kahhori (voix)", "p": "devery-jacobs"}, {"n": "Karen Gillan", "r": "Nebula (voix)", "p": "karen-gillan"}, {"n": "Chris Sullivan", "r": "Taserface (voix)", "p": "chris-sullivan"}, {"n": "Michael B. Jordan", "r": "Killmonger (voix)"}, {"n": "Vanessa Bell Calloway", "r": "Ramonda (voix)"}, {"n": "Alaqua Cox", "r": "Echo / Maya Lopez (voix)", "p": "alaqua-cox"}, {"n": "Natasha Rothwell", "r": "Val (voix)"}];
+  var CAST = [{"n": "Jeffrey Wright", "r": "The Watcher (voix)", "p": "jeffrey-wright"}, {"n": "Devery Jacobs", "r": "Kahhori (voix)", "p": "devery-jacobs"}, {"n": "Karen Gillan", "r": "Nebula (voix)", "p": "karen-gillan"}, {"n": "Chris Sullivan", "r": "Taserface (voix)", "p": "chris-sullivan"}, {"n": "Michael B. Jordan", "r": "Killmonger (voix)", "p": "michael-b-jordan"}, {"n": "Vanessa Bell Calloway", "r": "Ramonda (voix)", "p": "vanessa-bell-calloway"}, {"n": "Alaqua Cox", "r": "Echo / Maya Lopez (voix)", "p": "alaqua-cox"}, {"n": "Natasha Rothwell", "r": "Val (voix)", "p": "natasha-rothwell"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

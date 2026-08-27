@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Chris Pratt", "r": "Peter Quill / Star-Lord", "p": "chris-pratt"}, {"n": "Dave Bautista", "r": "Drax", "p": "dave-bautista"}, {"n": "Karen Gillan", "r": "Nebula", "p": "karen-gillan"}, {"n": "Pom Klementieff", "r": "Mantis"}, {"n": "Vin Diesel", "r": "Groot (voice)"}, {"n": "Bradley Cooper", "r": "Rocket (voice)", "p": "bradley-cooper"}, {"n": "Kevin Bacon", "r": "Himself", "p": "kevin-bacon"}, {"n": "Sean Gunn", "r": "Kraglin Obfonteri"}, {"n": "Maria Bakalova", "r": "Cosmo the Spacedog (voice)"}, {"n": "Michael Rosenbaum", "r": "Martinex"}];
+  var CAST = [{"n": "Chris Pratt", "r": "Peter Quill / Star-Lord", "p": "chris-pratt"}, {"n": "Dave Bautista", "r": "Drax", "p": "dave-bautista"}, {"n": "Karen Gillan", "r": "Nebula", "p": "karen-gillan"}, {"n": "Pom Klementieff", "r": "Mantis", "p": "pom-klementieff"}, {"n": "Vin Diesel", "r": "Groot (voice)", "p": "vin-diesel"}, {"n": "Bradley Cooper", "r": "Rocket (voice)", "p": "bradley-cooper"}, {"n": "Kevin Bacon", "r": "Himself", "p": "kevin-bacon"}, {"n": "Sean Gunn", "r": "Kraglin Obfonteri", "p": "sean-gunn"}, {"n": "Maria Bakalova", "r": "Cosmo the Spacedog (voice)", "p": "maria-bakalova"}, {"n": "Michael Rosenbaum", "r": "Martinex", "p": "michael-rosenbaum"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

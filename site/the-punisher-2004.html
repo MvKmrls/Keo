@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Thomas Jane", "r": "Frank Castle / The Punisher"}, {"n": "John Travolta", "r": "Howard Saint"}, {"n": "Rebecca Romijn", "r": "Joan"}, {"n": "Will Patton", "r": "Quentin Glass"}, {"n": "Ben Foster", "r": "Spacker Dave", "p": "ben-foster"}, {"n": "Roy Scheider", "r": "Agent Ray Castle"}, {"n": "Laura Harring", "r": "Livia Saint"}, {"n": "Samantha Mathis", "r": "Maria Castle"}, {"n": "Mark Collie", "r": "Mickey Duka"}];
+  var CAST = [{"n": "Thomas Jane", "r": "Frank Castle / The Punisher"}, {"n": "John Travolta", "r": "Howard Saint"}, {"n": "Rebecca Romijn", "r": "Joan", "p": "rebecca-romijn"}, {"n": "Will Patton", "r": "Quentin Glass"}, {"n": "Ben Foster", "r": "Spacker Dave", "p": "ben-foster"}, {"n": "Roy Scheider", "r": "Agent Ray Castle"}, {"n": "Laura Harring", "r": "Livia Saint"}, {"n": "Samantha Mathis", "r": "Maria Castle"}, {"n": "Mark Collie", "r": "Mickey Duka"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

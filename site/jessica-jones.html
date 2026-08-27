@@ -233,7 +233,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Krysten Ritter", "r": "Jessica Jones", "p": "krysten-ritter"}, {"n": "David Tennant", "r": "Kilgrave", "p": "david-tennant"}, {"n": "Rachael Taylor", "r": "Trish Walker"}, {"n": "Mike Colter", "r": "Luke Cage"}, {"n": "Carrie-Anne Moss", "r": "Jeri Hogarth", "p": "carrie-anne-moss"}, {"n": "Eka Darville", "r": "Malcolm Ducasse", "p": "eka-darville"}, {"n": "Wil Traval", "r": "Will Simpson"}, {"n": "Erin Moriarty", "r": "Hope Shlottman", "p": "erin-moriarty"}, {"n": "Janet McTeer", "r": "Alisa Jones", "p": "janet-mcteer"}, {"n": "J.R. Ramirez", "r": "Oscar Clemons", "p": "j-r-ramirez"}, {"n": "Terry Chen", "r": "Pryce Cheng"}];
+  var CAST = [{"n": "Krysten Ritter", "r": "Jessica Jones", "p": "krysten-ritter"}, {"n": "David Tennant", "r": "Kilgrave", "p": "david-tennant"}, {"n": "Rachael Taylor", "r": "Trish Walker", "p": "rachael-taylor"}, {"n": "Mike Colter", "r": "Luke Cage", "p": "mike-colter"}, {"n": "Carrie-Anne Moss", "r": "Jeri Hogarth", "p": "carrie-anne-moss"}, {"n": "Eka Darville", "r": "Malcolm Ducasse", "p": "eka-darville"}, {"n": "Wil Traval", "r": "Will Simpson", "p": "wil-traval"}, {"n": "Erin Moriarty", "r": "Hope Shlottman", "p": "erin-moriarty"}, {"n": "Janet McTeer", "r": "Alisa Jones", "p": "janet-mcteer"}, {"n": "J.R. Ramirez", "r": "Oscar Clemons", "p": "j-r-ramirez"}, {"n": "Terry Chen", "r": "Pryce Cheng", "p": "terry-chen"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

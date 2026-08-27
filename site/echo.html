@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Alaqua Cox", "r": "Maya Lopez / Echo", "p": "alaqua-cox"}, {"n": "Charlie Cox", "r": "Matt Murdock / Daredevil", "p": "charlie-cox"}, {"n": "Vincent D'Onofrio", "r": "Wilson Fisk / Kingpin"}, {"n": "Chaske Spencer", "r": "William Lopez", "p": "chaske-spencer"}, {"n": "Tantoo Cardinal", "r": "Chula"}, {"n": "Devery Jacobs", "r": "Bonnie", "p": "devery-jacobs"}, {"n": "Graham Greene", "r": "Skully", "p": "graham-greene"}, {"n": "Zahn McClarnon", "r": "Zach"}, {"n": "Cody Lightning", "r": "Biscuits", "p": "cody-lightning"}, {"n": "Katarina Ziervogel", "r": "Maya jeune", "p": "katarina-ziervogel"}, {"n": "Dave Roberson", "r": "Ross"}];
+  var CAST = [{"n": "Alaqua Cox", "r": "Maya Lopez / Echo", "p": "alaqua-cox"}, {"n": "Charlie Cox", "r": "Matt Murdock / Daredevil", "p": "charlie-cox"}, {"n": "Vincent D'Onofrio", "r": "Wilson Fisk / Kingpin", "p": "vincent-d-onofrio"}, {"n": "Chaske Spencer", "r": "William Lopez", "p": "chaske-spencer"}, {"n": "Tantoo Cardinal", "r": "Chula", "p": "tantoo-cardinal"}, {"n": "Devery Jacobs", "r": "Bonnie", "p": "devery-jacobs"}, {"n": "Graham Greene", "r": "Skully", "p": "graham-greene"}, {"n": "Zahn McClarnon", "r": "Zach", "p": "zahn-mcclarnon"}, {"n": "Cody Lightning", "r": "Biscuits", "p": "cody-lightning"}, {"n": "Katarina Ziervogel", "r": "Maya jeune", "p": "katarina-ziervogel"}, {"n": "Dave Roberson", "r": "Ross"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Tom Holland", "r": "Peter Parker / Spider-Man"}, {"n": "Samuel L. Jackson", "r": "Nick Fury"}, {"n": "Jake Gyllenhaal", "r": "Quentin Beck / Mysterio", "p": "jake-gyllenhaal"}, {"n": "Marisa Tomei", "r": "May Parker"}, {"n": "Jon Favreau", "r": "Happy Hogan", "p": "jon-favreau"}, {"n": "Zendaya", "r": "Michelle \"MJ\" Jones"}, {"n": "Cobie Smulders", "r": "Maria Hill", "p": "cobie-smulders"}, {"n": "Jacob Batalon", "r": "Ned Leeds", "p": "jacob-batalon"}, {"n": "Remy Hii", "r": "Brad Davis"}, {"n": "Tony Revolori", "r": "Flash Thompson"}, {"n": "Numan Acar", "r": "Dimitri"}, {"n": "J.B. Smoove", "r": "Mr. Harrington", "p": "j-b-smoove"}];
+  var CAST = [{"n": "Tom Holland", "r": "Peter Parker / Spider-Man", "p": "tom-holland"}, {"n": "Samuel L. Jackson", "r": "Nick Fury", "p": "samuel-l-jackson"}, {"n": "Jake Gyllenhaal", "r": "Quentin Beck / Mysterio", "p": "jake-gyllenhaal"}, {"n": "Marisa Tomei", "r": "May Parker", "p": "marisa-tomei"}, {"n": "Jon Favreau", "r": "Happy Hogan", "p": "jon-favreau"}, {"n": "Zendaya", "r": "Michelle \"MJ\" Jones", "p": "zendaya"}, {"n": "Cobie Smulders", "r": "Maria Hill", "p": "cobie-smulders"}, {"n": "Jacob Batalon", "r": "Ned Leeds", "p": "jacob-batalon"}, {"n": "Remy Hii", "r": "Brad Davis", "p": "remy-hii"}, {"n": "Tony Revolori", "r": "Flash Thompson", "p": "tony-revolori"}, {"n": "Numan Acar", "r": "Dimitri", "p": "numan-acar"}, {"n": "J.B. Smoove", "r": "Mr. Harrington", "p": "j-b-smoove"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

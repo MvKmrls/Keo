@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Dominique Thorne", "r": "Riri Williams / Ironheart", "p": "dominique-thorne"}, {"n": "Anthony Ramos", "r": "Parker Robbins / The Hood", "p": "anthony-ramos"}, {"n": "Alden Ehrenreich", "r": "Slug", "p": "alden-ehrenreich"}, {"n": "Lyric Ross", "r": "Natalie"}, {"n": "Regan Aliyah", "r": "Jerimiah / Rampage"}, {"n": "Manny Montana", "r": "John Bolt"}, {"n": "Zoe Terakes", "r": "Clown / Hansel"}, {"n": "Shakira Barrera", "r": "La Máquina"}, {"n": "Cree Summer", "r": "N.A.T.A.L.I.E. (voix)", "p": "cree-summer"}, {"n": "Fonzworth Bentley", "r": "Ronnie Van Dyne", "p": "fonzworth-bentley"}];
+  var CAST = [{"n": "Dominique Thorne", "r": "Riri Williams / Ironheart", "p": "dominique-thorne"}, {"n": "Anthony Ramos", "r": "Parker Robbins / The Hood", "p": "anthony-ramos"}, {"n": "Alden Ehrenreich", "r": "Slug", "p": "alden-ehrenreich"}, {"n": "Lyric Ross", "r": "Natalie", "p": "lyric-ross"}, {"n": "Regan Aliyah", "r": "Jerimiah / Rampage", "p": "regan-aliyah"}, {"n": "Manny Montana", "r": "John Bolt", "p": "manny-montana"}, {"n": "Zoe Terakes", "r": "Clown / Hansel", "p": "zoe-terakes"}, {"n": "Shakira Barrera", "r": "La Máquina", "p": "shakira-barrera"}, {"n": "Cree Summer", "r": "N.A.T.A.L.I.E. (voix)", "p": "cree-summer"}, {"n": "Fonzworth Bentley", "r": "Ronnie Van Dyne", "p": "fonzworth-bentley"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

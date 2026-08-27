@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Nicolas Cage", "r": "Spider-Man Noir"}];
+  var CAST = [{"n": "Nicolas Cage", "r": "Spider-Man Noir", "p": "nicolas-cage"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Dakota Johnson", "r": "Cassandra Webb / Madame Web", "p": "dakota-johnson"}, {"n": "Sydney Sweeney", "r": "Julia Cornwall"}, {"n": "Isabela Merced", "r": "Anya Corazon", "p": "isabela-merced"}, {"n": "Celeste O'Connor", "r": "Mattie Franklin", "p": "celeste-o-connor"}, {"n": "Tahar Rahim", "r": "Ezekiel Sims"}, {"n": "Emma Roberts", "r": "Mary Parker", "p": "emma-roberts"}, {"n": "Adam Scott", "r": "Ben Parker", "p": "adam-scott"}, {"n": "Mike Epps", "r": "Cassie's Paramedic Colleague"}, {"n": "Zosia Mamet", "r": "Detective"}, {"n": "Kerry Bishé", "r": "Constance Webb", "p": "kerry-bishe"}, {"n": "Alex Nifong", "r": "Baby Peter Parker", "p": "alex-nifong"}];
+  var CAST = [{"n": "Dakota Johnson", "r": "Cassandra Webb / Madame Web", "p": "dakota-johnson"}, {"n": "Sydney Sweeney", "r": "Julia Cornwall", "p": "sydney-sweeney"}, {"n": "Isabela Merced", "r": "Anya Corazon", "p": "isabela-merced"}, {"n": "Celeste O'Connor", "r": "Mattie Franklin", "p": "celeste-o-connor"}, {"n": "Tahar Rahim", "r": "Ezekiel Sims", "p": "tahar-rahim"}, {"n": "Emma Roberts", "r": "Mary Parker", "p": "emma-roberts"}, {"n": "Adam Scott", "r": "Ben Parker", "p": "adam-scott"}, {"n": "Mike Epps", "r": "Cassie's Paramedic Colleague", "p": "mike-epps"}, {"n": "Zosia Mamet", "r": "Detective", "p": "zosia-mamet"}, {"n": "Kerry Bishé", "r": "Constance Webb", "p": "kerry-bishe"}, {"n": "Alex Nifong", "r": "Baby Peter Parker", "p": "alex-nifong"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Miles Teller", "r": "Reed Richards / Mr. Fantastic"}, {"n": "Kate Mara", "r": "Sue Storm / Invisible Woman", "p": "kate-mara"}, {"n": "Michael B. Jordan", "r": "Johnny Storm / Human Torch"}, {"n": "Jamie Bell", "r": "Ben Grimm / The Thing", "p": "jamie-bell"}, {"n": "Toby Kebbell", "r": "Victor Von Doom"}, {"n": "Reg E. Cathey", "r": "Dr. Franklin Storm"}, {"n": "Tim Blake Nelson", "r": "Dr. Harvey Allen"}, {"n": "Dan Castellaneta", "r": "Mr. Kang (teacher)", "p": "dan-castellaneta"}, {"n": "Owen Judge", "r": "Young Reed Richards"}, {"n": "Evan Hannemann", "r": "Young Ben Grimm", "p": "evan-hannemann"}];
+  var CAST = [{"n": "Miles Teller", "r": "Reed Richards / Mr. Fantastic", "p": "miles-teller"}, {"n": "Kate Mara", "r": "Sue Storm / Invisible Woman", "p": "kate-mara"}, {"n": "Michael B. Jordan", "r": "Johnny Storm / Human Torch", "p": "michael-b-jordan"}, {"n": "Jamie Bell", "r": "Ben Grimm / The Thing", "p": "jamie-bell"}, {"n": "Toby Kebbell", "r": "Victor Von Doom", "p": "toby-kebbell"}, {"n": "Reg E. Cathey", "r": "Dr. Franklin Storm", "p": "reg-e-cathey"}, {"n": "Tim Blake Nelson", "r": "Dr. Harvey Allen", "p": "tim-blake-nelson"}, {"n": "Dan Castellaneta", "r": "Mr. Kang (teacher)", "p": "dan-castellaneta"}, {"n": "Owen Judge", "r": "Young Reed Richards", "p": "owen-judge"}, {"n": "Evan Hannemann", "r": "Young Ben Grimm", "p": "evan-hannemann"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

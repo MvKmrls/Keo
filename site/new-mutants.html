@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Maisie Williams", "r": "Rahne Sinclair / Wolfsbane"}, {"n": "Anya Taylor-Joy", "r": "Illyana Rasputin / Magik", "p": "anya-taylor-joy"}, {"n": "Charlie Heaton", "r": "Sam Guthrie / Cannonball", "p": "charlie-heaton"}, {"n": "Henry Zaga", "r": "Roberto da Costa / Sunspot", "p": "henry-zaga"}, {"n": "Blu Hunt", "r": "Danielle Moonstar / Mirage", "p": "blu-hunt"}, {"n": "Alice Braga", "r": "Dr. Cecilia Reyes", "p": "alice-braga"}, {"n": "Adam Beach", "r": "Reverend Craig", "p": "adam-beach"}];
+  var CAST = [{"n": "Maisie Williams", "r": "Rahne Sinclair / Wolfsbane", "p": "maisie-williams"}, {"n": "Anya Taylor-Joy", "r": "Illyana Rasputin / Magik", "p": "anya-taylor-joy"}, {"n": "Charlie Heaton", "r": "Sam Guthrie / Cannonball", "p": "charlie-heaton"}, {"n": "Henry Zaga", "r": "Roberto da Costa / Sunspot", "p": "henry-zaga"}, {"n": "Blu Hunt", "r": "Danielle Moonstar / Mirage", "p": "blu-hunt"}, {"n": "Alice Braga", "r": "Dr. Cecilia Reyes", "p": "alice-braga"}, {"n": "Adam Beach", "r": "Reverend Craig", "p": "adam-beach"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

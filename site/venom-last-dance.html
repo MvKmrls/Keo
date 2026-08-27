@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Tom Hardy", "r": "Eddie Brock / Venom"}, {"n": "Chiwetel Ejiofor", "r": "Rex Strickland", "p": "chiwetel-ejiofor"}, {"n": "Juno Temple", "r": "Dr. Teddy Paine", "p": "juno-temple"}, {"n": "Rhys Ifans", "r": "Martin Moon"}, {"n": "Stephen Graham", "r": "Patrick Mulligan"}, {"n": "Peggy Lu", "r": "Mrs. Chen"}, {"n": "Alanna Ubach", "r": "Agent Sadie Christmas", "p": "alanna-ubach"}, {"n": "Clark Backo", "r": "Special Agent", "p": "clark-backo"}, {"n": "Cristo Fernández", "r": "Moon Family Member", "p": "cristo-fernandez"}, {"n": "Dash McCloud", "r": "Echo Moon", "p": "dash-mccloud"}, {"n": "Hala Finley", "r": "Bailey Moon", "p": "hala-finley"}];
+  var CAST = [{"n": "Tom Hardy", "r": "Eddie Brock / Venom", "p": "tom-hardy"}, {"n": "Chiwetel Ejiofor", "r": "Rex Strickland", "p": "chiwetel-ejiofor"}, {"n": "Juno Temple", "r": "Dr. Teddy Paine", "p": "juno-temple"}, {"n": "Rhys Ifans", "r": "Martin Moon", "p": "rhys-ifans"}, {"n": "Stephen Graham", "r": "Patrick Mulligan", "p": "stephen-graham"}, {"n": "Peggy Lu", "r": "Mrs. Chen", "p": "peggy-lu"}, {"n": "Alanna Ubach", "r": "Agent Sadie Christmas", "p": "alanna-ubach"}, {"n": "Clark Backo", "r": "Special Agent", "p": "clark-backo"}, {"n": "Cristo Fernández", "r": "Moon Family Member", "p": "cristo-fernandez"}, {"n": "Dash McCloud", "r": "Echo Moon", "p": "dash-mccloud"}, {"n": "Hala Finley", "r": "Bailey Moon", "p": "hala-finley"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

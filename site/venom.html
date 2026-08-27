@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Tom Hardy", "r": "Eddie Brock / Venom"}, {"n": "Michelle Williams", "r": "Anne Weying"}, {"n": "Riz Ahmed", "r": "Carlton Drake / Riot"}, {"n": "Scott Haze", "r": "Sgt. Roland Treece"}, {"n": "Reid Scott", "r": "Dr. Dan Lewis"}, {"n": "Jenny Slate", "r": "Dr. Dora Skirth", "p": "jenny-slate"}, {"n": "Melora Walters", "r": "Detective Mulligan"}, {"n": "Woody Harrelson", "r": "Cletus Kasady"}, {"n": "Sope Aluko", "r": "Dr. Rosie Collins"}, {"n": "Peggy Lu", "r": "Mrs. Chen"}, {"n": "Ron Cephas Jones", "r": "Homeless Man"}];
+  var CAST = [{"n": "Tom Hardy", "r": "Eddie Brock / Venom", "p": "tom-hardy"}, {"n": "Michelle Williams", "r": "Anne Weying", "p": "michelle-williams"}, {"n": "Riz Ahmed", "r": "Carlton Drake / Riot", "p": "riz-ahmed"}, {"n": "Scott Haze", "r": "Sgt. Roland Treece", "p": "scott-haze"}, {"n": "Reid Scott", "r": "Dr. Dan Lewis", "p": "reid-scott"}, {"n": "Jenny Slate", "r": "Dr. Dora Skirth", "p": "jenny-slate"}, {"n": "Melora Walters", "r": "Detective Mulligan", "p": "melora-walters"}, {"n": "Woody Harrelson", "r": "Cletus Kasady", "p": "woody-harrelson"}, {"n": "Sope Aluko", "r": "Dr. Rosie Collins", "p": "sope-aluko"}, {"n": "Peggy Lu", "r": "Mrs. Chen", "p": "peggy-lu"}, {"n": "Ron Cephas Jones", "r": "Homeless Man", "p": "ron-cephas-jones"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

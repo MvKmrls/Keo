@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Hugh Jackman", "r": "Logan / Wolverine", "p": "hugh-jackman"}, {"n": "Tao Okamoto", "r": "Mariko Yashida"}, {"n": "Rila Fukushima", "r": "Yukio"}, {"n": "Hiroyuki Sanada", "r": "Shingen Yashida", "p": "hiroyuki-sanada"}, {"n": "Svetlana Khodchenkova", "r": "Viper"}, {"n": "Will Yun Lee", "r": "Kenuichio Harada / Silver Samurai"}, {"n": "Haruhiko Yamanouchi", "r": "Ichiro Yashida", "p": "haruhiko-yamanouchi"}, {"n": "Brian Tee", "r": "Noburo Mori", "p": "brian-tee"}, {"n": "Famke Janssen", "r": "Jean Grey", "p": "famke-janssen"}];
+  var CAST = [{"n": "Hugh Jackman", "r": "Logan / Wolverine", "p": "hugh-jackman"}, {"n": "Tao Okamoto", "r": "Mariko Yashida", "p": "tao-okamoto"}, {"n": "Rila Fukushima", "r": "Yukio", "p": "rila-fukushima"}, {"n": "Hiroyuki Sanada", "r": "Shingen Yashida", "p": "hiroyuki-sanada"}, {"n": "Svetlana Khodchenkova", "r": "Viper", "p": "svetlana-khodchenkova"}, {"n": "Will Yun Lee", "r": "Kenuichio Harada / Silver Samurai", "p": "will-yun-lee"}, {"n": "Haruhiko Yamanouchi", "r": "Ichiro Yashida", "p": "haruhiko-yamanouchi"}, {"n": "Brian Tee", "r": "Noburo Mori", "p": "brian-tee"}, {"n": "Famke Janssen", "r": "Jean Grey", "p": "famke-janssen"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

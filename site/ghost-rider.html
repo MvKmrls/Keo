@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Nicolas Cage", "r": "Johnny Blaze / Ghost Rider"}, {"n": "Eva Mendes", "r": "Roxanne Simpson"}, {"n": "Wes Bentley", "r": "Blackheart"}, {"n": "Sam Elliott", "r": "Caretaker / Carter Slade"}, {"n": "Donal Logue", "r": "Mack", "p": "donal-logue"}, {"n": "Peter Fonda", "r": "Mephistopheles"}, {"n": "Matt Long", "r": "Young Johnny Blaze"}, {"n": "Raquel Alessi", "r": "Young Roxanne"}, {"n": "Brett Cullen", "r": "Barton Blaze", "p": "brett-cullen"}, {"n": "Laurence Breuls", "r": "Gressil"}, {"n": "Daniel Frederiksen", "r": "Wallow"}];
+  var CAST = [{"n": "Nicolas Cage", "r": "Johnny Blaze / Ghost Rider", "p": "nicolas-cage"}, {"n": "Eva Mendes", "r": "Roxanne Simpson"}, {"n": "Wes Bentley", "r": "Blackheart"}, {"n": "Sam Elliott", "r": "Caretaker / Carter Slade"}, {"n": "Donal Logue", "r": "Mack", "p": "donal-logue"}, {"n": "Peter Fonda", "r": "Mephistopheles"}, {"n": "Matt Long", "r": "Young Johnny Blaze"}, {"n": "Raquel Alessi", "r": "Young Roxanne"}, {"n": "Brett Cullen", "r": "Barton Blaze", "p": "brett-cullen"}, {"n": "Laurence Breuls", "r": "Gressil"}, {"n": "Daniel Frederiksen", "r": "Wallow"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

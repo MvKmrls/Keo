@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Ryan Reynolds", "r": "Wade Wilson / Deadpool"}, {"n": "Morena Baccarin", "r": "Vanessa Carlysle"}, {"n": "Ed Skrein", "r": "Ajax / Francis", "p": "ed-skrein"}, {"n": "T.J. Miller", "r": "Weasel"}, {"n": "Gina Carano", "r": "Angel Dust", "p": "gina-carano"}, {"n": "Leslie Uggams", "r": "Blind Al"}, {"n": "Brianna Hildebrand", "r": "Negasonic Teenage Warhead", "p": "brianna-hildebrand"}, {"n": "Stefan Kapicic", "r": "Colossus (voice)"}, {"n": "Karan Soni", "r": "Dopinder", "p": "karan-soni"}];
+  var CAST = [{"n": "Ryan Reynolds", "r": "Wade Wilson / Deadpool", "p": "ryan-reynolds"}, {"n": "Morena Baccarin", "r": "Vanessa Carlysle", "p": "morena-baccarin"}, {"n": "Ed Skrein", "r": "Ajax / Francis", "p": "ed-skrein"}, {"n": "T.J. Miller", "r": "Weasel", "p": "t-j-miller"}, {"n": "Gina Carano", "r": "Angel Dust", "p": "gina-carano"}, {"n": "Leslie Uggams", "r": "Blind Al", "p": "leslie-uggams"}, {"n": "Brianna Hildebrand", "r": "Negasonic Teenage Warhead", "p": "brianna-hildebrand"}, {"n": "Stefan Kapicic", "r": "Colossus (voice)", "p": "stefan-kapicic"}, {"n": "Karan Soni", "r": "Dopinder", "p": "karan-soni"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

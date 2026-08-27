@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Benedict Cumberbatch", "r": "Stephen Strange", "p": "benedict-cumberbatch"}, {"n": "Chiwetel Ejiofor", "r": "Karl Mordo", "p": "chiwetel-ejiofor"}, {"n": "Rachel McAdams", "r": "Christine Palmer"}, {"n": "Benedict Wong", "r": "Wong", "p": "benedict-wong"}, {"n": "Michael Stuhlbarg", "r": "Nicodemus West"}, {"n": "Benjamin Bratt", "r": "Jonathan Pangborn", "p": "benjamin-bratt"}, {"n": "Scott Adkins", "r": "Lucian"}, {"n": "Mads Mikkelsen", "r": "Kaecilius"}, {"n": "Tilda Swinton", "r": "L'Ancien"}, {"n": "Zara Phythian", "r": "Zealot"}, {"n": "Topo Wresniwiro", "r": "Disciple de Kamar-Taj"}];
+  var CAST = [{"n": "Benedict Cumberbatch", "r": "Stephen Strange", "p": "benedict-cumberbatch"}, {"n": "Chiwetel Ejiofor", "r": "Karl Mordo", "p": "chiwetel-ejiofor"}, {"n": "Rachel McAdams", "r": "Christine Palmer", "p": "rachel-mcadams"}, {"n": "Benedict Wong", "r": "Wong", "p": "benedict-wong"}, {"n": "Michael Stuhlbarg", "r": "Nicodemus West", "p": "michael-stuhlbarg"}, {"n": "Benjamin Bratt", "r": "Jonathan Pangborn", "p": "benjamin-bratt"}, {"n": "Scott Adkins", "r": "Lucian", "p": "scott-adkins"}, {"n": "Mads Mikkelsen", "r": "Kaecilius", "p": "mads-mikkelsen"}, {"n": "Tilda Swinton", "r": "L'Ancien", "p": "tilda-swinton"}, {"n": "Zara Phythian", "r": "Zealot", "p": "zara-phythian"}, {"n": "Topo Wresniwiro", "r": "Disciple de Kamar-Taj", "p": "topo-wresniwiro"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

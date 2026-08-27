@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Ryan Reynolds", "r": "Wade Wilson / Deadpool"}, {"n": "Hugh Jackman", "r": "Logan / Wolverine", "p": "hugh-jackman"}, {"n": "Emma Corrin", "r": "Cassandra Nova", "p": "emma-corrin"}, {"n": "Morena Baccarin", "r": "Vanessa"}, {"n": "Rob Delaney", "r": "Peter"}, {"n": "Leslie Uggams", "r": "Blind Al"}, {"n": "Karan Soni", "r": "Dopinder", "p": "karan-soni"}, {"n": "Matthew Macfadyen", "r": "Mr. Paradox"}, {"n": "Aaron Stanford", "r": "Pyro", "p": "aaron-stanford"}, {"n": "Jennifer Garner", "r": "Elektra", "p": "jennifer-garner"}, {"n": "Wesley Snipes", "r": "Blade"}, {"n": "Channing Tatum", "r": "Gambit", "p": "channing-tatum"}];
+  var CAST = [{"n": "Ryan Reynolds", "r": "Wade Wilson / Deadpool", "p": "ryan-reynolds"}, {"n": "Hugh Jackman", "r": "Logan / Wolverine", "p": "hugh-jackman"}, {"n": "Emma Corrin", "r": "Cassandra Nova", "p": "emma-corrin"}, {"n": "Morena Baccarin", "r": "Vanessa", "p": "morena-baccarin"}, {"n": "Rob Delaney", "r": "Peter", "p": "rob-delaney"}, {"n": "Leslie Uggams", "r": "Blind Al", "p": "leslie-uggams"}, {"n": "Karan Soni", "r": "Dopinder", "p": "karan-soni"}, {"n": "Matthew Macfadyen", "r": "Mr. Paradox", "p": "matthew-macfadyen"}, {"n": "Aaron Stanford", "r": "Pyro", "p": "aaron-stanford"}, {"n": "Jennifer Garner", "r": "Elektra", "p": "jennifer-garner"}, {"n": "Wesley Snipes", "r": "Blade", "p": "wesley-snipes"}, {"n": "Channing Tatum", "r": "Gambit", "p": "channing-tatum"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

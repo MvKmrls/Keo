@@ -233,7 +233,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Krysten Ritter", "r": "Jessica Jones", "p": "krysten-ritter"}, {"n": "Rachael Taylor", "r": "Trish Walker / Hellcat"}, {"n": "Eka Darville", "r": "Malcolm Ducasse", "p": "eka-darville"}, {"n": "Carrie-Anne Moss", "r": "Jeri Hogarth", "p": "carrie-anne-moss"}, {"n": "Rebecca De Mornay", "r": "Dorothy Walker"}, {"n": "Jeremy Bobb", "r": "Gregory Sallinger", "p": "jeremy-bobb"}, {"n": "Benjamin Walker", "r": "Erik Gelden", "p": "benjamin-walker"}, {"n": "J.R. Ramirez", "r": "Oscar Ramirez", "p": "j-r-ramirez"}, {"n": "Callum Keith Rennie", "r": "Dr. Karl Malus", "p": "callum-keith-rennie"}, {"n": "Sarah Hay", "r": "Kith Lyonne"}];
+  var CAST = [{"n": "Krysten Ritter", "r": "Jessica Jones", "p": "krysten-ritter"}, {"n": "Rachael Taylor", "r": "Trish Walker / Hellcat", "p": "rachael-taylor"}, {"n": "Eka Darville", "r": "Malcolm Ducasse", "p": "eka-darville"}, {"n": "Carrie-Anne Moss", "r": "Jeri Hogarth", "p": "carrie-anne-moss"}, {"n": "Rebecca De Mornay", "r": "Dorothy Walker", "p": "rebecca-de-mornay"}, {"n": "Jeremy Bobb", "r": "Gregory Sallinger", "p": "jeremy-bobb"}, {"n": "Benjamin Walker", "r": "Erik Gelden", "p": "benjamin-walker"}, {"n": "J.R. Ramirez", "r": "Oscar Ramirez", "p": "j-r-ramirez"}, {"n": "Callum Keith Rennie", "r": "Dr. Karl Malus", "p": "callum-keith-rennie"}, {"n": "Sarah Hay", "r": "Kith Lyonne", "p": "sarah-hay"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

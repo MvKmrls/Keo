@@ -233,7 +233,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Finn Jones", "r": "Danny Rand / Iron Fist", "p": "finn-jones"}, {"n": "Jessica Henwick", "r": "Colleen Wing", "p": "jessica-henwick"}, {"n": "Jessica Stroup", "r": "Joy Meachum", "p": "jessica-stroup"}, {"n": "Tom Pelphrey", "r": "Ward Meachum"}, {"n": "Sacha Dhawan", "r": "Davos / Steel Serpent"}, {"n": "Alice Eve", "r": "Mary Walker / Typhoid Mary", "p": "alice-eve"}, {"n": "Simone Missick", "r": "Misty Knight"}, {"n": "Wai Ching Ho", "r": "Madame Gao"}, {"n": "Lewis Tan", "r": "Zhou Cheng"}, {"n": "David Wenham", "r": "Harold Meachum", "p": "david-wenham"}];
+  var CAST = [{"n": "Finn Jones", "r": "Danny Rand / Iron Fist", "p": "finn-jones"}, {"n": "Jessica Henwick", "r": "Colleen Wing", "p": "jessica-henwick"}, {"n": "Jessica Stroup", "r": "Joy Meachum", "p": "jessica-stroup"}, {"n": "Tom Pelphrey", "r": "Ward Meachum", "p": "tom-pelphrey"}, {"n": "Sacha Dhawan", "r": "Davos / Steel Serpent", "p": "sacha-dhawan"}, {"n": "Alice Eve", "r": "Mary Walker / Typhoid Mary", "p": "alice-eve"}, {"n": "Simone Missick", "r": "Misty Knight", "p": "simone-missick"}, {"n": "Wai Ching Ho", "r": "Madame Gao", "p": "wai-ching-ho"}, {"n": "Lewis Tan", "r": "Zhou Cheng", "p": "lewis-tan"}, {"n": "David Wenham", "r": "Harold Meachum", "p": "david-wenham"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

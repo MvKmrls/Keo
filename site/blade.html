@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Wesley Snipes", "r": "Blade"}, {"n": "Stephen Dorff", "r": "Deacon Frost"}, {"n": "Kris Kristofferson", "r": "Abraham Whistler", "p": "kris-kristofferson"}, {"n": "N'Bushe Wright", "r": "Dr. Karen Jenson"}, {"n": "Donal Logue", "r": "Quinn", "p": "donal-logue"}, {"n": "Udo Kier", "r": "Dragonetti"}, {"n": "Arly Jover", "r": "Mercury", "p": "arly-jover"}, {"n": "Traci Lords", "r": "Racquel"}, {"n": "Kevin Patrick Walls", "r": "Krieger", "p": "kevin-patrick-walls"}, {"n": "Sanaa Lathan", "r": "Vanessa Brooks"}, {"n": "Tim Guinee", "r": "Curtis Webb"}, {"n": "Eric Edwards", "r": "Pearl", "p": "eric-edwards"}];
+  var CAST = [{"n": "Wesley Snipes", "r": "Blade", "p": "wesley-snipes"}, {"n": "Stephen Dorff", "r": "Deacon Frost", "p": "stephen-dorff"}, {"n": "Kris Kristofferson", "r": "Abraham Whistler", "p": "kris-kristofferson"}, {"n": "N'Bushe Wright", "r": "Dr. Karen Jenson", "p": "n-bushe-wright"}, {"n": "Donal Logue", "r": "Quinn", "p": "donal-logue"}, {"n": "Udo Kier", "r": "Dragonetti", "p": "udo-kier"}, {"n": "Arly Jover", "r": "Mercury", "p": "arly-jover"}, {"n": "Traci Lords", "r": "Racquel", "p": "traci-lords"}, {"n": "Kevin Patrick Walls", "r": "Krieger", "p": "kevin-patrick-walls"}, {"n": "Sanaa Lathan", "r": "Vanessa Brooks", "p": "sanaa-lathan"}, {"n": "Tim Guinee", "r": "Curtis Webb", "p": "tim-guinee"}, {"n": "Eric Edwards", "r": "Pearl", "p": "eric-edwards"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

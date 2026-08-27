@@ -233,7 +233,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Krysten Ritter", "r": "Jessica Jones", "p": "krysten-ritter"}, {"n": "Rachael Taylor", "r": "Trish Walker"}, {"n": "Eka Darville", "r": "Malcolm Ducasse", "p": "eka-darville"}, {"n": "Carrie-Anne Moss", "r": "Jeri Hogarth", "p": "carrie-anne-moss"}, {"n": "Janet McTeer", "r": "Alisa Jones", "p": "janet-mcteer"}, {"n": "J.R. Ramirez", "r": "Oscar Ramirez", "p": "j-r-ramirez"}, {"n": "Terry Chen", "r": "Pryce Cheng"}, {"n": "Callum Keith Rennie", "r": "Dr. Karl Malus", "p": "callum-keith-rennie"}, {"n": "Leah Gibson", "r": "Gillian", "p": "leah-gibson"}, {"n": "David Tennant", "r": "Kevin Thompson / Kilgrave (guest)", "p": "david-tennant"}];
+  var CAST = [{"n": "Krysten Ritter", "r": "Jessica Jones", "p": "krysten-ritter"}, {"n": "Rachael Taylor", "r": "Trish Walker", "p": "rachael-taylor"}, {"n": "Eka Darville", "r": "Malcolm Ducasse", "p": "eka-darville"}, {"n": "Carrie-Anne Moss", "r": "Jeri Hogarth", "p": "carrie-anne-moss"}, {"n": "Janet McTeer", "r": "Alisa Jones", "p": "janet-mcteer"}, {"n": "J.R. Ramirez", "r": "Oscar Ramirez", "p": "j-r-ramirez"}, {"n": "Terry Chen", "r": "Pryce Cheng", "p": "terry-chen"}, {"n": "Callum Keith Rennie", "r": "Dr. Karl Malus", "p": "callum-keith-rennie"}, {"n": "Leah Gibson", "r": "Gillian", "p": "leah-gibson"}, {"n": "David Tennant", "r": "Kevin Thompson / Kilgrave (guest)", "p": "david-tennant"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

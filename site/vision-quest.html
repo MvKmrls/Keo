@@ -228,7 +228,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Paul Bettany", "r": "Vision"}];
+  var CAST = [{"n": "Paul Bettany", "r": "Vision", "p": "paul-bettany"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

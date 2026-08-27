@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Hugh Jackman", "r": "Logan / Wolverine", "p": "hugh-jackman"}, {"n": "Patrick Stewart", "r": "Charles Xavier"}, {"n": "Dafne Keen", "r": "Laura / X-23", "p": "dafne-keen"}, {"n": "Boyd Holbrook", "r": "Donald Pierce", "p": "boyd-holbrook"}, {"n": "Stephen Merchant", "r": "Caliban"}, {"n": "Richard E. Grant", "r": "Dr. Zander Rice"}, {"n": "Eriq La Salle", "r": "Will Munson", "p": "eriq-la-salle"}, {"n": "Elizabeth Rodriguez", "r": "Gabriela", "p": "elizabeth-rodriguez"}];
+  var CAST = [{"n": "Hugh Jackman", "r": "Logan / Wolverine", "p": "hugh-jackman"}, {"n": "Patrick Stewart", "r": "Charles Xavier", "p": "patrick-stewart"}, {"n": "Dafne Keen", "r": "Laura / X-23", "p": "dafne-keen"}, {"n": "Boyd Holbrook", "r": "Donald Pierce", "p": "boyd-holbrook"}, {"n": "Stephen Merchant", "r": "Caliban", "p": "stephen-merchant"}, {"n": "Richard E. Grant", "r": "Dr. Zander Rice", "p": "richard-e-grant"}, {"n": "Eriq La Salle", "r": "Will Munson", "p": "eriq-la-salle"}, {"n": "Elizabeth Rodriguez", "r": "Gabriela", "p": "elizabeth-rodriguez"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

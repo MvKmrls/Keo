@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Charlie Cox", "r": "Matt Murdock / Daredevil", "p": "charlie-cox"}, {"n": "Vincent D'Onofrio", "r": "Wilson Fisk / Kingpin"}, {"n": "Margarita Levieva", "r": "Heather Glenn"}, {"n": "Zabryna Guevara", "r": "Cherry"}, {"n": "Michael Gandolfini", "r": "Daniel Blake"}, {"n": "Genneya Walton", "r": "Angela del Toro", "p": "genneya-walton"}, {"n": "Nikki M. James", "r": "BB Urich"}, {"n": "Ayelet Zurer", "r": "Vanessa Fisk", "p": "ayelet-zurer"}, {"n": "Arty Froushan", "r": "Buck Cushman", "p": "arty-froushan"}, {"n": "Sandrine Holt", "r": "Commissaire Gabriel"}];
+  var CAST = [{"n": "Charlie Cox", "r": "Matt Murdock / Daredevil", "p": "charlie-cox"}, {"n": "Vincent D'Onofrio", "r": "Wilson Fisk / Kingpin", "p": "vincent-d-onofrio"}, {"n": "Margarita Levieva", "r": "Heather Glenn", "p": "margarita-levieva"}, {"n": "Zabryna Guevara", "r": "Cherry", "p": "zabryna-guevara"}, {"n": "Michael Gandolfini", "r": "Daniel Blake", "p": "michael-gandolfini"}, {"n": "Genneya Walton", "r": "Angela del Toro", "p": "genneya-walton"}, {"n": "Nikki M. James", "r": "BB Urich", "p": "nikki-m-james"}, {"n": "Ayelet Zurer", "r": "Vanessa Fisk", "p": "ayelet-zurer"}, {"n": "Arty Froushan", "r": "Buck Cushman", "p": "arty-froushan"}, {"n": "Sandrine Holt", "r": "Commissaire Gabriel", "p": "sandrine-holt"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

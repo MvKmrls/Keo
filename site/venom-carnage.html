@@ -237,7 +237,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Tom Hardy", "r": "Eddie Brock / Venom"}, {"n": "Woody Harrelson", "r": "Cletus Kasady / Carnage"}, {"n": "Michelle Williams", "r": "Anne Weying"}, {"n": "Naomie Harris", "r": "Frances Barrison / Shriek"}, {"n": "Reid Scott", "r": "Dr. Dan Lewis"}, {"n": "Stephen Graham", "r": "Patrick Mulligan"}, {"n": "Peggy Lu", "r": "Mrs. Chen"}, {"n": "Sean Delaney", "r": "Blake Marion"}, {"n": "Michael Benyaer", "r": "Priest"}, {"n": "Craig Stein", "r": "Officer", "p": "craig-stein"}];
+  var CAST = [{"n": "Tom Hardy", "r": "Eddie Brock / Venom", "p": "tom-hardy"}, {"n": "Woody Harrelson", "r": "Cletus Kasady / Carnage", "p": "woody-harrelson"}, {"n": "Michelle Williams", "r": "Anne Weying", "p": "michelle-williams"}, {"n": "Naomie Harris", "r": "Frances Barrison / Shriek", "p": "naomie-harris"}, {"n": "Reid Scott", "r": "Dr. Dan Lewis", "p": "reid-scott"}, {"n": "Stephen Graham", "r": "Patrick Mulligan", "p": "stephen-graham"}, {"n": "Peggy Lu", "r": "Mrs. Chen", "p": "peggy-lu"}, {"n": "Sean Delaney", "r": "Blake Marion", "p": "sean-delaney"}, {"n": "Michael Benyaer", "r": "Priest", "p": "michael-benyaer"}, {"n": "Craig Stein", "r": "Officer", "p": "craig-stein"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Brie Larson", "r": "Carol Danvers / Captain Marvel", "p": "brie-larson"}, {"n": "Samuel L. Jackson", "r": "Nick Fury"}, {"n": "Ben Mendelsohn", "r": "Talos", "p": "ben-mendelsohn"}, {"n": "Djimon Hounsou", "r": "Korath", "p": "djimon-hounsou"}, {"n": "Lee Pace", "r": "Ronan the Accuser", "p": "lee-pace"}, {"n": "Lashana Lynch", "r": "Maria Rambeau", "p": "lashana-lynch"}, {"n": "Gemma Chan", "r": "Minn-Erva", "p": "gemma-chan"}, {"n": "Annette Bening", "r": "Dr. Wendy Lawson / Supreme Intelligence", "p": "annette-bening"}, {"n": "Clark Gregg", "r": "Phil Coulson", "p": "clark-gregg"}, {"n": "Jude Law", "r": "Yon-Rogg", "p": "jude-law"}];
+  var CAST = [{"n": "Brie Larson", "r": "Carol Danvers / Captain Marvel", "p": "brie-larson"}, {"n": "Samuel L. Jackson", "r": "Nick Fury", "p": "samuel-l-jackson"}, {"n": "Ben Mendelsohn", "r": "Talos", "p": "ben-mendelsohn"}, {"n": "Djimon Hounsou", "r": "Korath", "p": "djimon-hounsou"}, {"n": "Lee Pace", "r": "Ronan the Accuser", "p": "lee-pace"}, {"n": "Lashana Lynch", "r": "Maria Rambeau", "p": "lashana-lynch"}, {"n": "Gemma Chan", "r": "Minn-Erva", "p": "gemma-chan"}, {"n": "Annette Bening", "r": "Dr. Wendy Lawson / Supreme Intelligence", "p": "annette-bening"}, {"n": "Clark Gregg", "r": "Phil Coulson", "p": "clark-gregg"}, {"n": "Jude Law", "r": "Yon-Rogg", "p": "jude-law"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Tom Hiddleston", "r": "Loki"}, {"n": "Owen Wilson", "r": "Mobius M. Mobius"}, {"n": "Sophia Di Martino", "r": "Sylvie"}, {"n": "Gugu Mbatha-Raw", "r": "Ravonna Renslayer", "p": "gugu-mbatha-raw"}, {"n": "Wunmi Mosaku", "r": "Hunter B-15"}, {"n": "Eugene Cordero", "r": "Casey", "p": "eugene-cordero"}, {"n": "Jonathan Majors", "r": "He Who Remains", "p": "jonathan-majors"}, {"n": "Tara Strong", "r": "Miss Minutes (voice)"}, {"n": "Sasha Lane", "r": "Hunter C-20"}, {"n": "Richard E. Grant", "r": "Classic Loki"}, {"n": "DeObia Oparei", "r": "Boastful Loki", "p": "deobia-oparei"}, {"n": "Jack Veal", "r": "Kid Loki", "p": "jack-veal"}];
+  var CAST = [{"n": "Tom Hiddleston", "r": "Loki", "p": "tom-hiddleston"}, {"n": "Owen Wilson", "r": "Mobius M. Mobius", "p": "owen-wilson"}, {"n": "Sophia Di Martino", "r": "Sylvie", "p": "sophia-di-martino"}, {"n": "Gugu Mbatha-Raw", "r": "Ravonna Renslayer", "p": "gugu-mbatha-raw"}, {"n": "Wunmi Mosaku", "r": "Hunter B-15", "p": "wunmi-mosaku"}, {"n": "Eugene Cordero", "r": "Casey", "p": "eugene-cordero"}, {"n": "Jonathan Majors", "r": "He Who Remains", "p": "jonathan-majors"}, {"n": "Tara Strong", "r": "Miss Minutes (voice)", "p": "tara-strong"}, {"n": "Sasha Lane", "r": "Hunter C-20", "p": "sasha-lane"}, {"n": "Richard E. Grant", "r": "Classic Loki", "p": "richard-e-grant"}, {"n": "DeObia Oparei", "r": "Boastful Loki", "p": "deobia-oparei"}, {"n": "Jack Veal", "r": "Kid Loki", "p": "jack-veal"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

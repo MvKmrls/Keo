@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Chris Hemsworth", "r": "Thor Odinson", "p": "chris-hemsworth"}, {"n": "Natalie Portman", "r": "Jane Foster / Mighty Thor"}, {"n": "Christian Bale", "r": "Gorr the God Butcher", "p": "christian-bale"}, {"n": "Tessa Thompson", "r": "Valkyrie"}, {"n": "Jaimie Alexander", "r": "Sif", "p": "jaimie-alexander"}, {"n": "Taika Waititi", "r": "Korg (voice)"}, {"n": "Russell Crowe", "r": "Zeus"}, {"n": "Chris Pratt", "r": "Star-Lord", "p": "chris-pratt"}, {"n": "Karen Gillan", "r": "Nebula", "p": "karen-gillan"}, {"n": "Pom Klementieff", "r": "Mantis"}, {"n": "Dave Bautista", "r": "Drax", "p": "dave-bautista"}, {"n": "Vin Diesel", "r": "Groot (voice)"}];
+  var CAST = [{"n": "Chris Hemsworth", "r": "Thor Odinson", "p": "chris-hemsworth"}, {"n": "Natalie Portman", "r": "Jane Foster / Mighty Thor", "p": "natalie-portman"}, {"n": "Christian Bale", "r": "Gorr the God Butcher", "p": "christian-bale"}, {"n": "Tessa Thompson", "r": "Valkyrie", "p": "tessa-thompson"}, {"n": "Jaimie Alexander", "r": "Sif", "p": "jaimie-alexander"}, {"n": "Taika Waititi", "r": "Korg (voice)", "p": "taika-waititi"}, {"n": "Russell Crowe", "r": "Zeus", "p": "russell-crowe"}, {"n": "Chris Pratt", "r": "Star-Lord", "p": "chris-pratt"}, {"n": "Karen Gillan", "r": "Nebula", "p": "karen-gillan"}, {"n": "Pom Klementieff", "r": "Mantis", "p": "pom-klementieff"}, {"n": "Dave Bautista", "r": "Drax", "p": "dave-bautista"}, {"n": "Vin Diesel", "r": "Groot (voice)", "p": "vin-diesel"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

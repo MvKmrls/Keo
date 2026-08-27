@@ -234,7 +234,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Jared Leto", "r": "Michael Morbius", "p": "jared-leto"}, {"n": "Matt Smith", "r": "Milo (Lucien)"}, {"n": "Adria Arjona", "r": "Dr. Martine Bancroft", "p": "adria-arjona"}, {"n": "Jared Harris", "r": "Dr. Emil Nicholas", "p": "jared-harris"}, {"n": "Al Madrigal", "r": "Agent Alberto Rodriguez", "p": "al-madrigal"}, {"n": "Tyrese Gibson", "r": "Agent Simon Stroud"}, {"n": "Michael Keaton", "r": "Adrian Toomes / Vulture"}, {"n": "Corey Johnson", "r": "Loomis", "p": "corey-johnson"}, {"n": "Willie C. Carpenter", "r": "Guard"}, {"n": "Charlie Shotwell", "r": "Young Michael Morbius", "p": "charlie-shotwell"}];
+  var CAST = [{"n": "Jared Leto", "r": "Michael Morbius", "p": "jared-leto"}, {"n": "Matt Smith", "r": "Milo (Lucien)", "p": "matt-smith"}, {"n": "Adria Arjona", "r": "Dr. Martine Bancroft", "p": "adria-arjona"}, {"n": "Jared Harris", "r": "Dr. Emil Nicholas", "p": "jared-harris"}, {"n": "Al Madrigal", "r": "Agent Alberto Rodriguez", "p": "al-madrigal"}, {"n": "Tyrese Gibson", "r": "Agent Simon Stroud", "p": "tyrese-gibson"}, {"n": "Michael Keaton", "r": "Adrian Toomes / Vulture", "p": "michael-keaton"}, {"n": "Corey Johnson", "r": "Loomis", "p": "corey-johnson"}, {"n": "Willie C. Carpenter", "r": "Guard", "p": "willie-c-carpenter"}, {"n": "Charlie Shotwell", "r": "Young Michael Morbius", "p": "charlie-shotwell"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

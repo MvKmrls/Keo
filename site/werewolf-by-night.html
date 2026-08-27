@@ -238,7 +238,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Gael García Bernal", "r": "Jack Russell / Werewolf by Night", "p": "gael-garcia-bernal"}, {"n": "Laura Donnelly", "r": "Elsa Bloodstone", "p": "laura-donnelly"}, {"n": "Harriet Sansom Harris", "r": "Verussa Bloodstone", "p": "harriet-sansom-harris"}, {"n": "Leonardo Nam", "r": "Jovan"}, {"n": "Kirk R. Thatcher", "r": "Ted", "p": "kirk-r-thatcher"}, {"n": "Rachel Matthews", "r": "Hunter"}, {"n": "Eugenie Bondurant", "r": "Hunter", "p": "eugenie-bondurant"}, {"n": "David Bass", "r": "Man-Thing (performer)"}, {"n": "Carey Jones", "r": "Hunter", "p": "carey-jones"}, {"n": "Matt Wilkinson", "r": "Hunter"}];
+  var CAST = [{"n": "Gael García Bernal", "r": "Jack Russell / Werewolf by Night", "p": "gael-garcia-bernal"}, {"n": "Laura Donnelly", "r": "Elsa Bloodstone", "p": "laura-donnelly"}, {"n": "Harriet Sansom Harris", "r": "Verussa Bloodstone", "p": "harriet-sansom-harris"}, {"n": "Leonardo Nam", "r": "Jovan", "p": "leonardo-nam"}, {"n": "Kirk R. Thatcher", "r": "Ted", "p": "kirk-r-thatcher"}, {"n": "Rachel Matthews", "r": "Hunter", "p": "rachel-matthews"}, {"n": "Eugenie Bondurant", "r": "Hunter", "p": "eugenie-bondurant"}, {"n": "David Bass", "r": "Man-Thing (performer)"}, {"n": "Carey Jones", "r": "Hunter", "p": "carey-jones"}, {"n": "Matt Wilkinson", "r": "Hunter", "p": "matt-wilkinson"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

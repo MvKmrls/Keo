@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Chris Hemsworth", "r": "Thor", "p": "chris-hemsworth"}, {"n": "Tom Hiddleston", "r": "Loki"}, {"n": "Cate Blanchett", "r": "Hela", "p": "cate-blanchett"}, {"n": "Idris Elba", "r": "Heimdall", "p": "idris-elba"}, {"n": "Jeff Goldblum", "r": "Grandmaster", "p": "jeff-goldblum"}, {"n": "Tessa Thompson", "r": "Valkyrie"}, {"n": "Karl Urban", "r": "Skurge", "p": "karl-urban"}, {"n": "Mark Ruffalo", "r": "Bruce Banner / Hulk"}, {"n": "Anthony Hopkins", "r": "Odin", "p": "anthony-hopkins"}, {"n": "Taika Waititi", "r": "Korg"}, {"n": "Rachel House", "r": "Topaz"}, {"n": "Benedict Cumberbatch", "r": "Doctor Strange", "p": "benedict-cumberbatch"}];
+  var CAST = [{"n": "Chris Hemsworth", "r": "Thor", "p": "chris-hemsworth"}, {"n": "Tom Hiddleston", "r": "Loki", "p": "tom-hiddleston"}, {"n": "Cate Blanchett", "r": "Hela", "p": "cate-blanchett"}, {"n": "Idris Elba", "r": "Heimdall", "p": "idris-elba"}, {"n": "Jeff Goldblum", "r": "Grandmaster", "p": "jeff-goldblum"}, {"n": "Tessa Thompson", "r": "Valkyrie", "p": "tessa-thompson"}, {"n": "Karl Urban", "r": "Skurge", "p": "karl-urban"}, {"n": "Mark Ruffalo", "r": "Bruce Banner / Hulk", "p": "mark-ruffalo"}, {"n": "Anthony Hopkins", "r": "Odin", "p": "anthony-hopkins"}, {"n": "Taika Waititi", "r": "Korg", "p": "taika-waititi"}, {"n": "Rachel House", "r": "Topaz", "p": "rachel-house"}, {"n": "Benedict Cumberbatch", "r": "Doctor Strange", "p": "benedict-cumberbatch"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

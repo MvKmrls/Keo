@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Chris Pratt", "r": "Peter Quill / Star-Lord", "p": "chris-pratt"}, {"n": "Zoe Saldaña", "r": "Gamora"}, {"n": "Dave Bautista", "r": "Drax", "p": "dave-bautista"}, {"n": "Karen Gillan", "r": "Nebula", "p": "karen-gillan"}, {"n": "Pom Klementieff", "r": "Mantis"}, {"n": "Vin Diesel", "r": "Groot (voix)"}, {"n": "Bradley Cooper", "r": "Rocket (voix)", "p": "bradley-cooper"}, {"n": "Sean Gunn", "r": "Kraglin"}, {"n": "Chukwudi Iwuji", "r": "Haut Évolutionnaire", "p": "chukwudi-iwuji"}, {"n": "Will Poulter", "r": "Adam Warlock"}, {"n": "Maria Bakalova", "r": "Cosmo (voix)"}, {"n": "Elizabeth Debicki", "r": "Ayesha", "p": "elizabeth-debicki"}];
+  var CAST = [{"n": "Chris Pratt", "r": "Peter Quill / Star-Lord", "p": "chris-pratt"}, {"n": "Zoe Saldaña", "r": "Gamora", "p": "zoe-saldana"}, {"n": "Dave Bautista", "r": "Drax", "p": "dave-bautista"}, {"n": "Karen Gillan", "r": "Nebula", "p": "karen-gillan"}, {"n": "Pom Klementieff", "r": "Mantis", "p": "pom-klementieff"}, {"n": "Vin Diesel", "r": "Groot (voix)", "p": "vin-diesel"}, {"n": "Bradley Cooper", "r": "Rocket (voix)", "p": "bradley-cooper"}, {"n": "Sean Gunn", "r": "Kraglin", "p": "sean-gunn"}, {"n": "Chukwudi Iwuji", "r": "Haut Évolutionnaire", "p": "chukwudi-iwuji"}, {"n": "Will Poulter", "r": "Adam Warlock", "p": "will-poulter"}, {"n": "Maria Bakalova", "r": "Cosmo (voix)", "p": "maria-bakalova"}, {"n": "Elizabeth Debicki", "r": "Ayesha", "p": "elizabeth-debicki"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

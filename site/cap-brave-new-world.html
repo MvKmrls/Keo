@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Anthony Mackie", "r": "Sam Wilson / Captain America", "p": "anthony-mackie"}, {"n": "Harrison Ford", "r": "Thaddeus Ross / Red Hulk", "p": "harrison-ford"}, {"n": "Danny Ramirez", "r": "Joaquin Torres / Falcon", "p": "danny-ramirez"}, {"n": "Shira Haas", "r": "Ruth Bat-Seraph / Sabra"}, {"n": "Carl Lumbly", "r": "Isaiah Bradley", "p": "carl-lumbly"}, {"n": "Tim Blake Nelson", "r": "Samuel Sterns / Leader"}, {"n": "Giancarlo Esposito", "r": "Sidewinder", "p": "giancarlo-esposito"}, {"n": "Xosha Roquemore", "r": "Agent Taylor"}, {"n": "Liv Tyler", "r": "Betty Ross"}, {"n": "Rosa Salazar", "r": "Ruth Bat-Seraph / Sabra (doublure)"}];
+  var CAST = [{"n": "Anthony Mackie", "r": "Sam Wilson / Captain America", "p": "anthony-mackie"}, {"n": "Harrison Ford", "r": "Thaddeus Ross / Red Hulk", "p": "harrison-ford"}, {"n": "Danny Ramirez", "r": "Joaquin Torres / Falcon", "p": "danny-ramirez"}, {"n": "Shira Haas", "r": "Ruth Bat-Seraph / Sabra", "p": "shira-haas"}, {"n": "Carl Lumbly", "r": "Isaiah Bradley", "p": "carl-lumbly"}, {"n": "Tim Blake Nelson", "r": "Samuel Sterns / Leader", "p": "tim-blake-nelson"}, {"n": "Giancarlo Esposito", "r": "Sidewinder", "p": "giancarlo-esposito"}, {"n": "Xosha Roquemore", "r": "Agent Taylor", "p": "xosha-roquemore"}, {"n": "Liv Tyler", "r": "Betty Ross", "p": "liv-tyler"}, {"n": "Rosa Salazar", "r": "Ruth Bat-Seraph / Sabra (doublure)", "p": "rosa-salazar"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

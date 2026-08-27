@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Jeremy Renner", "r": "Clint Barton / Hawkeye", "p": "jeremy-renner"}, {"n": "Hailee Steinfeld", "r": "Kate Bishop", "p": "hailee-steinfeld"}, {"n": "Vera Farmiga", "r": "Eleanor Bishop"}, {"n": "Fra Fee", "r": "Kazi", "p": "fra-fee"}, {"n": "Alaqua Cox", "r": "Maya Lopez / Echo", "p": "alaqua-cox"}, {"n": "Tony Dalton", "r": "Jack Duquesne / Swordsman"}, {"n": "Zahn McClarnon", "r": "William Lopez"}, {"n": "Linda Cardellini", "r": "Laura Barton"}, {"n": "Florence Pugh", "r": "Yelena Belova", "p": "florence-pugh"}, {"n": "Brian d'Arcy James", "r": "Armand III", "p": "brian-d-arcy-james"}];
+  var CAST = [{"n": "Jeremy Renner", "r": "Clint Barton / Hawkeye", "p": "jeremy-renner"}, {"n": "Hailee Steinfeld", "r": "Kate Bishop", "p": "hailee-steinfeld"}, {"n": "Vera Farmiga", "r": "Eleanor Bishop", "p": "vera-farmiga"}, {"n": "Fra Fee", "r": "Kazi", "p": "fra-fee"}, {"n": "Alaqua Cox", "r": "Maya Lopez / Echo", "p": "alaqua-cox"}, {"n": "Tony Dalton", "r": "Jack Duquesne / Swordsman", "p": "tony-dalton"}, {"n": "Zahn McClarnon", "r": "William Lopez", "p": "zahn-mcclarnon"}, {"n": "Linda Cardellini", "r": "Laura Barton", "p": "linda-cardellini"}, {"n": "Florence Pugh", "r": "Yelena Belova", "p": "florence-pugh"}, {"n": "Brian d'Arcy James", "r": "Armand III", "p": "brian-d-arcy-james"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

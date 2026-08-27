@@ -233,7 +233,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Jeffrey Wright", "r": "The Watcher (voix)", "p": "jeffrey-wright"}, {"n": "Hayley Atwell", "r": "Captain Carter (voix)", "p": "hayley-atwell"}, {"n": "Josh Keaton", "r": "Peter Parker / Spider-Man (voix)", "p": "josh-keaton"}, {"n": "Alison Brie", "r": "Black Widow (voix)", "p": "alison-brie"}, {"n": "Jon Favreau", "r": "Happy Hogan (voix)", "p": "jon-favreau"}, {"n": "Paul Rudd", "r": "Scott Lang / Ant-Man (voix)"}, {"n": "Diamond White", "r": "Kamala Khan / Ms. Marvel (voix)", "p": "diamond-white"}];
+  var CAST = [{"n": "Jeffrey Wright", "r": "The Watcher (voix)", "p": "jeffrey-wright"}, {"n": "Hayley Atwell", "r": "Captain Carter (voix)", "p": "hayley-atwell"}, {"n": "Josh Keaton", "r": "Peter Parker / Spider-Man (voix)", "p": "josh-keaton"}, {"n": "Alison Brie", "r": "Black Widow (voix)", "p": "alison-brie"}, {"n": "Jon Favreau", "r": "Happy Hogan (voix)", "p": "jon-favreau"}, {"n": "Paul Rudd", "r": "Scott Lang / Ant-Man (voix)", "p": "paul-rudd"}, {"n": "Diamond White", "r": "Kamala Khan / Ms. Marvel (voix)", "p": "diamond-white"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

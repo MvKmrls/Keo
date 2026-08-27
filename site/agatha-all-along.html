@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Kathryn Hahn", "r": "Agatha Harkness", "p": "kathryn-hahn"}, {"n": "Joe Locke", "r": "Teen / Billy Maximoff", "p": "joe-locke"}, {"n": "Aubrey Plaza", "r": "Rio Vidal", "p": "aubrey-plaza"}, {"n": "Patti LuPone", "r": "Lilia Calderu"}, {"n": "Sasheer Zamata", "r": "Jennifer Kale"}, {"n": "Ali Ahn", "r": "Alice Wu-Gulliver", "p": "ali-ahn"}, {"n": "Debra Jo Rupp", "r": "Sharon Davis / Mrs. Hart", "p": "debra-jo-rupp"}, {"n": "Maria Dizzia", "r": "Sharon Davis (autre incarnation)"}, {"n": "Okwui Okpokwasili", "r": "La voix verte"}];
+  var CAST = [{"n": "Kathryn Hahn", "r": "Agatha Harkness", "p": "kathryn-hahn"}, {"n": "Joe Locke", "r": "Teen / Billy Maximoff", "p": "joe-locke"}, {"n": "Aubrey Plaza", "r": "Rio Vidal", "p": "aubrey-plaza"}, {"n": "Patti LuPone", "r": "Lilia Calderu", "p": "patti-lupone"}, {"n": "Sasheer Zamata", "r": "Jennifer Kale", "p": "sasheer-zamata"}, {"n": "Ali Ahn", "r": "Alice Wu-Gulliver", "p": "ali-ahn"}, {"n": "Debra Jo Rupp", "r": "Sharon Davis / Mrs. Hart", "p": "debra-jo-rupp"}, {"n": "Maria Dizzia", "r": "Sharon Davis (autre incarnation)", "p": "maria-dizzia"}, {"n": "Okwui Okpokwasili", "r": "La voix verte", "p": "okwui-okpokwasili"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

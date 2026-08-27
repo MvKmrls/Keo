@@ -228,7 +228,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Shameik Moore", "r": "Miles Morales / Spider-Man"}, {"n": "Hailee Steinfeld", "r": "Gwen Stacy / Spider-Woman", "p": "hailee-steinfeld"}];
+  var CAST = [{"n": "Shameik Moore", "r": "Miles Morales / Spider-Man", "p": "shameik-moore"}, {"n": "Hailee Steinfeld", "r": "Gwen Stacy / Spider-Woman", "p": "hailee-steinfeld"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

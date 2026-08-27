@@ -236,7 +236,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Simu Liu", "r": "Shang-Chi"}, {"n": "Awkwafina", "r": "Katy", "p": "awkwafina"}, {"n": "Tony Leung", "r": "Xu Wenwu / The Mandarin"}, {"n": "Meng'er Zhang", "r": "Xialing"}, {"n": "Fala Chen", "r": "Ying Li", "p": "fala-chen"}, {"n": "Florian Munteanu", "r": "Razor Fist", "p": "florian-munteanu"}, {"n": "Benedict Wong", "r": "Wong", "p": "benedict-wong"}, {"n": "Michelle Yeoh", "r": "Ying Nan"}, {"n": "Ben Kingsley", "r": "Trevor Slattery", "p": "ben-kingsley"}, {"n": "Yuen Wah", "r": "Guang Bo"}, {"n": "Zach Cherry", "r": "Jon Jon"}, {"n": "Arnold Sun", "r": "young Shang-Chi", "p": "arnold-sun"}];
+  var CAST = [{"n": "Simu Liu", "r": "Shang-Chi", "p": "simu-liu"}, {"n": "Awkwafina", "r": "Katy", "p": "awkwafina"}, {"n": "Tony Leung", "r": "Xu Wenwu / The Mandarin", "p": "tony-leung"}, {"n": "Meng'er Zhang", "r": "Xialing", "p": "meng-er-zhang"}, {"n": "Fala Chen", "r": "Ying Li", "p": "fala-chen"}, {"n": "Florian Munteanu", "r": "Razor Fist", "p": "florian-munteanu"}, {"n": "Benedict Wong", "r": "Wong", "p": "benedict-wong"}, {"n": "Michelle Yeoh", "r": "Ying Nan", "p": "michelle-yeoh"}, {"n": "Ben Kingsley", "r": "Trevor Slattery", "p": "ben-kingsley"}, {"n": "Yuen Wah", "r": "Guang Bo", "p": "yuen-wah"}, {"n": "Zach Cherry", "r": "Jon Jon", "p": "zach-cherry"}, {"n": "Arnold Sun", "r": "young Shang-Chi", "p": "arnold-sun"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

@@ -233,7 +233,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Finn Jones", "r": "Danny Rand / Iron Fist", "p": "finn-jones"}, {"n": "Jessica Henwick", "r": "Colleen Wing", "p": "jessica-henwick"}, {"n": "Tom Pelphrey", "r": "Ward Meachum"}, {"n": "Jessica Stroup", "r": "Joy Meachum", "p": "jessica-stroup"}, {"n": "David Wenham", "r": "Harold Meachum", "p": "david-wenham"}, {"n": "Rosario Dawson", "r": "Claire Temple"}, {"n": "Sacha Dhawan", "r": "Davos"}, {"n": "Wai Ching Ho", "r": "Madame Gao"}, {"n": "Ramón Rodríguez", "r": "Bakuto"}, {"n": "Alice Eve", "r": "Mary Walker / Typhoid Mary", "p": "alice-eve"}, {"n": "Simone Missick", "r": "Misty Knight"}];
+  var CAST = [{"n": "Finn Jones", "r": "Danny Rand / Iron Fist", "p": "finn-jones"}, {"n": "Jessica Henwick", "r": "Colleen Wing", "p": "jessica-henwick"}, {"n": "Tom Pelphrey", "r": "Ward Meachum", "p": "tom-pelphrey"}, {"n": "Jessica Stroup", "r": "Joy Meachum", "p": "jessica-stroup"}, {"n": "David Wenham", "r": "Harold Meachum", "p": "david-wenham"}, {"n": "Rosario Dawson", "r": "Claire Temple", "p": "rosario-dawson"}, {"n": "Sacha Dhawan", "r": "Davos", "p": "sacha-dhawan"}, {"n": "Wai Ching Ho", "r": "Madame Gao", "p": "wai-ching-ho"}, {"n": "Ramón Rodríguez", "r": "Bakuto", "p": "ramon-rodriguez"}, {"n": "Alice Eve", "r": "Mary Walker / Typhoid Mary", "p": "alice-eve"}, {"n": "Simone Missick", "r": "Misty Knight", "p": "simone-missick"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';

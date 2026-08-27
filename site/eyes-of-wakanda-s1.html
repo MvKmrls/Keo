@@ -235,7 +235,7 @@
 (function(){
   "use strict";
   
-  var CAST = [{"n": "Winnie Harlow", "r": "Noni"}, {"n": "Anika Noni Rose", "r": "Zeda", "p": "anika-noni-rose"}, {"n": "Steve Toussaint", "r": "Kelani"}, {"n": "Cress Williams", "r": "Basha", "p": "cress-williams"}, {"n": "Patricia Belcher", "r": "Additional voice"}, {"n": "Larry Bourgeois", "r": "Additional voice", "p": "larry-bourgeois"}, {"n": "Gary Anthony Williams", "r": "Additional voice", "p": "gary-anthony-williams"}, {"n": "Isaach de Bankolé", "r": "Additional voice", "p": "isaach-de-bankole"}, {"n": "Zeze Millz", "r": "Additional voice"}, {"n": "Dara Rasami", "r": "Additional voice", "p": "dara-rasami"}];
+  var CAST = [{"n": "Winnie Harlow", "r": "Noni", "p": "winnie-harlow"}, {"n": "Anika Noni Rose", "r": "Zeda", "p": "anika-noni-rose"}, {"n": "Steve Toussaint", "r": "Kelani", "p": "steve-toussaint"}, {"n": "Cress Williams", "r": "Basha", "p": "cress-williams"}, {"n": "Patricia Belcher", "r": "Additional voice", "p": "patricia-belcher"}, {"n": "Larry Bourgeois", "r": "Additional voice", "p": "larry-bourgeois"}, {"n": "Gary Anthony Williams", "r": "Additional voice", "p": "gary-anthony-williams"}, {"n": "Isaach de Bankolé", "r": "Additional voice", "p": "isaach-de-bankole"}, {"n": "Zeze Millz", "r": "Additional voice", "p": "zeze-millz"}, {"n": "Dara Rasami", "r": "Additional voice", "p": "dara-rasami"}];
   var castRow = document.getElementById("castRow");
   castRow.innerHTML = CAST.map(function(c){
     var av = c.p ? '<div class="cast-avatar has-photo"><img src="casting/'+c.p+'.jpg" alt="'+c.n+'" loading="lazy"></div>' : '<div class="cast-avatar">👤</div>';
