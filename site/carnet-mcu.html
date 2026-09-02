@@ -1020,7 +1020,8 @@
   }, {passive:true});
 
   document.getElementById("navCatalogue").addEventListener("click", function(){
-    listEl.scrollIntoView({behavior:"smooth", block:"start"});
+    var target = listEl.getBoundingClientRect().top + window.scrollY - miniBarEl.offsetHeight;
+    window.scrollTo({top: Math.max(target, 0), behavior:"smooth"});
   });
   document.getElementById("miniTopBtn").addEventListener("click", function(){
     document.getElementById("heroPills").scrollIntoView({behavior:"smooth", block:"center"});
