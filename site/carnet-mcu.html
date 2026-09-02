@@ -352,6 +352,11 @@
   .p-poster{position:relative;aspect-ratio:2/3;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--panel);transition:filter .32s ease;}
   .p-card.watched .p-poster,.p-card.skipped .p-poster{filter:grayscale(.75);}
   .p-poster img{width:100%;height:100%;object-fit:cover;display:block;}
+  .p-season{
+    position:absolute;top:6px;left:6px;z-index:1;
+    font-family:var(--f-mono);font-size:9px;letter-spacing:.03em;text-transform:uppercase;font-weight:600;
+    padding:3px 7px;border-radius:5px;background:rgba(8,8,12,.75);color:#fff;
+  }
   .p-title{
     font-weight:700;font-size:12.5px;line-height:1.32;min-height:2.64em;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
@@ -659,6 +664,9 @@
     {id:"runaways-s3",t:"Runaways",ty:"tv",u:"tvnet",g:"optional",ry:2019.06,rt:420,sy:"Le groupe d'adolescents recherche ses membres enlevés tout en faisant face à une menace extraterrestre incarnée par la possession de plusieurs de leurs parents. Ils s'allient à la sorcière Morgane le Fay et croisent la route de Cloak et Dagger.",ep:10,seas:"Saison 3",red:1}
   ];
 
+  var TITLE_COUNTS = {};
+  DATA.forEach(function(it){ TITLE_COUNTS[it.t] = (TITLE_COUNTS[it.t] || 0) + 1; });
+
   // ---------------- state ----------------
   var userDb = {};
   try { userDb = JSON.parse(localStorage.getItem("carnetMcuDb")) || {}; } catch(e){ userDb = {}; }
@@ -946,6 +954,7 @@
               : item.red ? '<span class="p-badge useless">Inutile</span>' : "";
     var isUpcoming = item.ry > 2026.08;
     var poster = '<img src="posters/'+item.id+'.jpg" alt="" loading="lazy">';
+    var seasonTag = (item.seas && TITLE_COUNTS[item.t] > 1) ? '<span class="p-season">'+item.seas+'</span>' : "";
     var skipBtn = (item.g === "essential" || isDoomEssential)
       ? '<button class="act-btn s-btn '+(isDoomEssential ? 'doom-wait-btn' : 'essential-wait-btn')+'" disabled>En attente</button>'
       : '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
@@ -954,7 +963,7 @@
       : '<button class="act-btn w-btn'+(isWatched?' on-watched':'')+'" onclick="__setStatus(\''+item.id+'\',\'watched\')">✓ Vu</button>' + skipBtn;
     return (
       '<div class="p-card'+(isWatched?' watched':'')+(isSkipped?' skipped':'')+'" data-id="'+item.id+'">' +
-        '<div class="p-poster">'+poster+'</div>' +
+        '<div class="p-poster">'+poster+seasonTag+'</div>' +
         '<a class="p-title" href="'+item.id+'.html">'+item.t+'</a>' +
         '<div class="p-date-row'+(item.red ? ' useless' : '')+'"><span class="p-year">'+Math.floor(item.ry)+'</span>'+badge+'</div>' +
         '<div class="p-actions">'+actions+'</div>' +
