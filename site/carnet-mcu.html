@@ -86,12 +86,32 @@
   /* ---- stats + progress ---- */
   .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;}
   .stat{
-    background:var(--panel-2);
+    background:var(--panel-2);position:relative;
     border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center;
   }
   .stat b{display:block;font-family:var(--f-mono);font-size:19px;color:var(--text);font-variant-numeric:tabular-nums;}
   .stat span{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);}
   @media (max-width:640px){ .stats{grid-template-columns:repeat(3,1fr);} }
+
+  .stat-remaining{cursor:pointer;}
+  .remaining-pop{
+    position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);
+    width:240px;max-height:280px;overflow-y:auto;text-align:left;
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 12px;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,.6);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;z-index:30;
+  }
+  .stat-remaining:hover .remaining-pop,.stat-remaining.show .remaining-pop{
+    opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto;
+  }
+  .remaining-pop-title{font-family:var(--f-mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);margin-bottom:8px;}
+  .remaining-pop-empty{font-size:12px;color:var(--dim);}
+  .remaining-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
+  .remaining-list li{font-size:12px;color:var(--text);display:flex;align-items:center;gap:6px;flex-wrap:wrap;line-height:1.3;}
+  .remaining-list .tag{font-family:var(--f-mono);font-size:9px;text-transform:uppercase;letter-spacing:.03em;flex:none;}
+  .remaining-list .tag.essential{color:var(--gold);}
+  .remaining-list .tag.recommended{color:var(--recommend);}
 
   .progress-track{height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;border:1px solid var(--border);margin-bottom:22px;}
   .progress-fill{height:100%;background:var(--path-color);transition:width .3s ease, background .32s var(--ease-fluid);}
@@ -375,11 +395,11 @@
   /* ---- hero stat card ---- */
   .hero-card{
     max-width:920px;margin:8px auto 26px;background:linear-gradient(180deg, color-mix(in srgb, var(--panel) 100%, white 3%), var(--panel));
-    border:1px solid var(--border);border-radius:16px;padding:22px 24px 20px;position:relative;z-index:1;overflow:hidden;
+    border:1px solid var(--border);border-radius:16px;padding:22px 24px 20px;position:relative;z-index:1;
     box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 1px 2px rgba(0,0,0,.5), 0 8px 20px -10px rgba(0,0,0,.65);
   }
   .hero-card::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--path-color);
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--path-color);border-radius:16px 16px 0 0;
     transition:background .32s var(--ease-fluid);
   }
   .hero-card-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;}
@@ -956,18 +976,39 @@
       else { remainingMin += it.rt || 0; if(it.g === "essential") essentialLeft++; }
     });
     var remaining = total - watched - skipped;
+    var remainingItems = filtered.filter(function(it){ return !userDb[it.id]; });
     statsEl.innerHTML = "";
     [["Total",total],["Vus",watched],["Restants",Math.max(remaining,0)],["Essentiels restants",essentialLeft],["Heures restantes",Math.round(remainingMin/60)+"h"]].forEach(function(s){
       var d = document.createElement("div"); d.className = "stat";
       d.innerHTML = "<b>"+s[1]+"</b><span>"+s[0]+"</span>";
+      if(s[0] === "Restants"){
+        d.className = "stat stat-remaining";
+        d.addEventListener("click", function(ev){ ev.stopPropagation(); d.classList.toggle("show"); });
+        var pop = document.createElement("div"); pop.className = "remaining-pop";
+        var popHtml = '<div class="remaining-pop-title">Titres restants</div>';
+        if(remainingItems.length === 0){
+          popHtml += '<div class="remaining-pop-empty">Aucun titre restant.</div>';
+        } else {
+          popHtml += '<ul class="remaining-list">' + remainingItems.map(function(it){
+            var tag = it.g === "essential" ? '<span class="tag essential">★ Essentiel</span>'
+                    : it.g === "recommended" ? '<span class="tag recommended">◆ Recommandé</span>' : "";
+            return '<li><span>'+it.t+'</span>'+tag+'</li>';
+          }).join("") + '</ul>';
+        }
+        pop.innerHTML = popHtml;
+        d.appendChild(pop);
+      }
       statsEl.appendChild(d);
     });
 
-    // progress bar: over the current path's scope (ignores the type/search pills, like the "unwatched" toggle would trivially zero it out)
+    // progress bar: over the current path's scope (ignores the type/search pills, like the "unwatched" toggle would trivially zero it out).
+    // Unreleased titles can't be watched yet, so they don't count toward the denominator —
+    // otherwise 100% would be unreachable until everything upcoming actually comes out.
     var pathScope = DATA.filter(function(item){
       var isDoomFinale = state.path === "doomsday" && item.id === "avengers-doomsday";
       if(item.u && item.g === "optional" && state.excludeOutside) return false;
       if(!state.grades.includes(item.g) && !isDoomFinale) return false;
+      if(item.ry > 2026.08) return false;
       return true;
     });
     var allWatched = pathScope.filter(function(it){ return userDb[it.id]==="watched"; }).length;
@@ -1045,6 +1086,11 @@
     var threshold = heroCardEl.offsetTop + heroCardEl.offsetHeight;
     miniBarEl.classList.toggle("show", window.scrollY > threshold);
   }, {passive:true});
+
+  document.addEventListener("click", function(){
+    var open = document.querySelector(".stat-remaining.show");
+    if(open) open.classList.remove("show");
+  });
 
   document.getElementById("navCatalogue").addEventListener("click", function(){
     var target = listEl.getBoundingClientRect().top + window.scrollY - miniBarEl.offsetHeight;
