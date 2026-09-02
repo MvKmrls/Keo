@@ -982,18 +982,14 @@
     var activePath = PATHS.filter(function(p){ return p.key === state.path; })[0];
     document.getElementById("heroCardPath").textContent = activePath ? activePath.label : "";
 
-    // one continuous bar: solid path-color over the "watched" share, solid dark
-    // over the "skipped" share, with the gradient blend happening right at the
-    // seam between the two — not two separately-colored blocks.
+    // one continuous bar: solid path-color over the "watched" share, then a
+    // smooth fade to fully transparent across the "skipped" share — skipped
+    // titles don't get their own color, they just make the bar fade out.
     var totalPct = pct + skipPct;
-    var fillBg;
-    if(skipPct <= 0){
-      fillBg = "var(--path-color)";
-    } else if(pct <= 0){
-      fillBg = "rgba(8,8,12,.85)";
-    } else {
+    var fillBg = "var(--path-color)";
+    if(totalPct > 0){
       var watchedShare = (pct/totalPct)*100;
-      fillBg = "linear-gradient(90deg, var(--path-color) 0%, var(--path-color) calc("+watchedShare+"% - 8px), rgba(8,8,12,.85) calc("+watchedShare+"% + 8px), rgba(8,8,12,.6) 100%)";
+      fillBg = "linear-gradient(90deg, var(--path-color) 0%, var(--path-color) "+watchedShare+"%, transparent 100%)";
     }
     var miniFill = document.getElementById("miniProgressFill");
     miniFill.style.width = totalPct+"%"; miniFill.style.background = fillBg;
