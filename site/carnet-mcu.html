@@ -93,10 +93,9 @@
   .stat span{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);}
   @media (max-width:640px){ .stats{grid-template-columns:repeat(3,1fr);} }
 
-  .progress-track{height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;border:1px solid var(--border);margin-bottom:22px;display:flex;}
+  .progress-track{height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;border:1px solid var(--border);margin-bottom:22px;}
   .progress-fill{height:100%;background:var(--path-color);transition:width .3s ease, background .32s var(--ease-fluid);}
-  .progress-fill-skipped{height:100%;background:linear-gradient(90deg, rgba(8,8,12,.85), rgba(8,8,12,.5));transition:width .3s ease;}
-  @media (prefers-reduced-motion: reduce){ .progress-fill,.progress-fill-skipped{transition:none;} }
+  @media (prefers-reduced-motion: reduce){ .progress-fill{transition:none;} }
   .progress-label{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);margin-top:6px;margin-bottom:22px;text-align:center;}
 
   /* ---- filter card ---- */
@@ -298,9 +297,8 @@
   .mini-path-btn.active .mp-icon{width:14px;}
   .mini-path-btn.active .mp-label{max-width:0;opacity:0;}
   .mini-progress{flex:1;display:flex;align-items:center;gap:10px;min-width:80px;}
-  .mini-progress-track{flex:1;height:5px;border-radius:99px;background:var(--panel-2);overflow:hidden;display:flex;}
-  .mini-progress-fill{height:100%;background:var(--path-color);}
-  .mini-progress-fill-skipped{height:100%;background:linear-gradient(90deg, rgba(8,8,12,.85), rgba(8,8,12,.5));}
+  .mini-progress-track{flex:1;height:5px;border-radius:99px;background:var(--panel-2);overflow:hidden;}
+  .mini-progress-fill{height:100%;background:var(--path-color);transition:background .32s var(--ease-fluid);}
   .mini-progress-label{font-family:var(--f-mono);font-size:10px;color:var(--dim);white-space:nowrap;flex:none;}
   .mini-top-btn{
     flex:none;width:28px;height:28px;border-radius:99px;border:1px solid var(--border);background:transparent;
@@ -406,7 +404,7 @@
     <div class="mini-logo">Carnet <em>MCU</em></div>
     <div class="mini-paths" id="miniPaths"></div>
     <div class="mini-progress">
-      <div class="mini-progress-track"><div class="mini-progress-fill" id="miniProgressFill" style="width:0%"></div><div class="mini-progress-fill-skipped" id="miniProgressFillSkipped" style="width:0%"></div></div>
+      <div class="mini-progress-track"><div class="mini-progress-fill" id="miniProgressFill" style="width:0%"></div></div>
     </div>
     <span class="mini-progress-label" id="miniProgressLabel"></span>
     <button type="button" class="mini-top-btn" id="miniTopBtn" title="Retour aux filtres" aria-label="Retour aux filtres">
@@ -455,7 +453,7 @@
 <div class="wrap" style="padding-top:0;">
   <div class="paths" id="paths"></div>
 
-  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div><div class="progress-fill-skipped" id="progressFillSkipped" style="width:0%"></div></div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
 
   <div id="list"></div>
   <div class="empty" id="emptyState" style="display:none;">Aucun titre ne correspond à ces filtres.</div>
@@ -984,11 +982,24 @@
     var activePath = PATHS.filter(function(p){ return p.key === state.path; })[0];
     document.getElementById("heroCardPath").textContent = activePath ? activePath.label : "";
 
-    document.getElementById("miniProgressFill").style.width = pct+"%";
-    document.getElementById("miniProgressFillSkipped").style.width = skipPct+"%";
+    // one continuous bar: solid path-color over the "watched" share, solid dark
+    // over the "skipped" share, with the gradient blend happening right at the
+    // seam between the two — not two separately-colored blocks.
+    var totalPct = pct + skipPct;
+    var fillBg;
+    if(skipPct <= 0){
+      fillBg = "var(--path-color)";
+    } else if(pct <= 0){
+      fillBg = "rgba(8,8,12,.85)";
+    } else {
+      var watchedShare = (pct/totalPct)*100;
+      fillBg = "linear-gradient(90deg, var(--path-color) 0%, var(--path-color) calc("+watchedShare+"% - 8px), rgba(8,8,12,.85) calc("+watchedShare+"% + 8px), rgba(8,8,12,.6) 100%)";
+    }
+    var miniFill = document.getElementById("miniProgressFill");
+    miniFill.style.width = totalPct+"%"; miniFill.style.background = fillBg;
     document.getElementById("miniProgressLabel").textContent = pct+"% vus";
-    document.getElementById("progressFill").style.width = pct+"%";
-    document.getElementById("progressFillSkipped").style.width = skipPct+"%";
+    var mainFill = document.getElementById("progressFill");
+    mainFill.style.width = totalPct+"%"; mainFill.style.background = fillBg;
   }
 
   function render(){
