@@ -105,10 +105,11 @@
   .stat-remaining:hover .remaining-pop,.stat-remaining.show .remaining-pop{
     opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto;
   }
-  .remaining-pop-title{font-family:var(--f-mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);margin-bottom:8px;}
   .remaining-pop-empty{font-size:12px;color:var(--dim);}
   .remaining-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
   .remaining-list li{font-size:12px;color:var(--text);display:flex;align-items:center;gap:6px;flex-wrap:wrap;line-height:1.3;}
+  .remaining-list li.upcoming{color:var(--dim);}
+  .remaining-list li.remaining-sep{border-top:1px solid var(--border);padding-top:9px;margin-top:2px;}
   .remaining-list .tag{font-family:var(--f-mono);font-size:9px;text-transform:uppercase;letter-spacing:.03em;flex:none;}
   .remaining-list .tag.essential{color:var(--gold);}
   .remaining-list .tag.recommended{color:var(--recommend);}
@@ -985,14 +986,20 @@
         d.className = "stat stat-remaining";
         d.addEventListener("click", function(ev){ ev.stopPropagation(); d.classList.toggle("show"); });
         var pop = document.createElement("div"); pop.className = "remaining-pop";
-        var popHtml = '<div class="remaining-pop-title">Titres restants</div>';
+        var popHtml = "";
         if(remainingItems.length === 0){
           popHtml += '<div class="remaining-pop-empty">Aucun titre restant.</div>';
         } else {
-          popHtml += '<ul class="remaining-list">' + remainingItems.map(function(it){
+          var sortedRemaining = remainingItems.slice().sort(function(a,b){
+            return (a.ry > 2026.08 ? 1 : 0) - (b.ry > 2026.08 ? 1 : 0);
+          });
+          popHtml += '<ul class="remaining-list">' + sortedRemaining.map(function(it, idx){
+            var isUpcoming = it.ry > 2026.08;
+            var prevUpcoming = idx > 0 && sortedRemaining[idx-1].ry > 2026.08;
+            var cls = (isUpcoming ? "upcoming" : "") + (isUpcoming && !prevUpcoming && idx > 0 ? " remaining-sep" : "");
             var tag = it.g === "essential" ? '<span class="tag essential">★ Essentiel</span>'
                     : it.g === "recommended" ? '<span class="tag recommended">◆ Recommandé</span>' : "";
-            return '<li><span>'+it.t+'</span>'+tag+'</li>';
+            return '<li'+(cls ? ' class="'+cls+'"' : '')+'><span>'+it.t+'</span>'+tag+'</li>';
           }).join("") + '</ul>';
         }
         pop.innerHTML = popHtml;
