@@ -287,8 +287,15 @@
   .mini-path-btn{
     font-family:var(--f-mono);font-size:10px;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;
     border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;
+    display:flex;align-items:center;overflow:hidden;
+    transition:padding .45s var(--ease-fluid),width .45s var(--ease-fluid),height .45s var(--ease-fluid),border-color .3s ease,color .3s ease;
   }
-  .mini-path-btn.active{border-color:var(--path-color);color:var(--path-color);}
+  .mini-path-btn .mp-icon{width:0;height:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex:none;transition:width .45s var(--ease-fluid);}
+  .mini-path-btn .mp-icon img{display:block;height:14px;width:14px;object-fit:contain;}
+  .mini-path-btn .mp-label{white-space:nowrap;overflow:hidden;max-width:160px;opacity:1;transition:max-width .45s var(--ease-fluid),opacity .3s ease;}
+  .mini-path-btn.active{border-color:var(--path-color);color:var(--path-color);padding:6px;width:28px;height:28px;justify-content:center;}
+  .mini-path-btn.active .mp-icon{width:14px;}
+  .mini-path-btn.active .mp-label{max-width:0;opacity:0;}
   .mini-progress{flex:1;display:flex;align-items:center;gap:10px;min-width:80px;}
   .mini-progress-track{flex:1;height:5px;border-radius:99px;background:var(--panel-2);overflow:hidden;}
   .mini-progress-fill{height:100%;background:var(--path-color);border-radius:99px;}
@@ -299,7 +306,12 @@
     transition:border-color .2s ease,color .2s ease;
   }
   .mini-top-btn:hover{border-color:var(--path-color);color:var(--path-color);}
-  @media (max-width:760px){ .mini-logo,.mini-progress-label{display:none;} }
+  @media (max-width:760px){
+    .mini-logo,.mini-progress-label{display:none;}
+    .mini-path-btn{padding:6px;width:28px;height:28px;justify-content:center;}
+    .mini-path-btn .mp-icon{width:14px;}
+    .mini-path-btn .mp-label{max-width:0;opacity:0;}
+  }
 
   /* ---- sticky phase headers (stack during scroll) ---- */
   .era-head{position:sticky;top:var(--mini-bar-h,52px);background:var(--bg);z-index:10;box-shadow:0 10px 14px -10px rgba(0,0,0,.55);margin-top:0;padding-top:22px;}
@@ -689,7 +701,8 @@
   var miniPathsEl = document.getElementById("miniPaths");
   PATHS.forEach(function(p){
     var b = document.createElement("button");
-    b.type = "button"; b.className = "mini-path-btn"; b.textContent = p.label; b.dataset.key = p.key;
+    b.type = "button"; b.className = "mini-path-btn"; b.dataset.key = p.key;
+    b.innerHTML = '<span class="mp-icon">'+p.icon+'</span><span class="mp-label">'+p.label+'</span>';
     b.addEventListener("click", function(){ setPath(p.key); });
     miniPathsEl.appendChild(b);
   });
