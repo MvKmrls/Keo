@@ -394,7 +394,7 @@
       <div class="mini-progress-track"><div class="mini-progress-fill" id="miniProgressFill" style="width:0%"></div></div>
     </div>
     <span class="mini-progress-label" id="miniProgressLabel"></span>
-    <button type="button" class="mini-top-btn" id="miniTopBtn" title="Retour en haut du catalogue" aria-label="Retour en haut du catalogue">
+    <button type="button" class="mini-top-btn" id="miniTopBtn" title="Retour aux filtres" aria-label="Retour aux filtres">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
   </div>
@@ -409,7 +409,7 @@
       <input id="search" type="text" placeholder="Rechercher un titre, un acteur…" autocomplete="off"/>
       <button type="button" id="heroSearchBtn">Chercher</button>
     </div>
-    <div class="hero-pills">
+    <div class="hero-pills" id="heroPills">
       <div id="typePills" style="display:contents"></div>
       <span class="hero-pills-sep"></span>
       <button type="button" class="order-toggle" id="orderToggle" aria-label="Changer l'ordre de tri">
@@ -1023,7 +1023,7 @@
     listEl.scrollIntoView({behavior:"smooth", block:"start"});
   });
   document.getElementById("miniTopBtn").addEventListener("click", function(){
-    listEl.scrollIntoView({behavior:"smooth", block:"start"});
+    document.getElementById("heroPills").scrollIntoView({behavior:"smooth", block:"center"});
   });
   document.getElementById("navProgression").addEventListener("click", function(){
     heroCardEl.scrollIntoView({behavior:"smooth", block:"center"});
