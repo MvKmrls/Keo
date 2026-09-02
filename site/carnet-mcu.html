@@ -259,9 +259,9 @@
   .act-btn.upcoming-btn{cursor:not-allowed;opacity:.6;}
   .act-btn.upcoming-btn:hover{border-color:var(--border);color:var(--dim);}
   .entry.doom-finale .act-btn.upcoming-btn{opacity:1;border-color:rgb(160,255,170);color:rgb(160,255,170);}
-  .act-btn.essential-wait-btn{border-color:var(--gold);color:var(--gold);opacity:.55;}
+  .act-btn.essential-wait-btn{border-color:var(--gold);color:var(--gold);opacity:.55;cursor:not-allowed;}
   .act-btn.essential-wait-btn:hover{border-color:var(--gold);color:var(--gold);}
-  .act-btn.doom-wait-btn{border-color:var(--path-color);color:var(--path-color);opacity:.55;}
+  .act-btn.doom-wait-btn{border-color:var(--path-color);color:var(--path-color);opacity:.55;cursor:not-allowed;}
   .act-btn.doom-wait-btn:hover{border-color:var(--path-color);color:var(--path-color);}
   .entry.watched .s-btn, .entry.skipped .w-btn{
     max-width:0;opacity:0;transform:scale(.82);margin-left:-6px;padding-left:0;padding-right:0;border-width:0;pointer-events:none;
@@ -910,7 +910,7 @@
     var isUpcoming = item.ry > 2026.08;
     var poster = '<img src="posters/'+item.id+'.jpg" alt="" loading="lazy">';
     var skipBtn = (item.g === "essential" || isDoomEssential)
-      ? '<button class="act-btn s-btn" disabled>En attente</button>'
+      ? '<button class="act-btn s-btn '+(isDoomEssential ? 'doom-wait-btn' : 'essential-wait-btn')+'" disabled>En attente</button>'
       : '<button class="act-btn s-btn'+(isSkipped?' on-skipped':'')+'" onclick="__setStatus(\''+item.id+'\',\'skipped\')">✕ Passer</button>';
     var actions = isUpcoming
       ? '<button class="act-btn upcoming-btn" disabled>'+Math.floor(item.ry)+'</button>'
