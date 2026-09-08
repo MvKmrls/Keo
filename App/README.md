@@ -22,7 +22,8 @@ App/
 ├── js/config.js          clés Supabase + infos du club
 ├── js/store.js           couche de données (démo aujourd'hui, Supabase demain)
 ├── js/demo-data.js       données factices du mode démonstration
-└── js/app.js             écrans et navigation
+├── js/app.js             écrans et navigation
+└── tools/bundle.mjs      assemble l'app en une seule page pour l'aperçu en artefact Claude
 supabase/schema.sql       tables et règles d'accès à exécuter dans Supabase
 ```
 
