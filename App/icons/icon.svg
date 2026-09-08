@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#1f5f3a"/>
+  <rect width="512" height="512" rx="96" fill="#0b5a2c"/>
   <circle cx="256" cy="256" r="150" fill="none" stroke="#f2fff6" stroke-width="14"/>
   <path d="M256 106v300M106 256h300" stroke="#f2fff6" stroke-width="10" opacity=".35"/>
-  <text x="256" y="292" text-anchor="middle" font-family="Arial Narrow, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="120" fill="#e8b458">USS</text>
+  <text x="256" y="292" text-anchor="middle" font-family="Arial Narrow, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="120" fill="#1fd66a">USS</text>
 </svg>

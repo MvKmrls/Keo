@@ -1,48 +1,39 @@
 /* ============================================================
    USS — Thème
-   Tout le visuel de l'app se règle ici. Les couleurs du club,
-   les polices et les rayons sont des variables : quand les
-   visuels définitifs arrivent, on ne touche qu'à ce fichier.
+   Direction : fond sombre, dégradé vert en tête d'écran, un seul
+   vert vif comme accent, cartes translucides, gros chiffres.
+   Tout le visuel se règle ici.
    ============================================================ */
 :root{
-  /* Couleurs du club (placeholder en attendant les visuels) */
-  --club-primary:#1f5f3a;      /* vert */
-  --club-primary-ink:#f2fff6;
-  --club-secondary:#e8b458;    /* or */
-  --club-secondary-ink:#241804;
+  /* Couleurs du club */
+  --club-primary:#1fd66a;        /* vert vif : accent, actions, actif */
+  --club-primary-ink:#04180b;
+  --club-deep:#0b5a2c;           /* vert profond : dégradé de tête */
+  --club-deep-2:#063b1c;
 
-  /* Surface — thème sombre par défaut, dans la lignée du carnet MCU */
-  --bg:#0c0f0d;
-  --panel:#151a17;
-  --panel-2:#1d2420;
-  --border:#283029;
-  --text:#f1f5f2;
-  --dim:#8d978f;
+  /* Surfaces */
+  --bg:#0b0d0c;
+  --panel:rgba(255,255,255,.06);
+  --panel-solid:#161a18;
+  --panel-2:rgba(255,255,255,.10);
+  --border:rgba(255,255,255,.08);
+  --text:#ffffff;
+  --dim:#9aa39d;
 
   /* États */
-  --ok:#3fa96f;      --ok-ink:#06170d;
-  --warn:#e0a44a;    --warn-ink:#241804;
-  --no:#d94b5a;      --no-ink:#fff5f6;
+  --ok:#1fd66a;   --ok-ink:#04180b;
+  --warn:#f5b942; --warn-ink:#241804;
+  --no:#ff5a63;   --no-ink:#fff5f6;
   --info:#5c93d6;
 
-  /* Typo */
-  --f-display:"Arial Narrow","Helvetica Neue Condensed","Roboto Condensed",sans-serif;
-  --f-body:-apple-system,"Segoe UI",Roboto,sans-serif;
+  /* Typo : sans géométrique, chiffres gras et serrés */
+  --f-display:-apple-system,"SF Pro Display","Inter","Segoe UI",Roboto,sans-serif;
+  --f-body:-apple-system,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;
   --f-mono:"SF Mono",Menlo,Consolas,monospace;
 
-  --radius:10px;
-  --radius-sm:6px;
+  --radius:18px;
+  --radius-sm:12px;
   --nav-h:64px;
   --safe-b:env(safe-area-inset-bottom,0px);
-}
-
-@media (prefers-color-scheme: light){
-  :root{
-    --bg:#f4f6f4;
-    --panel:#ffffff;
-    --panel-2:#eef1ee;
-    --border:#d8ded9;
-    --text:#131916;
-    --dim:#66706a;
-  }
+  --safe-t:env(safe-area-inset-top,0px);
 }
