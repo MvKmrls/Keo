@@ -1,0 +1,48 @@
+/* ============================================================
+   USS — Thème
+   Tout le visuel de l'app se règle ici. Les couleurs du club,
+   les polices et les rayons sont des variables : quand les
+   visuels définitifs arrivent, on ne touche qu'à ce fichier.
+   ============================================================ */
+:root{
+  /* Couleurs du club (placeholder en attendant les visuels) */
+  --club-primary:#1f5f3a;      /* vert */
+  --club-primary-ink:#f2fff6;
+  --club-secondary:#e8b458;    /* or */
+  --club-secondary-ink:#241804;
+
+  /* Surface — thème sombre par défaut, dans la lignée du carnet MCU */
+  --bg:#0c0f0d;
+  --panel:#151a17;
+  --panel-2:#1d2420;
+  --border:#283029;
+  --text:#f1f5f2;
+  --dim:#8d978f;
+
+  /* États */
+  --ok:#3fa96f;      --ok-ink:#06170d;
+  --warn:#e0a44a;    --warn-ink:#241804;
+  --no:#d94b5a;      --no-ink:#fff5f6;
+  --info:#5c93d6;
+
+  /* Typo */
+  --f-display:"Arial Narrow","Helvetica Neue Condensed","Roboto Condensed",sans-serif;
+  --f-body:-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"SF Mono",Menlo,Consolas,monospace;
+
+  --radius:10px;
+  --radius-sm:6px;
+  --nav-h:64px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f4f6f4;
+    --panel:#ffffff;
+    --panel-2:#eef1ee;
+    --border:#d8ded9;
+    --text:#131916;
+    --dim:#66706a;
+  }
+}
