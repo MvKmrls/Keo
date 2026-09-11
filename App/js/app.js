@@ -99,7 +99,9 @@ function setActiveTab(id, animate) {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!animate || reduced || Math.abs(to.x - from) < 1) {
     b.style.transform = `translateX(${to.x}px)`;
+    settle();
   } else {
+    nav.el.classList.add("active");
     // glissement avec étirement au milieu du trajet, puis retour élastique
     const stretch = 1 + Math.min(.45, Math.abs(to.x - from) / 220);
     nav.anim = b.animate(
@@ -111,9 +113,15 @@ function setActiveTab(id, animate) {
       ],
       { duration: 520, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }
     );
-    nav.anim.onfinish = () => { b.style.transform = `translateX(${to.x}px)`; nav.anim.cancel(); nav.anim = null; };
+    nav.anim.onfinish = () => { b.style.transform = `translateX(${to.x}px)`; nav.anim.cancel(); nav.anim = null; settle(); };
   }
   b._x = to.x;
+}
+// la bulle redevient discrète une fois posée (sauf si le doigt est encore dessus)
+let settleTimer;
+function settle() {
+  clearTimeout(settleTimer);
+  settleTimer = setTimeout(() => { if (nav.el && !nav.el.classList.contains("pressed")) nav.el.classList.remove("active"); }, 220);
 }
 function bindNav() {
   nav.el = $("nav.tabs");
@@ -128,6 +136,8 @@ function bindNav() {
     const rect = nav.el.getBoundingClientRect();
     drag = { start: e.clientX, rect, moved: false, lastX: e.clientX, lastT: performance.now(), tab: null, btn: e.target.closest("[data-nav]") };
     nav.el.setPointerCapture(e.pointerId);
+    clearTimeout(settleTimer);
+    nav.el.classList.add("pressed", "active");
   });
   nav.el.addEventListener("pointermove", (e) => {
     if (!drag) return;
@@ -148,7 +158,7 @@ function bindNav() {
   const end = (e) => {
     if (!drag) return;
     const d = drag; drag = null;
-    nav.el.classList.remove("dragging");
+    nav.el.classList.remove("dragging", "pressed");
     let target;
     if (d.moved) target = d.tab || nearest(e.clientX - d.rect.left);
     else target = d.btn ? d.btn.dataset.nav : null;
