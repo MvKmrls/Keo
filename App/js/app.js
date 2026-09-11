@@ -101,7 +101,7 @@ function setActiveTab(id, animate) {
     b.style.transform = `translateX(${to.x}px)`;
     settle();
   } else {
-    nav.el.classList.add("active");
+    if (nav.flat) { nav.el.classList.add("flat"); nav.flat = false; } else nav.el.classList.add("active");
     // la barre entière se décale à peine dans le sens du mouvement, puis revient
     nav.el.style.setProperty("--shift", `${Math.sign(to.x - from) * Math.min(6, Math.abs(to.x - from) / 40)}px`);
     setTimeout(() => nav.el && nav.el.style.setProperty("--shift", "0px"), 200);
@@ -117,14 +117,32 @@ function setActiveTab(id, animate) {
       { duration: 520, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }
     );
     nav.anim.onfinish = () => { b.style.transform = `translateX(${to.x}px)`; nav.anim.cancel(); nav.anim = null; settle(); };
+    // pendant le trajet, les onglets se colorent au passage du surlignage
+    const tick = () => {
+      if (!nav.anim || !nav.el) return;
+      const m = new DOMMatrixReadOnly(getComputedStyle(b).transform);
+      paintTabs(m.e + b.offsetWidth / 2);
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }
   b._x = to.x;
 }
+// intensité de couleur de chaque onglet selon la proximité du surlignage (0 → gris, 1 → couleur du club)
+function paintTabs(cx) {
+  if (!nav.el) return;
+  nav.el.querySelectorAll("[data-nav]").forEach((btn) => {
+    const c = btn.offsetLeft + btn.offsetWidth / 2;
+    const t = Math.max(0, Math.min(1, 1 - Math.abs(cx - c) / (btn.offsetWidth * .9)));
+    btn.style.setProperty("--t", t.toFixed(3));
+  });
+}
+function clearPaint() { if (nav.el) nav.el.querySelectorAll("[data-nav]").forEach((btn) => btn.style.removeProperty("--t")); }
 // la bulle redevient discrète une fois posée (sauf si le doigt est encore dessus)
-let settleTimer;
 function settle() {
-  clearTimeout(settleTimer);
-  settleTimer = setTimeout(() => { if (nav.el && !nav.el.classList.contains("pressed")) nav.el.classList.remove("active"); }, 220);
+  if (!nav.el) return;
+  clearPaint();
+  if (!nav.el.classList.contains("pressed")) nav.el.classList.remove("active", "flat");
 }
 function bindNav() {
   nav.el = $("nav.tabs");
@@ -139,7 +157,6 @@ function bindNav() {
     const rect = nav.el.getBoundingClientRect();
     drag = { start: e.clientX, rect, moved: false, lastX: e.clientX, lastT: performance.now(), tab: null, btn: e.target.closest("[data-nav]") };
     nav.el.setPointerCapture(e.pointerId);
-    clearTimeout(settleTimer);
     nav.el.classList.add("pressed", "active");
   });
   nav.el.addEventListener("pointermove", (e) => {
@@ -158,14 +175,15 @@ function bindNav() {
     // la barre suit très légèrement le doigt (au plus 8 px de chaque côté)
     const rel = (px - drag.rect.width / 2) / (drag.rect.width / 2);
     nav.el.style.setProperty("--shift", `${Math.max(-8, Math.min(8, rel * 8))}px`);
-    const t = nearest(px);
-    if (t !== drag.tab) { drag.tab = t; nav.el.querySelectorAll("[data-nav]").forEach((b) => b.classList.toggle("on", b.dataset.nav === t)); }
+    paintTabs(x + w / 2);
+    drag.tab = nearest(px);
   });
   const end = (e) => {
     if (!drag) return;
     const d = drag; drag = null;
-    nav.el.classList.remove("dragging", "pressed");
+    nav.el.classList.remove("dragging", "pressed", "active");
     nav.el.style.setProperty("--shift", "0px");
+    nav.flat = d.moved;
     let target;
     if (d.moved) target = d.tab || nearest(e.clientX - d.rect.left);
     else target = d.btn ? d.btn.dataset.nav : null;
@@ -545,8 +563,8 @@ function bindScreen(me) {
     if (me.role === "player") { patch.position = f.get("position"); patch.number = f.get("number") ? Number(f.get("number")) : null; }
     await store.updateProfile(patch); toast("Profil enregistré"); render();
   };
-  const lo = $("#logout"); if (lo) lo.onclick = async () => { await store.logout(); nav.el = null; nav.bubble = null; render(); };
-  const rs = $("#reset"); if (rs) rs.onclick = () => { if (confirm("Remettre les données de démo à zéro ?")) { store.reset(); nav.el = null; nav.bubble = null; render(); } };
+  const lo = $("#logout"); if (lo) lo.onclick = async () => { await store.logout(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.bubble = null; render(); };
+  const rs = $("#reset"); if (rs) rs.onclick = () => { if (confirm("Remettre les données de démo à zéro ?")) { store.reset(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.bubble = null; render(); } };
 }
 
 let toastTimer;
