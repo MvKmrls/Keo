@@ -28,15 +28,15 @@ const js = [
 // Sur grand écran, l'app s'affiche dans un cadre de téléphone.
 const frameCss = `
 html,body{height:100%;}
-body{background:#0a0a0a;}
+body{background:#03061a;}
 #app{position:relative;overflow:auto;height:100vh;background-attachment:local;transform:translateZ(0);}
 @media (min-width:760px){
   body{display:grid;place-items:center;padding:24px 24px 44px;background:
-    radial-gradient(60% 50% at 50% 0,#222 0,transparent 70%),#0a0a0a;}
-  #app{width:393px;height:min(852px,calc(100vh - 80px));border-radius:48px;border:10px solid #1a1a1a;
+    radial-gradient(60% 50% at 50% 0,#122352 0,transparent 70%),#03061a;}
+  #app{width:393px;height:min(852px,calc(100vh - 80px));border-radius:48px;border:10px solid #101733;
     box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);}
   #app::-webkit-scrollbar{display:none;}
-  .preview-note{position:fixed;left:0;right:0;bottom:12px;text-align:center;font:500 12px/1.4 -apple-system,"Segoe UI",Roboto,sans-serif;color:#7a7a7a;}
+  .preview-note{position:fixed;left:0;right:0;bottom:12px;text-align:center;font:500 12px/1.4 -apple-system,"Segoe UI",Roboto,sans-serif;color:#7d88ab;}
 }
 @media (max-width:759px){ .preview-note{display:none;} }
 `;

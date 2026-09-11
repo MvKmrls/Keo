@@ -11,23 +11,23 @@
   --club-primary-2:#13264d;      /* même bleu, un cran plus clair : liserés, tintes, dégradés */
   --club-primary-text:#ffffff;   /* textes et icônes actifs restent blancs */
   --club-deep:#091835;           /* cartes principales (accueil, profil), dégradé de tête */
-  --club-deep-2:#0a1428;
+  --club-deep-2:#071027;
   --club-yellow:#ffffff;         /* surlignages ponctuels (en blanc pour l'instant) */
 
-  /* Surfaces */
-  --bg:#000000;
-  --panel:#121212;               /* cartes, champs, barre */
-  --panel-solid:#121212;
-  --panel-2:#222222;             /* surface secondaire, un cran plus clair */
-  --border:rgba(255,255,255,.10);
+  /* Surfaces : gris teintés de bleu, du plus sombre au plus clair */
+  --bg:#04081a;                  /* fond : bleu presque noir */
+  --panel:#0b1229;               /* cartes, champs, barre */
+  --panel-solid:#0b1229;
+  --panel-2:#182446;             /* surface secondaire, un cran plus clair */
+  --border:rgba(150,170,230,.14);
   --text:#ffffff;
-  --dim:#8f8f8f;
+  --dim:#97a0b8;
 
   /* États : valeurs de gris */
   --ok:#091835;   --ok-ink:#ffffff;   --ok-text:#ffffff;   /* présent : bleu nuit ; victoire : blanc */
-  --warn:#9a9a9a; --warn-ink:#000000;                      /* incertain, nul */
-  --no:#3a3a3a;   --no-ink:#cfcfcf;                        /* absent, défaite */
-  --info:#6e6e6e;
+  --warn:#aab2cc; --warn-ink:#04081a;                      /* incertain, nul */
+  --no:#232c4a;   --no-ink:#c9d0e6;                        /* absent, défaite */
+  --info:#6f7ea6;
 
   /* Typo : sans géométrique, chiffres gras et serrés */
   --f-display:-apple-system,"SF Pro Display","Inter","Segoe UI",Roboto,sans-serif;
