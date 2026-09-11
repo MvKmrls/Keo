@@ -77,17 +77,25 @@ function navHtml() {
   const tabs = (attr) => TABS.map((t) => `<button ${attr}="${t.id}" class="${ui.screen === t.id ? "on" : ""}">${ICONS[t.icon]}${t.label}</button>`).join("");
   return `<nav class="tabs" aria-label="Navigation">
     <div class="glass"></div>
-    ${tabs("data-nav")}
+    <div class="tabs-row">${tabs("data-nav")}</div>
     <div class="bubble"><div class="lens-clip"><div class="lens" aria-hidden="true">${tabs("data-clone")}</div></div></div>
   </nav>`;
 }
-const nav = { el: null, glass: null, bubble: null, lens: null, anim: null };
+const nav = { el: null, glass: null, row: null, bubble: null, lens: null, anim: null };
 // place le surlignage et aligne sa copie des onglets sur les vrais
 function setBubble(x, scale = 1, kx = 1, ky = 1) {
   const b = nav.bubble; if (!b) return;
   b.style.transform = `translateX(${x}px) scale(${scale}) scaleX(${kx}) scaleY(${ky})`;
   b._x = x; b._s = scale;
   if (nav.lens) { nav.lens.style.width = nav.el.clientWidth + "px"; nav.lens.style.transform = `translateX(${-x}px)`; }
+  // trou dans la rangée des vrais onglets, exactement sous la lentille, pour ne pas voir double
+  if (nav.row) {
+    const w = b.offsetWidth, h = b.offsetHeight, sx = scale * kx, sy = scale * ky;
+    nav.row.style.setProperty("--hx", `${x + (w - w * sx) / 2}px`);
+    nav.row.style.setProperty("--hy", `${b.offsetTop + (h - h * sy) / 2}px`);
+    nav.row.style.setProperty("--hw", `${w * sx}px`);
+    nav.row.style.setProperty("--hh", `${h * sy}px`);
+  }
 }
 const GROW = 1.12; // grossissement "loupe" quand on tient ou déplace le surlignage
 function tabRect(id) {
@@ -178,6 +186,7 @@ function settle() {
 function bindNav() {
   nav.el = $("nav.tabs");
   nav.glass = $(".glass", nav.el);
+  nav.row = $(".tabs-row", nav.el);
   nav.bubble = $(".bubble", nav.el);
   nav.lens = $(".lens", nav.el);
   let drag = null;
@@ -595,8 +604,8 @@ function bindScreen(me) {
     if (me.role === "player") { patch.position = f.get("position"); patch.number = f.get("number") ? Number(f.get("number")) : null; }
     await store.updateProfile(patch); toast("Profil enregistré"); render();
   };
-  const lo = $("#logout"); if (lo) lo.onclick = async () => { await store.logout(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.bubble = null; nav.lens = null; render(); };
-  const rs = $("#reset"); if (rs) rs.onclick = () => { if (confirm("Remettre les données de démo à zéro ?")) { store.reset(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.bubble = null; nav.lens = null; render(); } };
+  const lo = $("#logout"); if (lo) lo.onclick = async () => { await store.logout(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.row = null; nav.bubble = null; nav.lens = null; render(); };
+  const rs = $("#reset"); if (rs) rs.onclick = () => { if (confirm("Remettre les données de démo à zéro ?")) { store.reset(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.row = null; nav.bubble = null; nav.lens = null; render(); } };
 }
 
 let toastTimer;
