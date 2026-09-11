@@ -14,10 +14,10 @@
   --club-yellow:#FECD2E;         /* jaune : surlignages ponctuels */
 
   /* Surfaces */
-  --bg:#091835;                  /* bleu nuit du club : couleur principale, fond de l'app */
-  --panel:rgba(255,255,255,.06);
-  --panel-solid:#132650;
-  --panel-2:rgba(255,255,255,.10);
+  --bg:#070E1E;                  /* fond : bleu quasi noir */
+  --panel:#091835;               /* bleu nuit du club : couleur principale des surfaces (cartes, champs, barre) */
+  --panel-solid:#091835;
+  --panel-2:#13264d;             /* surface secondaire, un cran plus clair */
   --border:rgba(255,255,255,.10);
   --text:#ffffff;
   --dim:#9fabc4;
