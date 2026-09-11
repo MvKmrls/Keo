@@ -75,11 +75,12 @@ function goTo(id) {
 // ---------- barre d'onglets : bulle de verre ----------
 function navHtml() {
   return `<nav class="tabs" aria-label="Navigation">
+    <div class="glass"></div>
     <div class="bubble"></div>
     ${TABS.map((t) => `<button data-nav="${t.id}" class="${ui.screen === t.id ? "on" : ""}">${ICONS[t.icon]}${t.label}</button>`).join("")}
   </nav>`;
 }
-const nav = { el: null, bubble: null, anim: null };
+const nav = { el: null, glass: null, bubble: null, anim: null, syncing: false, syncUntil: 0 };
 const GROW = 1.12; // grossissement "loupe" quand on tient ou déplace le surlignage
 function tabRect(id) {
   const b = nav.el.querySelector(`[data-nav="${id}"]`);
@@ -103,7 +104,7 @@ function setActiveTab(id, animate) {
     b.style.transform = `translateX(${to.x}px)`;
     settle();
   } else {
-    if (nav.flat) { nav.el.classList.add("flat"); nav.flat = false; } else nav.el.classList.add("active");
+    if (nav.flat) { nav.el.classList.add("flat"); nav.flat = false; } else { nav.el.classList.add("active"); keepSynced(); }
     // la barre entière se décale à peine dans le sens du mouvement, puis revient
     nav.el.style.setProperty("--shift", `${Math.sign(to.x - from) * Math.min(1.5, Math.abs(to.x - from) / 120)}px`);
     setTimeout(() => nav.el && nav.el.style.setProperty("--shift", "0px"), 200);
@@ -131,6 +132,28 @@ function setActiveTab(id, animate) {
   }
   b._x = to.x;
 }
+// le trou dans le verre suit la boîte réelle du surlignage (transform inclus), tant qu'il est actif
+function syncHole() {
+  if (!nav.el || !nav.glass) return;
+  const b = nav.bubble, m = new DOMMatrixReadOnly(getComputedStyle(b).transform);
+  const w = b.offsetWidth, h = b.offsetHeight;
+  nav.glass.style.setProperty("--hx", `${b.offsetLeft + m.e + (w - w * m.a) / 2}px`);
+  nav.glass.style.setProperty("--hy", `${b.offsetTop + m.f + (h - h * m.d) / 2}px`);
+  nav.glass.style.setProperty("--hw", `${w * m.a}px`);
+  nav.glass.style.setProperty("--hh", `${h * m.d}px`);
+}
+function keepSynced(ms = 400) {
+  nav.syncUntil = performance.now() + ms;
+  if (nav.syncing) return;
+  nav.syncing = true;
+  const loop = () => {
+    if (!nav.el) { nav.syncing = false; return; }
+    syncHole();
+    if (nav.el.classList.contains("active") || performance.now() < nav.syncUntil) requestAnimationFrame(loop);
+    else nav.syncing = false;
+  };
+  requestAnimationFrame(loop);
+}
 // intensité de couleur de chaque onglet selon la proximité du surlignage (0 → gris, 1 → couleur du club)
 function paintTabs(cx) {
   if (!nav.el) return;
@@ -149,6 +172,7 @@ function settle() {
 }
 function bindNav() {
   nav.el = $("nav.tabs");
+  nav.glass = $(".glass", nav.el);
   nav.bubble = $(".bubble", nav.el);
   let drag = null;
   const nearest = (px) => {
@@ -162,6 +186,7 @@ function bindNav() {
     nav.el.setPointerCapture(e.pointerId);
     nav.el.classList.add("pressed", "active");
     if (!nav.anim) nav.bubble.style.transform = `translateX(${nav.bubble._x ?? 0}px) scale(${GROW})`;
+    keepSynced();
   });
   nav.el.addEventListener("pointermove", (e) => {
     if (!drag) return;

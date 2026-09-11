@@ -38,8 +38,8 @@ export function installLens() {
   svg.style.cssText = "position:absolute;width:0;height:0;overflow:hidden";
   svg.innerHTML = \`<filter id="liquid" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
     <feImage href="\${LENS_MAP}" preserveAspectRatio="none" result="map"/>
-    <feDisplacementMap in="SourceGraphic" in2="map" scale="14" xChannelSelector="R" yChannelSelector="G" result="bent"/>
-    <feGaussianBlur in="bent" stdDeviation=".35"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="34" xChannelSelector="R" yChannelSelector="G" result="bent"/>
+    <feGaussianBlur in="bent" stdDeviation=".2"/>
   </filter>\`;
   document.body.appendChild(svg);
 }
