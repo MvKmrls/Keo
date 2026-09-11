@@ -22,7 +22,7 @@ function fmt(dateStr) {
 const ordinal = (n) => `${n}<sup>${n === 1 ? "er" : "e"}</sup>`;
 
 // ---------- état UI ----------
-const ui = { screen: "home", teamFilter: null, period: "week" };
+const ui = { screen: "home", teamFilter: null, calTeam: null, period: "week" };
 
 // ---------- icônes ----------
 const ICONS = {
@@ -41,25 +41,124 @@ const TABS = [
 ];
 
 // ---------- rendu global ----------
+// La coquille (écran + barre d'onglets) est créée une fois ; seul #screen est re-rendu,
+// pour que la bulle de la barre puisse glisser d'un onglet à l'autre sans être recréée.
 function render() {
   const app = $("#app");
   const me = store.me();
   if (!me) { app.innerHTML = renderAuth(); bindAuth(); return; }
+  if (!$("#screen", app)) {
+    app.innerHTML = `<div id="screen"></div>${navHtml()}<div class="toast" id="toast"></div>`;
+    bindNav();
+  }
   const screens = { home: renderHome, calendar: renderCalendar, table: renderTable, stats: renderStats, profile: renderProfile };
-  app.innerHTML = `
+  $("#screen").innerHTML = `
     <header class="top">
       <div class="top-row">
         <div class="brand"><div class="crest">${esc(CLUB.short)}</div><h1 class="wordmark">${esc(CLUB.short)}</h1></div>
         <button class="top-btn" data-tab="profile">${me.role === "coach" ? "Coach" : "#" + (me.number ?? "")} · ${esc(me.first)}</button>
       </div>
     </header>
-    <main>${screens[ui.screen](me)}</main>
-    <nav class="tabs">
-      ${TABS.map((t) => `<button data-tab="${t.id}" class="${ui.screen === t.id ? "on" : ""}">${ICONS[t.icon]}${t.label}</button>`).join("")}
-    </nav>
-    <div class="toast" id="toast"></div>`;
-  app.querySelectorAll("[data-tab]").forEach((b) => b.onclick = () => { ui.screen = b.dataset.tab; window.scrollTo(0, 0); render(); });
+    <main>${screens[ui.screen](me)}</main>`;
+  $("#screen").querySelectorAll("[data-tab]").forEach((b) => b.onclick = () => goTo(b.dataset.tab));
+  setActiveTab(ui.screen, true);
   bindScreen(me);
+}
+function goTo(id) {
+  if (ui.screen === id) return;
+  ui.screen = id;
+  window.scrollTo(0, 0);
+  render();
+}
+
+// ---------- barre d'onglets : bulle de verre ----------
+function navHtml() {
+  return `<nav class="tabs" aria-label="Navigation">
+    <div class="bubble"></div>
+    ${TABS.map((t) => `<button data-nav="${t.id}" class="${ui.screen === t.id ? "on" : ""}">${ICONS[t.icon]}${t.label}</button>`).join("")}
+  </nav>`;
+}
+const nav = { el: null, bubble: null, anim: null };
+function tabRect(id) {
+  const b = nav.el.querySelector(`[data-nav="${id}"]`);
+  return { x: b.offsetLeft, w: b.offsetWidth };
+}
+function bubbleTarget(id) {
+  const { x, w } = tabRect(id);
+  const bw = Math.min(w + 10, 92);
+  return { x: x + (w - bw) / 2, w: bw };
+}
+function setActiveTab(id, animate) {
+  if (!nav.el) return;
+  nav.el.querySelectorAll("[data-nav]").forEach((b) => b.classList.toggle("on", b.dataset.nav === id));
+  const to = bubbleTarget(id);
+  const b = nav.bubble;
+  const from = b._x ?? to.x;
+  b.style.width = to.w + "px";
+  if (nav.anim) nav.anim.cancel();
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!animate || reduced || Math.abs(to.x - from) < 1) {
+    b.style.transform = `translateX(${to.x}px)`;
+  } else {
+    // glissement avec étirement au milieu du trajet, puis retour élastique
+    const stretch = 1 + Math.min(.45, Math.abs(to.x - from) / 220);
+    nav.anim = b.animate(
+      [
+        { transform: `translateX(${from}px) scaleX(1)` },
+        { transform: `translateX(${(from + to.x) / 2}px) scaleX(${stretch}) scaleY(.94)`, offset: .45 },
+        { transform: `translateX(${to.x}px) scaleX(.96) scaleY(1.02)`, offset: .8 },
+        { transform: `translateX(${to.x}px) scaleX(1)` },
+      ],
+      { duration: 520, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }
+    );
+    nav.anim.onfinish = () => { b.style.transform = `translateX(${to.x}px)`; nav.anim.cancel(); nav.anim = null; };
+  }
+  b._x = to.x;
+}
+function bindNav() {
+  nav.el = $("nav.tabs");
+  nav.bubble = $(".bubble", nav.el);
+  let drag = null;
+  const nearest = (px) => {
+    let best = TABS[0].id, d = Infinity;
+    TABS.forEach((t) => { const r = tabRect(t.id); const c = r.x + r.w / 2; if (Math.abs(c - px) < d) { d = Math.abs(c - px); best = t.id; } });
+    return best;
+  };
+  nav.el.addEventListener("pointerdown", (e) => {
+    const rect = nav.el.getBoundingClientRect();
+    drag = { start: e.clientX, rect, moved: false, lastX: e.clientX, lastT: performance.now(), tab: null, btn: e.target.closest("[data-nav]") };
+    nav.el.setPointerCapture(e.pointerId);
+  });
+  nav.el.addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    const px = e.clientX - drag.rect.left;
+    if (!drag.moved && Math.abs(e.clientX - drag.start) < 6) return;
+    if (!drag.moved) { drag.moved = true; nav.el.classList.add("dragging"); if (nav.anim) { nav.anim.cancel(); nav.anim = null; } }
+    const now = performance.now();
+    const v = (e.clientX - drag.lastX) / Math.max(1, now - drag.lastT); // px/ms
+    drag.lastX = e.clientX; drag.lastT = now;
+    const w = nav.bubble.offsetWidth;
+    const x = Math.max(4, Math.min(drag.rect.width - w - 4, px - w / 2));
+    const stretch = 1 + Math.min(.5, Math.abs(v) * .6);
+    nav.bubble.style.transform = `translateX(${x}px) scaleX(${stretch}) scaleY(${1 - (stretch - 1) * .35})`;
+    nav.bubble._x = x;
+    const t = nearest(px);
+    if (t !== drag.tab) { drag.tab = t; nav.el.querySelectorAll("[data-nav]").forEach((b) => b.classList.toggle("on", b.dataset.nav === t)); }
+  });
+  const end = (e) => {
+    if (!drag) return;
+    const d = drag; drag = null;
+    nav.el.classList.remove("dragging");
+    let target;
+    if (d.moved) target = d.tab || nearest(e.clientX - d.rect.left);
+    else target = d.btn ? d.btn.dataset.nav : null;
+    if (!target) { setActiveTab(ui.screen, true); return; }
+    if (target === ui.screen) { setActiveTab(target, true); return; }
+    goTo(target); // render() replace l'écran et anime la bulle vers l'onglet
+  };
+  nav.el.addEventListener("pointerup", end);
+  nav.el.addEventListener("pointercancel", end);
+  addEventListener("resize", () => setActiveTab(ui.screen, false));
 }
 
 // ---------- auth ----------
@@ -208,17 +307,17 @@ function eventCard(e, me, { showTeam = true } = {}) {
 }
 
 // ---------- agenda ----------
-function teamPills(me, allowAll = true) {
+function teamPills(me, allowAll = true, key = "teamFilter") {
   const ids = store.teams().map((t) => t.id);
-  if (ui.teamFilter && !ids.includes(ui.teamFilter)) ui.teamFilter = null;
-  if (!allowAll && !ui.teamFilter) ui.teamFilter = me.team_ids[0] || ids[0];
+  if (ui[key] && !ids.includes(ui[key])) ui[key] = null;
+  if (!allowAll && !ui[key]) ui[key] = me.team_ids[0] || ids[0];
   return `<div class="pills">
-    ${allowAll ? `<button class="pill ${!ui.teamFilter ? "on" : ""}" data-team="">★ Mes équipes</button>` : ""}
-    ${ids.map((id) => `<button class="pill ${ui.teamFilter === id ? "on" : ""}" data-team="${id}">${esc(store.team(id).short)}</button>`).join("")}
+    ${allowAll ? `<button class="pill ${!ui[key] ? "on" : ""}" data-team="" data-key="${key}">★ Mes équipes</button>` : ""}
+    ${ids.map((id) => `<button class="pill ${ui[key] === id ? "on" : ""}" data-team="${id}" data-key="${key}">${esc(store.team(id).short)}</button>`).join("")}
   </div>`;
 }
 function renderCalendar(me) {
-  const teamIds = ui.teamFilter ? [ui.teamFilter] : me.team_ids;
+  const teamIds = ui.calTeam ? [ui.calTeam] : me.team_ids;
   const all = store.events(teamIds);
   const now = nowIso();
   const lists = {
@@ -235,7 +334,7 @@ function renderCalendar(me) {
       <button data-period="week" class="${ui.period === "week" ? "on" : ""}">Cette semaine</button>
       <button data-period="later" class="${ui.period === "later" ? "on" : ""}">À venir</button>
     </div>
-    ${teamPills(me)}
+    ${teamPills(me, true, "calTeam")}
     ${list.length ? list.map((e) => eventCard(e, me)).join("") : `<div class="card empty">${emptyMsg}</div>`}
     ${me.role === "coach" ? `<button class="fab" id="add-event" title="Ajouter une séance ou un match">+</button>` : ""}
   `;
@@ -356,7 +455,7 @@ function renderProfile(me) {
 
 // ---------- formulaire événement (entraîneur) ----------
 function openEventSheet(me, existing = null) {
-  const e = existing || { team_id: ui.teamFilter && me.team_ids.includes(ui.teamFilter) ? ui.teamFilter : me.team_ids[0], type: "training", date: "", place: "Stade de Savigny", home: true };
+  const e = existing || { team_id: ui.calTeam && me.team_ids.includes(ui.calTeam) ? ui.calTeam : me.team_ids[0], type: "training", date: "", place: "Stade de Savigny", home: true };
   const dateVal = e.date ? e.date.slice(0, 16) : "";
   const teams = me.team_ids.map((id) => store.team(id));
   const sheet = document.createElement("div");
@@ -412,7 +511,7 @@ function openEventSheet(me, existing = null) {
 
 // ---------- liaisons par écran ----------
 function bindScreen(me) {
-  document.querySelectorAll("[data-team]").forEach((b) => b.onclick = () => { ui.teamFilter = b.dataset.team || null; render(); });
+  document.querySelectorAll("[data-team]").forEach((b) => b.onclick = () => { ui[b.dataset.key] = b.dataset.team || null; render(); });
   document.querySelectorAll("[data-period]").forEach((b) => b.onclick = () => { ui.period = b.dataset.period; render(); });
   document.querySelectorAll("[data-rsvp]").forEach((b) => b.onclick = async () => {
     const id = b.closest("[data-event]").dataset.event;
@@ -429,8 +528,8 @@ function bindScreen(me) {
     if (me.role === "player") { patch.position = f.get("position"); patch.number = f.get("number") ? Number(f.get("number")) : null; }
     await store.updateProfile(patch); toast("Profil enregistré"); render();
   };
-  const lo = $("#logout"); if (lo) lo.onclick = async () => { await store.logout(); render(); };
-  const rs = $("#reset"); if (rs) rs.onclick = () => { if (confirm("Remettre les données de démo à zéro ?")) { store.reset(); render(); } };
+  const lo = $("#logout"); if (lo) lo.onclick = async () => { await store.logout(); nav.el = null; nav.bubble = null; render(); };
+  const rs = $("#reset"); if (rs) rs.onclick = () => { if (confirm("Remettre les données de démo à zéro ?")) { store.reset(); nav.el = null; nav.bubble = null; render(); } };
 }
 
 let toastTimer;

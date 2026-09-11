@@ -1,6 +1,6 @@
 // Service worker : met l'app en cache pour l'ouvrir sans réseau.
 // Incrémenter VERSION à chaque publication pour forcer la mise à jour.
-const VERSION = "uss-v0.2.0";
+const VERSION = "uss-v0.3.0";
 const ASSETS = [
   "./", "./index.html", "./manifest.webmanifest",
   "./css/theme.css", "./css/app.css",
