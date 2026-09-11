@@ -5,12 +5,13 @@
    Tout le visuel se règle ici.
    ============================================================ */
 :root{
-  /* "Couleurs" du club : blanc sur noir */
-  --club-primary:#ffffff;        /* aplats actifs, boutons (texte noir dessus) */
-  --club-primary-ink:#000000;
-  --club-primary-text:#ffffff;   /* textes et icônes actifs */
-  --club-deep:#091835;           /* bleu nuit du club : cartes principales (accueil, profil) */
-  --club-deep-2:#111111;
+  /* Couleur principale du club : bleu nuit #091835, sur une base monochrome */
+  --club-primary:#091835;        /* aplats principaux : boutons, filtres actifs, présent, chips, barre */
+  --club-primary-ink:#ffffff;
+  --club-primary-2:#13264d;      /* même bleu, un cran plus clair : liserés, tintes, dégradés */
+  --club-primary-text:#ffffff;   /* textes et icônes actifs restent blancs */
+  --club-deep:#091835;           /* cartes principales (accueil, profil), dégradé de tête */
+  --club-deep-2:#0a1428;
   --club-yellow:#ffffff;         /* surlignages ponctuels (en blanc pour l'instant) */
 
   /* Surfaces */
@@ -23,7 +24,7 @@
   --dim:#8f8f8f;
 
   /* États : valeurs de gris */
-  --ok:#ffffff;   --ok-ink:#000000;   --ok-text:#ffffff;   /* présent, victoire */
+  --ok:#091835;   --ok-ink:#ffffff;   --ok-text:#ffffff;   /* présent : bleu nuit ; victoire : blanc */
   --warn:#9a9a9a; --warn-ink:#000000;                      /* incertain, nul */
   --no:#3a3a3a;   --no-ink:#cfcfcf;                        /* absent, défaite */
   --info:#6e6e6e;
