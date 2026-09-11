@@ -104,7 +104,7 @@ function setActiveTab(id, animate) {
   } else {
     if (nav.flat) { nav.el.classList.add("flat"); nav.flat = false; } else nav.el.classList.add("active");
     // la barre entière se décale à peine dans le sens du mouvement, puis revient
-    nav.el.style.setProperty("--shift", `${Math.sign(to.x - from) * Math.min(6, Math.abs(to.x - from) / 40)}px`);
+    nav.el.style.setProperty("--shift", `${Math.sign(to.x - from) * Math.min(2.5, Math.abs(to.x - from) / 80)}px`);
     setTimeout(() => nav.el && nav.el.style.setProperty("--shift", "0px"), 200);
     // glissement avec étirement au milieu du trajet, puis retour élastique
     const stretch = 1 + Math.min(.3, Math.abs(to.x - from) / 300);
@@ -175,9 +175,9 @@ function bindNav() {
     const stretch = 1 + Math.min(.3, Math.abs(v) * .4);
     nav.bubble.style.transform = `translateX(${x}px) scale(${GROW}) scaleX(${stretch}) scaleY(${1 - (stretch - 1) * .4})`;
     nav.bubble._x = x;
-    // la barre suit très légèrement le doigt (au plus 8 px de chaque côté)
+    // la barre suit très légèrement le doigt (au plus 3 px de chaque côté)
     const rel = (px - drag.rect.width / 2) / (drag.rect.width / 2);
-    nav.el.style.setProperty("--shift", `${Math.max(-8, Math.min(8, rel * 8))}px`);
+    nav.el.style.setProperty("--shift", `${Math.max(-3, Math.min(3, rel * 3))}px`);
     paintTabs(x + w / 2);
     drag.tab = nearest(px);
   });
