@@ -50,12 +50,12 @@ nav.tabs{
 }
 /* la barre réagit au toucher : elle grossit à peine, s'éclaircit, et se décale légèrement dans le sens du doigt */
 nav.tabs.pressed{
-  transform:translateX(var(--shift)) scale(1.015);
+  transform:translateX(var(--shift)) scale(1.008);
   background:rgba(34,40,37,.7);
   box-shadow:0 16px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.1);
   transition:transform .22s cubic-bezier(.2,.8,.3,1.1),background .2s,box-shadow .2s;
 }
-nav.tabs.dragging{transition:transform .18s ease-out,background .2s,box-shadow .2s;}
+nav.tabs.dragging{transition:transform .22s ease-out,background .2s,box-shadow .2s;}
 nav.tabs button{
   position:relative;z-index:2;background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
   color:var(--dim);font-size:10px;font-weight:600;letter-spacing:.01em;transition:color .25s;
