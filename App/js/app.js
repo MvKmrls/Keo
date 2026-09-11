@@ -79,6 +79,7 @@ function navHtml() {
   </nav>`;
 }
 const nav = { el: null, bubble: null, anim: null };
+const GROW = 1.12; // grossissement "loupe" quand on tient ou déplace le surlignage
 function tabRect(id) {
   const b = nav.el.querySelector(`[data-nav="${id}"]`);
   return { x: b.offsetLeft, w: b.offsetWidth };
@@ -106,13 +107,14 @@ function setActiveTab(id, animate) {
     nav.el.style.setProperty("--shift", `${Math.sign(to.x - from) * Math.min(6, Math.abs(to.x - from) / 40)}px`);
     setTimeout(() => nav.el && nav.el.style.setProperty("--shift", "0px"), 200);
     // glissement avec étirement au milieu du trajet, puis retour élastique
-    const stretch = 1 + Math.min(.35, Math.abs(to.x - from) / 260);
+    const stretch = 1 + Math.min(.3, Math.abs(to.x - from) / 300);
+    const g = nav.el.classList.contains("active") ? GROW : 1;
     nav.anim = b.animate(
       [
-        { transform: `translateX(${from}px) scaleX(1)` },
-        { transform: `translateX(${(from + to.x) / 2}px) scaleX(${stretch}) scaleY(.94)`, offset: .45 },
-        { transform: `translateX(${to.x}px) scaleX(.96) scaleY(1.02)`, offset: .8 },
-        { transform: `translateX(${to.x}px) scaleX(1)` },
+        { transform: `translateX(${from}px) scale(${g})` },
+        { transform: `translateX(${(from + to.x) / 2}px) scale(${g}) scaleX(${stretch}) scaleY(${1 - (stretch - 1) * .4})`, offset: .45 },
+        { transform: `translateX(${to.x}px) scale(${1 + (g - 1) * .4}) scaleX(.97)`, offset: .8 },
+        { transform: `translateX(${to.x}px) scale(1)` },
       ],
       { duration: 520, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }
     );
@@ -158,6 +160,7 @@ function bindNav() {
     drag = { start: e.clientX, rect, moved: false, lastX: e.clientX, lastT: performance.now(), tab: null, btn: e.target.closest("[data-nav]") };
     nav.el.setPointerCapture(e.pointerId);
     nav.el.classList.add("pressed", "active");
+    if (!nav.anim) nav.bubble.style.transform = `translateX(${nav.bubble._x ?? 0}px) scale(${GROW})`;
   });
   nav.el.addEventListener("pointermove", (e) => {
     if (!drag) return;
@@ -169,8 +172,8 @@ function bindNav() {
     drag.lastX = e.clientX; drag.lastT = now;
     const w = nav.bubble.offsetWidth;
     const x = Math.max(4, Math.min(drag.rect.width - w - 4, px - w / 2));
-    const stretch = 1 + Math.min(.4, Math.abs(v) * .5);
-    nav.bubble.style.transform = `translateX(${x}px) scaleX(${stretch}) scaleY(${1 - (stretch - 1) * .35})`;
+    const stretch = 1 + Math.min(.3, Math.abs(v) * .4);
+    nav.bubble.style.transform = `translateX(${x}px) scale(${GROW}) scaleX(${stretch}) scaleY(${1 - (stretch - 1) * .4})`;
     nav.bubble._x = x;
     // la barre suit très légèrement le doigt (au plus 8 px de chaque côté)
     const rel = (px - drag.rect.width / 2) / (drag.rect.width / 2);
@@ -187,8 +190,7 @@ function bindNav() {
     let target;
     if (d.moved) target = d.tab || nearest(e.clientX - d.rect.left);
     else target = d.btn ? d.btn.dataset.nav : null;
-    if (!target) { setActiveTab(ui.screen, true); return; }
-    if (target === ui.screen) { setActiveTab(target, true); return; }
+    if (!target || target === ui.screen) { setActiveTab(ui.screen, false); return; }
     goTo(target); // render() replace l'écran et anime la bulle vers l'onglet
   };
   nav.el.addEventListener("pointerup", end);
