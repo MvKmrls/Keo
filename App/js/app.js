@@ -4,7 +4,7 @@
 // ============================================================
 import { CLUB } from "./config.js";
 import { store } from "./store.js";
-import { installLens } from "./lens.js";
+import { installLens, setLensSize } from "./lens.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -74,13 +74,21 @@ function goTo(id) {
 
 // ---------- barre d'onglets : bulle de verre ----------
 function navHtml() {
+  const tabs = (attr) => TABS.map((t) => `<button ${attr}="${t.id}" class="${ui.screen === t.id ? "on" : ""}">${ICONS[t.icon]}${t.label}</button>`).join("");
   return `<nav class="tabs" aria-label="Navigation">
     <div class="glass"></div>
-    <div class="bubble"></div>
-    ${TABS.map((t) => `<button data-nav="${t.id}" class="${ui.screen === t.id ? "on" : ""}">${ICONS[t.icon]}${t.label}</button>`).join("")}
+    ${tabs("data-nav")}
+    <div class="bubble"><div class="lens-clip"><div class="lens" aria-hidden="true">${tabs("data-clone")}</div></div></div>
   </nav>`;
 }
-const nav = { el: null, glass: null, bubble: null, anim: null, syncing: false, syncUntil: 0 };
+const nav = { el: null, glass: null, bubble: null, lens: null, anim: null };
+// place le surlignage et aligne sa copie des onglets sur les vrais
+function setBubble(x, scale = 1, kx = 1, ky = 1) {
+  const b = nav.bubble; if (!b) return;
+  b.style.transform = `translateX(${x}px) scale(${scale}) scaleX(${kx}) scaleY(${ky})`;
+  b._x = x; b._s = scale;
+  if (nav.lens) { nav.lens.style.width = nav.el.clientWidth + "px"; nav.lens.style.transform = `translateX(${-x}px)`; }
+}
 const GROW = 1.12; // grossissement "loupe" quand on tient ou déplace le surlignage
 function tabRect(id) {
   const b = nav.el.querySelector(`[data-nav="${id}"]`);
@@ -93,77 +101,74 @@ function bubbleTarget(id) {
 }
 function setActiveTab(id, animate) {
   if (!nav.el) return;
-  nav.el.querySelectorAll("[data-nav]").forEach((b) => b.classList.toggle("on", b.dataset.nav === id));
+  nav.el.querySelectorAll("[data-nav],[data-clone]").forEach((b) => b.classList.toggle("on", (b.dataset.nav || b.dataset.clone) === id));
   const to = bubbleTarget(id);
   const b = nav.bubble;
   const from = b._x ?? to.x;
   b.style.width = to.w + "px";
+  setLensSize(to.w, b.offsetHeight);
   if (nav.anim) nav.anim.cancel();
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!animate || reduced || Math.abs(to.x - from) < 1) {
-    b.style.transform = `translateX(${to.x}px)`;
+    b._x = to.x;
+    if ((b._s ?? 1) !== 1 && !reduced) tweenScale(1); else setBubble(to.x, 1);
     settle();
   } else {
-    if (nav.flat) { nav.el.classList.add("flat"); nav.flat = false; } else { nav.el.classList.add("active"); keepSynced(); }
+    if (nav.flat) { nav.el.classList.add("flat"); nav.flat = false; } else nav.el.classList.add("active");
     // la barre entière se décale à peine dans le sens du mouvement, puis revient
     nav.el.style.setProperty("--shift", `${Math.sign(to.x - from) * Math.min(1.5, Math.abs(to.x - from) / 120)}px`);
     setTimeout(() => nav.el && nav.el.style.setProperty("--shift", "0px"), 200);
     // glissement avec étirement au milieu du trajet, puis retour élastique
+    // trajet animé image par image (même chemin de rendu que le glissement au doigt,
+    // ce qui évite les artefacts du filtre de réfraction pendant une animation composée)
     const stretch = 1 + Math.min(.3, Math.abs(to.x - from) / 300);
     const g = nav.el.classList.contains("active") ? GROW : 1;
-    nav.anim = b.animate(
-      [
-        { transform: `translateX(${from}px) scale(${g})` },
-        { transform: `translateX(${(from + to.x) / 2}px) scale(${g}) scaleX(${stretch}) scaleY(${1 - (stretch - 1) * .4})`, offset: .45 },
-        { transform: `translateX(${to.x}px) scale(${1 + (g - 1) * .4}) scaleX(.97)`, offset: .8 },
-        { transform: `translateX(${to.x}px) scale(1)` },
-      ],
-      { duration: 520, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }
-    );
-    nav.anim.onfinish = () => { b.style.transform = `translateX(${to.x}px)`; nav.anim.cancel(); nav.anim = null; settle(); };
-    // pendant le trajet, les onglets se colorent au passage du surlignage
-    const tick = () => {
-      if (!nav.anim || !nav.el) return;
-      const m = new DOMMatrixReadOnly(getComputedStyle(b).transform);
-      paintTabs(m.e + b.offsetWidth / 2);
-      requestAnimationFrame(tick);
+    const dur = 520, t0 = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3) * (1 - 0.6 * t) + 0.06 * Math.sin(Math.PI * t) * (1 - t); // sortie douce, léger dépassement
+    const anim = { done: false, cancel() { this.done = true; } };
+    nav.anim = anim;
+    const frame = (now) => {
+      if (anim.done) return;
+      const t = Math.min(1, (now - t0) / dur);
+      const e = ease(t);
+      const x = from + (to.x - from) * e;
+      const wave = Math.sin(Math.PI * t);                       // 0 → 1 → 0 : étirement au milieu du trajet
+      const gc = t < .6 ? g : g - (g - 1) * ((t - .6) / .4);   // revient à sa taille en arrivant
+      setBubble(x, gc, 1 + (stretch - 1) * wave, 1 - (stretch - 1) * .4 * wave);
+      paintTabs(x + b.offsetWidth / 2);
+      if (t < 1) requestAnimationFrame(frame);
+      else { setBubble(to.x, 1); nav.anim = null; settle(); }
     };
-    requestAnimationFrame(tick);
+    requestAnimationFrame(frame);
   }
   b._x = to.x;
 }
-// le trou dans le verre suit la boîte réelle du surlignage (transform inclus), tant qu'il est actif
-function syncHole() {
-  if (!nav.el || !nav.glass) return;
-  const b = nav.bubble, m = new DOMMatrixReadOnly(getComputedStyle(b).transform);
-  const w = b.offsetWidth, h = b.offsetHeight;
-  nav.glass.style.setProperty("--hx", `${b.offsetLeft + m.e + (w - w * m.a) / 2}px`);
-  nav.glass.style.setProperty("--hy", `${b.offsetTop + m.f + (h - h * m.d) / 2}px`);
-  nav.glass.style.setProperty("--hw", `${w * m.a}px`);
-  nav.glass.style.setProperty("--hh", `${h * m.d}px`);
-}
-function keepSynced(ms = 400) {
-  nav.syncUntil = performance.now() + ms;
-  if (nav.syncing) return;
-  nav.syncing = true;
-  const loop = () => {
-    if (!nav.el) { nav.syncing = false; return; }
-    syncHole();
-    if (nav.el.classList.contains("active") || performance.now() < nav.syncUntil) requestAnimationFrame(loop);
-    else nav.syncing = false;
+// grossissement / rétrécissement sur place, image par image
+function tweenScale(target, ms = 180) {
+  const b = nav.bubble; if (!b) return;
+  if (nav.anim) nav.anim.cancel();
+  const from = b._s ?? 1, x = b._x ?? 0, t0 = performance.now();
+  const anim = { done: false, cancel() { this.done = true; } };
+  nav.anim = anim;
+  const frame = (now) => {
+    if (anim.done) return;
+    const t = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - t, 3);
+    setBubble(x, from + (target - from) * e);
+    if (t < 1) requestAnimationFrame(frame); else nav.anim = null;
   };
-  requestAnimationFrame(loop);
+  requestAnimationFrame(frame);
 }
 // intensité de couleur de chaque onglet selon la proximité du surlignage (0 → gris, 1 → couleur du club)
 function paintTabs(cx) {
   if (!nav.el) return;
   nav.el.querySelectorAll("[data-nav]").forEach((btn) => {
     const c = btn.offsetLeft + btn.offsetWidth / 2;
-    const t = Math.max(0, Math.min(1, 1 - Math.abs(cx - c) / (btn.offsetWidth * .9)));
-    btn.style.setProperty("--t", t.toFixed(3));
+    const t = Math.max(0, Math.min(1, 1 - Math.abs(cx - c) / (btn.offsetWidth * .9))).toFixed(3);
+    btn.style.setProperty("--t", t);
+    const clone = nav.el.querySelector(`[data-clone="${btn.dataset.nav}"]`); if (clone) clone.style.setProperty("--t", t);
   });
 }
-function clearPaint() { if (nav.el) nav.el.querySelectorAll("[data-nav]").forEach((btn) => btn.style.removeProperty("--t")); }
+function clearPaint() { if (nav.el) nav.el.querySelectorAll("[data-nav],[data-clone]").forEach((btn) => btn.style.removeProperty("--t")); }
 // la bulle redevient discrète une fois posée (sauf si le doigt est encore dessus)
 function settle() {
   if (!nav.el) return;
@@ -174,6 +179,7 @@ function bindNav() {
   nav.el = $("nav.tabs");
   nav.glass = $(".glass", nav.el);
   nav.bubble = $(".bubble", nav.el);
+  nav.lens = $(".lens", nav.el);
   let drag = null;
   const nearest = (px) => {
     let best = TABS[0].id, d = Infinity;
@@ -185,8 +191,7 @@ function bindNav() {
     drag = { start: e.clientX, rect, moved: false, lastX: e.clientX, lastT: performance.now(), tab: null, btn: e.target.closest("[data-nav]") };
     nav.el.setPointerCapture(e.pointerId);
     nav.el.classList.add("pressed", "active");
-    if (!nav.anim) nav.bubble.style.transform = `translateX(${nav.bubble._x ?? 0}px) scale(${GROW})`;
-    keepSynced();
+    if (!nav.anim) tweenScale(GROW);
   });
   nav.el.addEventListener("pointermove", (e) => {
     if (!drag) return;
@@ -199,8 +204,7 @@ function bindNav() {
     const w = nav.bubble.offsetWidth;
     const x = Math.max(4, Math.min(drag.rect.width - w - 4, px - w / 2));
     const stretch = 1 + Math.min(.3, Math.abs(v) * .4);
-    nav.bubble.style.transform = `translateX(${x}px) scale(${GROW}) scaleX(${stretch}) scaleY(${1 - (stretch - 1) * .4})`;
-    nav.bubble._x = x;
+    setBubble(x, GROW, stretch, 1 - (stretch - 1) * .4);
     // la barre suit très légèrement le doigt (au plus 1,5 px de chaque côté)
     const rel = (px - drag.rect.width / 2) / (drag.rect.width / 2);
     nav.el.style.setProperty("--shift", `${Math.max(-1.5, Math.min(1.5, rel * 1.5))}px`);
@@ -591,8 +595,8 @@ function bindScreen(me) {
     if (me.role === "player") { patch.position = f.get("position"); patch.number = f.get("number") ? Number(f.get("number")) : null; }
     await store.updateProfile(patch); toast("Profil enregistré"); render();
   };
-  const lo = $("#logout"); if (lo) lo.onclick = async () => { await store.logout(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.bubble = null; render(); };
-  const rs = $("#reset"); if (rs) rs.onclick = () => { if (confirm("Remettre les données de démo à zéro ?")) { store.reset(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.bubble = null; render(); } };
+  const lo = $("#logout"); if (lo) lo.onclick = async () => { await store.logout(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.bubble = null; nav.lens = null; render(); };
+  const rs = $("#reset"); if (rs) rs.onclick = () => { if (confirm("Remettre les données de démo à zéro ?")) { store.reset(); if (nav.anim) nav.anim.cancel(); nav.anim = null; nav.el = null; nav.bubble = null; nav.lens = null; render(); } };
 }
 
 let toastTimer;

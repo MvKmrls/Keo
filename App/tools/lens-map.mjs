@@ -14,7 +14,7 @@ for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
   const d = Math.hypot(sx, cy) / R;             // 0 au centre du segment, 1 au bord
   const nx = Math.sign(cx) * sx, ny = cy;
   const len = Math.hypot(nx, ny) || 1;
-  const f = smooth(.45, 1.02, d);               // neutre au centre, fort au bord
+  const f = smooth(.62, 1.02, d);               // neutre sur la majeure partie, courbure concentrée sur le bord
   const vx = -(nx / len) * f, vy = -(ny / len) * f;   // vers l'intérieur = grossissement
   const i = (y * W + x) * 4;
   px[i] = Math.round(128 + 127 * vx); px[i + 1] = Math.round(128 + 127 * vy); px[i + 2] = 128; px[i + 3] = 255;
@@ -29,19 +29,25 @@ const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(W, 0); ihdr.writeUInt32BE(H, 4
 const png = Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk("IHDR", ihdr), chunk("IDAT", deflateSync(raw, { level: 9 })), chunk("IEND", Buffer.alloc(0))]);
 const uri = "data:image/png;base64," + png.toString("base64");
 writeFileSync(new URL("../js/lens.js", import.meta.url), `// Généré par tools/lens-map.mjs — filtre "liquid glass" du surlignage de la barre.
-// Chromium applique la déformation (backdrop-filter: url(#liquid)) ; Safari retombe sur un flou léger.
+// Appliqué en filtre classique sur la copie des onglets contenue dans le surlignage (Chromium et Safari).
 export const LENS_MAP = "${uri}";
 export function installLens() {
   if (document.getElementById("liquid")) return;
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
   svg.setAttribute("width", "0"); svg.setAttribute("height", "0"); svg.setAttribute("aria-hidden", "true");
   svg.style.cssText = "position:absolute;width:0;height:0;overflow:hidden";
   svg.innerHTML = \`<filter id="liquid" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
-    <feImage href="\${LENS_MAP}" preserveAspectRatio="none" result="map"/>
-    <feDisplacementMap in="SourceGraphic" in2="map" scale="34" xChannelSelector="R" yChannelSelector="G" result="bent"/>
-    <feGaussianBlur in="bent" stdDeviation=".2"/>
+    <feImage id="liquid-map" href="\${LENS_MAP}" xlink:href="\${LENS_MAP}" x="0" y="0" width="82" height="58" preserveAspectRatio="none" result="map"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="9" xChannelSelector="R" yChannelSelector="G" result="bent"/>
+    <feGaussianBlur in="bent" stdDeviation=".15"/>
   </filter>\`;
   document.body.appendChild(svg);
+}
+// adapte la carte à la taille réelle de la lentille (en pixels)
+export function setLensSize(w, h) {
+  const img = document.getElementById("liquid-map");
+  if (img) { img.setAttribute("width", w); img.setAttribute("height", h); }
 }
 `);
 console.log("carte", W + "x" + H, png.length, "octets");
