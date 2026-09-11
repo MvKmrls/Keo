@@ -1,30 +1,36 @@
 /* ============================================================
    USS — Thème
-   Direction : fond sombre, dégradé vert en tête d'écran, un seul
-   vert vif comme accent, cartes translucides, gros chiffres.
+   Palette du club : bleus sombres (#070E1E, #091835, #002654),
+   jaune pour l'accent et les surlignages (#FECD2E, #F9E300),
+   rouge #CE1126 pour les alertes, neutres #F5F5F5 / #F6F0D9 / #171717.
    Tout le visuel se règle ici.
    ============================================================ */
 :root{
   /* Couleurs du club */
-  --club-primary:#1fd66a;        /* vert vif : accent, actions, actif */
-  --club-primary-ink:#04180b;
-  --club-deep:#0b5a2c;           /* vert profond : dégradé de tête */
-  --club-deep-2:#063b1c;
+  --club-primary:#FECD2E;        /* jaune : accent, actions, actif */
+  --club-primary-ink:#171717;
+  --club-yellow-2:#F9E300;       /* jaune vif : touches ponctuelles */
+  --club-gold:#EFBB54;           /* or doux : états intermédiaires */
+  --club-red:#CE1126;
+  --club-deep:#002654;           /* bleu profond : dégradé de tête */
+  --club-deep-2:#091835;
+  --club-navy:#070E1E;
 
   /* Surfaces */
-  --bg:#0b0d0c;
+  --bg:#070E1E;
   --panel:rgba(255,255,255,.06);
-  --panel-solid:#161a18;
+  --panel-solid:#0b1f45;
   --panel-2:rgba(255,255,255,.10);
-  --border:rgba(255,255,255,.08);
-  --text:#ffffff;
-  --dim:#9aa39d;
+  --border:rgba(255,255,255,.09);
+  --text:#F5F5F5;
+  --cream:#F6F0D9;
+  --dim:#9aa4b8;
 
   /* États */
-  --ok:#1fd66a;   --ok-ink:#04180b;
-  --warn:#f5b942; --warn-ink:#241804;
-  --no:#ff5a63;   --no-ink:#fff5f6;
-  --info:#5c93d6;
+  --ok:#FECD2E;   --ok-ink:#171717;
+  --warn:#EFBB54; --warn-ink:#171717;
+  --no:#CE1126;   --no-ink:#F5F5F5;
+  --info:#4f7ec9;
 
   /* Typo : sans géométrique, chiffres gras et serrés */
   --f-display:-apple-system,"SF Pro Display","Inter","Segoe UI",Roboto,sans-serif;
