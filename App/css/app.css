@@ -48,7 +48,7 @@ nav.tabs{
 /* le verre de la barre : opaque, la lentille ne voit que ce qui est posé dessus */
 nav.tabs .glass{
   position:absolute;inset:0;border-radius:999px;z-index:0;
-  background:linear-gradient(180deg,rgba(28,33,30,.8),rgba(21,25,23,.8)); /* translucide à 80 % */
+  background:linear-gradient(180deg,rgba(28,33,30,.5),rgba(21,25,23,.5)); /* translucide à 50 % (essai) */
   -webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);
   box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.06);
   transition:background .3s,box-shadow .3s;
@@ -59,7 +59,7 @@ nav.tabs.pressed{
   transition:transform .22s cubic-bezier(.2,.8,.3,1.1);
 }
 nav.tabs.pressed .glass{
-  background:linear-gradient(180deg,rgba(34,40,36,.8),rgba(25,30,27,.8));
+  background:linear-gradient(180deg,rgba(34,40,36,.5),rgba(25,30,27,.5));
   box-shadow:0 16px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.1);
   transition:background .2s,box-shadow .2s;
 }
@@ -82,7 +82,7 @@ nav.tabs .bubble{
 }
 nav.tabs .bubble .lens-clip{ /* copie des onglets, découpée à la forme de la lentille, déformée par le filtre */
   position:absolute;inset:0;display:none;
-  background:linear-gradient(180deg,rgba(29,34,31,.8),rgba(22,26,24,.8));
+  background:linear-gradient(180deg,rgba(29,34,31,.5),rgba(22,26,24,.5));
   filter:url(#liquid); /* découpé par le surlignage (overflow:hidden), donc après le filtre */
 }
 nav.tabs .bubble .lens{
