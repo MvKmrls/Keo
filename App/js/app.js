@@ -102,8 +102,11 @@ function setActiveTab(id, animate) {
     settle();
   } else {
     nav.el.classList.add("active");
+    // la barre entière se décale à peine dans le sens du mouvement, puis revient
+    nav.el.style.setProperty("--shift", `${Math.sign(to.x - from) * Math.min(6, Math.abs(to.x - from) / 40)}px`);
+    setTimeout(() => nav.el && nav.el.style.setProperty("--shift", "0px"), 200);
     // glissement avec étirement au milieu du trajet, puis retour élastique
-    const stretch = 1 + Math.min(.45, Math.abs(to.x - from) / 220);
+    const stretch = 1 + Math.min(.35, Math.abs(to.x - from) / 260);
     nav.anim = b.animate(
       [
         { transform: `translateX(${from}px) scaleX(1)` },
@@ -149,9 +152,12 @@ function bindNav() {
     drag.lastX = e.clientX; drag.lastT = now;
     const w = nav.bubble.offsetWidth;
     const x = Math.max(4, Math.min(drag.rect.width - w - 4, px - w / 2));
-    const stretch = 1 + Math.min(.5, Math.abs(v) * .6);
+    const stretch = 1 + Math.min(.4, Math.abs(v) * .5);
     nav.bubble.style.transform = `translateX(${x}px) scaleX(${stretch}) scaleY(${1 - (stretch - 1) * .35})`;
     nav.bubble._x = x;
+    // la barre suit très légèrement le doigt (au plus 8 px de chaque côté)
+    const rel = (px - drag.rect.width / 2) / (drag.rect.width / 2);
+    nav.el.style.setProperty("--shift", `${Math.max(-8, Math.min(8, rel * 8))}px`);
     const t = nearest(px);
     if (t !== drag.tab) { drag.tab = t; nav.el.querySelectorAll("[data-nav]").forEach((b) => b.classList.toggle("on", b.dataset.nav === t)); }
   });
@@ -159,6 +165,7 @@ function bindNav() {
     if (!drag) return;
     const d = drag; drag = null;
     nav.el.classList.remove("dragging", "pressed");
+    nav.el.style.setProperty("--shift", "0px");
     let target;
     if (d.moved) target = d.tab || nearest(e.clientX - d.rect.left);
     else target = d.btn ? d.btn.dataset.nav : null;
