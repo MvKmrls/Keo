@@ -6,10 +6,10 @@
    ============================================================ */
 :root{
   /* Couleurs du club : bleu #002654 et jaune #FECD2E */
-  --club-primary:#2b6fdb;        /* bleu lumineux : aplats actifs, boutons (texte blanc dessus) */
+  --club-primary:#002654;        /* bleu foncé du club : aplats actifs, boutons (texte blanc dessus) */
   --club-primary-ink:#ffffff;
-  --club-primary-text:#7db0ff;   /* bleu clair : textes et icônes actifs sur fond sombre */
-  --club-deep:#002654;           /* bleu du club : dégradé de tête, cartes héros */
+  --club-primary-text:#5a8fd8;   /* bleu plus clair, le minimum lisible pour les textes actifs sur fond sombre */
+  --club-deep:#001c40;           /* bleu du club, plus profond : dégradé de tête, cartes héros */
   --club-deep-2:#0a1c3f;
   --club-yellow:#FECD2E;         /* jaune : surlignages ponctuels */
 
@@ -23,7 +23,7 @@
   --dim:#9aa1ad;
 
   /* États */
-  --ok:#2b6fdb;   --ok-ink:#ffffff;   --ok-text:#7db0ff;
+  --ok:#002654;   --ok-ink:#ffffff;   --ok-text:#5a8fd8;
   --warn:#f5b942; --warn-ink:#241804;
   --no:#ff5a63;   --no-ink:#fff5f6;
   --info:#5c93d6;
