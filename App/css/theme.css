@@ -1,32 +1,32 @@
 /* ============================================================
    USS — Thème
-   Direction : fond sombre, dégradé bleu en tête d'écran, un seul
-   bleu comme accent, cartes translucides, gros chiffres.
+   Base monochrome : noir, gris, blanc. Aucune autre couleur.
+   Les états se distinguent par leur valeur de gris.
    Tout le visuel se règle ici.
    ============================================================ */
 :root{
-  /* Couleurs du club : bleu #002654 et jaune #FECD2E */
-  --club-primary:#2b6fdb;        /* bleu lumineux : aplats actifs, boutons (texte blanc dessus) */
-  --club-primary-ink:#ffffff;
-  --club-primary-text:#7db0ff;   /* bleu clair : textes et icônes actifs sur fond sombre */
-  --club-deep:#002654;           /* bleu du club : dégradé de tête, cartes héros */
-  --club-deep-2:#0a1c3f;
-  --club-yellow:#FECD2E;         /* jaune : surlignages ponctuels */
+  /* "Couleurs" du club : blanc sur noir */
+  --club-primary:#ffffff;        /* aplats actifs, boutons (texte noir dessus) */
+  --club-primary-ink:#000000;
+  --club-primary-text:#ffffff;   /* textes et icônes actifs */
+  --club-deep:#1c1c1c;           /* dégradé de tête, cartes héros */
+  --club-deep-2:#111111;
+  --club-yellow:#ffffff;         /* surlignages ponctuels (en blanc pour l'instant) */
 
   /* Surfaces */
-  --bg:#070E1E;                  /* fond : bleu quasi noir */
-  --panel:#091835;               /* bleu nuit du club : couleur principale des surfaces (cartes, champs, barre) */
-  --panel-solid:#091835;
-  --panel-2:#13264d;             /* surface secondaire, un cran plus clair */
+  --bg:#000000;
+  --panel:#121212;               /* cartes, champs, barre */
+  --panel-solid:#121212;
+  --panel-2:#222222;             /* surface secondaire, un cran plus clair */
   --border:rgba(255,255,255,.10);
   --text:#ffffff;
-  --dim:#9fabc4;
+  --dim:#8f8f8f;
 
-  /* États */
-  --ok:#2b6fdb;   --ok-ink:#ffffff;   --ok-text:#5a8fd8;
-  --warn:#f5b942; --warn-ink:#241804;
-  --no:#ff5a63;   --no-ink:#fff5f6;
-  --info:#5c93d6;
+  /* États : valeurs de gris */
+  --ok:#ffffff;   --ok-ink:#000000;   --ok-text:#ffffff;   /* présent, victoire */
+  --warn:#9a9a9a; --warn-ink:#000000;                      /* incertain, nul */
+  --no:#3a3a3a;   --no-ink:#cfcfcf;                        /* absent, défaite */
+  --info:#6e6e6e;
 
   /* Typo : sans géométrique, chiffres gras et serrés */
   --f-display:-apple-system,"SF Pro Display","Inter","Segoe UI",Roboto,sans-serif;
