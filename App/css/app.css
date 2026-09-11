@@ -1,7 +1,7 @@
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;min-height:100%;}
 body{
-  background:var(--bg) linear-gradient(180deg,var(--club-deep) 0,var(--club-deep-2) 140px,var(--bg) 340px) no-repeat;
+  background:var(--bg) linear-gradient(180deg,#1c1c1c 0,#111111 140px,var(--bg) 340px) no-repeat;
   color:var(--text);font-family:var(--f-body);line-height:1.4;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none;
 }
 button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit;}
@@ -16,7 +16,7 @@ header.top{padding:calc(var(--safe-t) + 18px) 18px 6px;}
 .brand{display:flex;align-items:center;gap:10px;}
 .wordmark{font-family:var(--f-display);font-weight:800;font-size:28px;letter-spacing:-.03em;margin:0;line-height:1;}
 .crest{
-  width:34px;height:34px;border-radius:50%;background:#fff;color:var(--club-deep);display:grid;place-items:center;
+  width:34px;height:34px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;
   font-family:var(--f-display);font-weight:900;font-size:11px;letter-spacing:-.02em;flex:none;
 }
 .crest.lg{width:56px;height:56px;font-size:17px;}
@@ -112,7 +112,7 @@ nav.tabs.flat .bubble,nav.tabs.flat .bubble::after{transition-duration:.08s;}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;}
 .card.flush{padding:0;overflow:hidden;}
 .card.hero{
-  position:relative;overflow:hidden;background:linear-gradient(150deg,#2a2a2a 0,#1a1a1a 55%,#101010 100%);
+  position:relative;overflow:hidden;background:linear-gradient(150deg,#13264d 0,var(--club-deep) 55%,#061027 100%); /* bleu nuit du club : cartes principales */
   color:#fff;border:0;padding:20px 18px;
 }
 .card.hero .muted,.card.hero .dim{color:rgba(255,255,255,.75);}

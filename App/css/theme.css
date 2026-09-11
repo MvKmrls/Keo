@@ -9,7 +9,7 @@
   --club-primary:#ffffff;        /* aplats actifs, boutons (texte noir dessus) */
   --club-primary-ink:#000000;
   --club-primary-text:#ffffff;   /* textes et icônes actifs */
-  --club-deep:#1c1c1c;           /* dégradé de tête, cartes héros */
+  --club-deep:#091835;           /* bleu nuit du club : cartes principales (accueil, profil) */
   --club-deep-2:#111111;
   --club-yellow:#ffffff;         /* surlignages ponctuels (en blanc pour l'instant) */
 
