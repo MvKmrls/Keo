@@ -112,7 +112,7 @@ nav.tabs.flat .bubble,nav.tabs.flat .bubble::after{transition-duration:.08s;}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;}
 .card.flush{padding:0;overflow:hidden;}
 .card.hero{
-  position:relative;overflow:hidden;background:linear-gradient(150deg,#0b3f80 0,var(--club-primary) 55%,var(--club-deep) 100%);
+  position:relative;overflow:hidden;background:linear-gradient(150deg,#0b3f80 0,#002654 55%,var(--club-primary) 100%);
   color:#fff;border:0;padding:20px 18px;
 }
 .card.hero .muted,.card.hero .dim{color:rgba(255,255,255,.75);}
@@ -132,12 +132,12 @@ nav.tabs.flat .bubble,nav.tabs.flat .bubble::after{transition-duration:.08s;}
   display:inline-block;font-size:11px;font-weight:600;letter-spacing:.02em;padding:4px 9px;border-radius:99px;
   background:var(--panel-2);color:var(--dim);
 }
-.chip.match{background:rgba(0,38,84,.6);color:var(--club-primary-text);}
+.chip.match{background:rgba(9,24,53,.85);color:var(--club-primary-text);}
 .chip.training{background:rgba(92,147,214,.2);color:#8fb6ea;}
 .chip.ok{background:var(--ok);color:var(--ok-ink);}
 .chip.maybe{background:var(--warn);color:var(--warn-ink);}
 .chip.no{background:var(--no);color:var(--no-ink);}
-.chip.coach{background:rgba(0,38,84,.6);color:var(--club-primary-text);}
+.chip.coach{background:rgba(9,24,53,.85);color:var(--club-primary-text);}
 .hero .chip{background:rgba(255,255,255,.2);color:#fff;}
 
 .btn{
@@ -226,7 +226,7 @@ th:first-child,td:first-child{text-align:left;padding-left:14px;width:28px;color
 th:nth-child(2),td:nth-child(2){text-align:left;}
 th:last-child,td:last-child{padding-right:14px;}
 tr:last-child td{border-bottom:0;}
-tr.us td{background:rgba(0,38,84,.45);}
+tr.us td{background:rgba(9,24,53,.9);}
 tr.us td:nth-child(2){font-weight:700;color:var(--club-yellow);}
 td.pts{font-weight:800;}
 .club-cell{display:flex;align-items:center;gap:8px;}
@@ -282,6 +282,6 @@ td.pts{font-weight:800;}
 .fab{
   position:fixed;right:18px;bottom:calc(var(--nav-h) + var(--safe-b) + 30px);z-index:6;
   width:54px;height:54px;border-radius:50%;border:0;background:var(--club-primary);color:var(--club-primary-ink);
-  font-size:30px;line-height:1;box-shadow:0 8px 22px rgba(0,38,84,.6);
+  font-size:30px;line-height:1;box-shadow:0 8px 22px rgba(9,24,53,.7);
 }
 .empty{text-align:center;color:var(--dim);padding:28px 10px;font-size:14px;}
