@@ -18,6 +18,7 @@ const js = [
   strip(read("js/demo-data.js")),
   "const demo = { teams, profiles, events, attendance, standings, match_stats };",
   strip(read("js/store.js")),
+  strip(read("js/lens.js")),
   strip(read("js/app.js"))
     .replace(/document\.body\.appendChild\(sheet\)/, '$("#app").appendChild(sheet)')
     .replace(/window\.scrollTo\(0, 0\)/g, '$("#app").scrollTo(0, 0)')

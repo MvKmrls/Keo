@@ -78,13 +78,14 @@ nav.tabs .bubble::after{ /* liseré réfractif, visible seulement en mouvement *
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
   opacity:0;transition:opacity .3s;
 }
-nav.tabs.active .bubble{ /* même forme, seulement plus grande (le grossissement est dans le transform) */
-  background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.05));
-  -webkit-backdrop-filter:blur(3px) brightness(1.2) saturate(140%);backdrop-filter:blur(3px) brightness(1.2) saturate(140%);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 8px 14px -8px rgba(255,255,255,.6),inset 0 -8px 14px -8px rgba(31,214,106,.3),0 6px 16px rgba(0,0,0,.35);
+nav.tabs.active .bubble{ /* même forme, plus grande, en verre : pas de voile, une lentille qui courbe le fond */
+  background:rgba(255,255,255,.035);
+  -webkit-backdrop-filter:blur(1.2px) saturate(150%) brightness(1.06);          /* Safari : pas de déformation */
+  backdrop-filter:url(#liquid) saturate(150%) brightness(1.04);                  /* Chromium : réfraction */
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,.38),inset -1px -1px 0 rgba(255,255,255,.14),inset 0 0 10px rgba(255,255,255,.06),0 6px 16px rgba(0,0,0,.3);
   transition:transform .28s cubic-bezier(.3,1.4,.5,1),background .2s,box-shadow .2s;
 }
-nav.tabs.active .bubble::after{opacity:.7;transition:opacity .15s;}
+nav.tabs.active .bubble::after{opacity:.4;transition:opacity .15s;}
 nav.tabs.dragging .bubble{transition:none;}
 nav.tabs.flat .bubble,nav.tabs.flat .bubble::after{transition-duration:.08s;}
 @media (prefers-reduced-motion: reduce){

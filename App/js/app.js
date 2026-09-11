@@ -4,6 +4,7 @@
 // ============================================================
 import { CLUB } from "./config.js";
 import { store } from "./store.js";
+import { installLens } from "./lens.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -577,6 +578,7 @@ function toast(msg) {
 }
 
 // ---------- démarrage ----------
+installLens();
 await store.init();
 render();
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
